@@ -21,7 +21,97 @@ source("cabecera_chunk_inicio.R")
 ```
 
 
-# Título del Capítulo
+# Tipos y formas de un juego. Equilibrio de Nash{#Seccion2}
 
-## Primera sección
+## Tipos de juego{#Seccion21}
 
+## Formas de representacion de un juego{#Seccion22}
+
+### Forma normal o estratégica{#Seccion221}
+
+Comenzamos con la manera mas sencilla de representar un juego. En ella asumimos que los jugadores toman sus decisiones a la vez sin conocer las decisiones de los otros jugadores. Se asume como comentamos anteriormente en la sección $\ref{Seccion12}$ que los jugadores actúan racionalmente y que siguen la estrategia (concepto que se definió también al final del subapartado $\ref{Seccion11}$) que mas les beneficie sin poder acordar con los adversarios estrategias beneficiosas para ambos.
+
+Vamos a comenzar un ejemplo que iremos desarrollando a lo largo de esta sección conforme sigamos ampliando en el concepto de forma normal de un juego 
+**Ejemplo**
+Supongamos que en un barrio de una ciudad se encuentran dos locales amplios disponibles para poder montar un negocio. Dos hamburgueserías distintas, llamemoslas A y B están interesadas en montar un negocio en ellas. Tienen que tomar las siguientes decisiones: Montar negocio y no montar negocio. Como es lógico, las ganancias dependerán de si la otra empresa decide montar el negocio al final
+
+Esta forma suele venir representada en forma de tabla que muestra el  umero de jugadores, las posibles estrategias de cada uno y los pagos o utilidades que recibe cada jugador en función de las decisiones que ha tomado cada uno. Lo ilustramos con el ejemplo anterior.
+
+$$
+\begin{array}{c|c|c}
+ & \text{Montar} & \text{No Montar} \\
+\hline
+\text{Montar} & 1,1 & 4,0 \\
+\hline
+\text{No Montar} & 0,4 & 0,0 \\
+\hline
+\end{array}
+$$
+Así de un vistazo tenemos claro que el juego consiste de dos jugadores con dos posibles decisiones en ambas estrategias (montar o no montar el negocio) y los pagos o ganancias que tendrían cada uno en función de su decisión y la del adversario. A continuación pasamos a definir de una manera rigurosa el concepto de forma normal de un juego estratégico.
+
+*Definición*
+Podemos caracterizar un juego en forma normal a partir de:
+
+* Un conjunto de jugadores $N=\{1,\cdots,n\}$. 
+
+* Un conjunto de estrategias $S=(S_1,\cdots,S_n)$ tal que $S_i$ es el conjunto de estrategias de cada jugador $i \in N$.
+
+* Unas funciones de utilidad de Von Neumann-Morgenstern $U_i:S=S_1x\cdots xS_n \rightarrow \mathbb{R}$ que asigna a cada una de las estrategias el pago que el jugador $i$ recibe.
+
+Así pues podemos formalizar nuestro ejemplo como hemos explicado:
+Tenemos dos jugadores A y B (las dos empresas) por lo que $N=\{1,2\}$. Cada uno de ellos tiene dos posibles decisiones, que son montar o no montar el negocio, por lo que $S=(S_1,S_2), \ S_i=(M,NM), \ i=1,2$. Y tenemos los respectivos pagos o utilidades que reciben en función de las estrategias seguidas:
+$U_1(M,NM)=4$, $U_1(M,M)=1$, $U_1(NM,NM)=0$, $U_1(NM,M)=0$, $U_2(M,NM)=0$, $U_2(M,M)=1$, $U_2(NM,NM)=0$ y $U_2(NM,M)=4$  
+
+### Forma extensiva{#Seccion222}
+Al contrario de la suposición que hemos realizado en el apartado anterior de que los jugadores tomaban las decisiones a la vez, en este caso obviamos este hecho y abrimos la posibilidad de que los jugadores tomen las decisiones de manera secuencial. Con esta forma dejamos de limitarnos a ese hecho y podemos fijar las distintas secuencias de jugadas que tiene un juego como la información de la que dispone cada jugador antes de tomar la decisión. Al igual que hemos hecho en la sección $\ref{Seccion221}$ vamos a acompañar la explicación de esta forma con un ejemplo
+
+*Ejemplo* Supongamos que tenemos una baraja clásica, con 4 palos (oros, bastos, copas y espadas) con 12 cartas cada uno de los palos (del 1 al9, sota, caballo y rey) y que está barajada. Sean dos jugadores Pepe y Ana. Para participar, cada uno de los jugadores apuesta 1 euro. Pepe saca una carta del mazo ve cual es, y tiene dos posibles opciones, retirarse o apostar poniendo otro euro. Si se retira con la carta siendo un oro o una espada, el dinero que hay en la mesa es para él, mientras que si la carta es una copa o un basto el dinero es para Ana. En cambio, si apuesta un euro más, le toca a Ana jugar, y ella puede pasar, en cuyo caso el dinero se lo lleva Pepe o puede decidir jugar. Para ello, apuesta un euro más y saca una carta. Si es un oro o una espada, se lleva todo el dinero Pepe, y si es una copa o un basto se lo lleva todo Ana.  
+
+La forma mas común de representación es mediante un árbol de decisión. En el que en cada nodo aparece el jugador que toma la decisión, del cual salen aristas hacia otros nodos que representan las posibles estrategias de ese jugador en dicho nodo y que situaciones del juego se derivan. Al final, nos encontramos con los nodos terminales donde una vez los jugadores ya han tomado todas las posibles decisiones se representan las utilidades o pagos que reciben cada uno de los jugadores. Hay que entender que esta representación tiene limitaciones en el hecho de que las estrategias pueden ser continuas o tener infinidad de etapas como ocurre con el ajedrez.
+
+Así pues el ejemplo anterior podríamos representarlo en forma de árbol de la siguiente forma:
+
+## Equilibrio de Nash{#Seccion23}
+
+De manera coloquial diríamos que un juego se encuentra en equilibrio si ningún jugador obtiene mas utilidad al cambiar su estrategia de manera unilateral, es decir, cada elección es la mejor respecto al resto de elecciones de los adversarios, así ningún jugador tiene razones para cambiar du elección y por tanto el juego se encuentra en equilibrio. Pasamos a aportar una definición formal de este concepto.
+
+*Definición: Equilibrio de Nash en estrategias puras* Dado un juego $G=\{S_1,\cdots,S_n,U_1,\cdots,U_n\}$, un perfil de estrategias puras $(s_1^*,\cdots,s_{i-1}^*,s_i^*,s_{i+1}^*,\cdots,s_n^*)$ es un Equilibro de Nash si 
+$$
+\forall i \in N, \ U_i(s_1^*,\cdots,s_{i-1}^*,s_i^*,s_{i+1}^*,\cdots,s_n^*) \geq U_i(s_1^*,\cdots,s_{i-1}^*,s_i,s_{i+1}^*,\cdots,s_n^*), \ \forall s_i \ \text{de} \ S_i
+$$
+
+A continuación resolveremos los ejemplos que hemos seccionado en las secciones $\ref{Seccion221}$ y $\ref{Seccion222}$ 
+
+### Resolución de un juego en forma normal{#Seccion231}
+Recordamos que tenemos el juego con la siguiente matriz:
+$$
+\begin{array}{c|c|c}
+ & \text{Montar} & \text{No Montar} \\
+\hline
+\text{Montar} & 1,1 & 4,0 \\
+\hline
+\text{No Montar} & 0,4 & 0,0 \\
+\hline
+\end{array}
+$$
+En este juego tenemos las siguiente soluciones posibles: ($Montar$,$Montar$), ($Montar$,$No \ Montar$), ($No \ Montar$,$Montar$) y ($No \ Montar$,$No \ Montar$).
+
+Comenzamos analizando la solución ($No \ Montar$,$No \ Montar$) suponiendo que es un Equilibrio de Nash. Si la empresa A piensa que la empresa B no montará el negocio es claro que no le interesa mantener su decisión en no montar el negocio puesto que su utilidad aumenta de 0 a 4. De esta forma cualquiera de las dos empresas (ocurre lo mismo porque son simétricas) cambiará su estrategia a montar el negocio.  
+
+Ahora analicemos el caso ($Montar$,$No \ Montar$), que tiene un razonamiento similar al caso ($No \ Montar$,$Montar$), y volvemos a suponer que es un Equilibrio de Nash. En esta situación, si la empresa B supiese que la empresa A va a decidir montar el negocio esta cambiara su estrategia y montaría también el negocio aumentando así su utilidad de 0 a 1. Por lo tanto estas dos opciones ($Montar$,$No \ Montar$) y  ($No \ Montar$,$Montar$) no son un equilibrio de Nash.
+
+De esta forma solo nos quedaría la siguiente solución posible ($Montar$,$Montar$) que si es un Equilibrio de Nash puesto que ambas empresas disminuyen la utilidad que perciben si alguna de ellas cambia a no montar el negocio. De manera gráfica podemos representarlo con la matriz anterior
+
+$$
+\begin{array}{c|c|c}
+ & \text{Montar} & \text{No Montar} \\
+\hline
+\text{Montar} & \underline{1},\underline{1} & \underline{4},0 \\
+\hline
+\text{No Montar} & 0,\underline{4} & 0,0 \\
+\hline
+\end{array}
+$$
+y ($Montar$,$Montar$) es el equilibrio de Nash
+
+### Resolución de un juego en forma extensiva{#Seccion232}
