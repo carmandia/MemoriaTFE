@@ -71,6 +71,28 @@ La forma mas común de representación es mediante un árbol de decisión. En el
 
 Así pues el ejemplo anterior podríamos representarlo en forma de árbol de la siguiente forma:
 
+```{r forma_extensiva, fig.cap = "\\label{forma_extensiva}Diagrama Juego", fig.align='center',out.width='80%'}
+knitr::include_graphics("forma_extensiva.png")
+```
+La linea discontinua uniendo los dos nodos donde participa la jugadora Ana denotan que no sabe en que parte del árbol se encuentra, es decir, hace si apuesta o se retira sin saber de que palo es la carta que saca
+
+
+Al igual que hicimos en la forma normal de un juego, vamos a caracterizar la forma extensiva de un juego por los distintos elementos que intervienen en tal representación
+
+*Definición* Un juego en forma extensiva $\Gamma$ viene caracterizado por una 7-tupla: 
+ $$\Gamma=\{J,U\} $$
+Los elementos que lo forman son:
+
+*Conjunto de jugadores que participan en el juego $J=\{1,\cdots,N\}$. También es común denotar como jugador 0 a los movimientos que se realizan aleatoriamente.
+
+*Función de pagos o utilidad 
+$$
+\begin{array}{cccc}
+U: & T(X) & \rightarrow & \mathbb{R}^N \\
+   &  x & \rightarrow   & U(x)=(U_1(x),\cdots,U_N(x))
+\end{array}
+$$
+donde $U_i(x)$ representa la utilidad que recibe el jugador i. Podemos suponer que estas funciones son de Von Newmann-Morgenstern
 ## Equilibrio de Nash{#Seccion23}
 
 De manera coloquial diríamos que un juego se encuentra en equilibrio si ningún jugador obtiene mas utilidad al cambiar su estrategia de manera unilateral, es decir, cada elección es la mejor respecto al resto de elecciones de los adversarios, así ningún jugador tiene razones para cambiar du elección y por tanto el juego se encuentra en equilibrio. Pasamos a aportar una definición formal de este concepto.
