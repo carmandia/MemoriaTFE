@@ -80,10 +80,31 @@ La linea discontinua uniendo los dos nodos donde participa la jugadora Ana denot
 Al igual que hicimos en la forma normal de un juego, vamos a caracterizar la forma extensiva de un juego por los distintos elementos que intervienen en tal representación
 
 *Definición* Un juego en forma extensiva $\Gamma$ viene caracterizado por una 7-tupla: 
- $$\Gamma=\{J,U\} $$
+ $$\Gamma=\{J,X,A,\{X_i\}_{i \in J},H,P,U \}$$
 Los elementos que lo forman son:
 
 *Conjunto de jugadores que participan en el juego $J=\{1,\cdots,N\}$. También es común denotar como jugador 0 a los movimientos que se realizan aleatoriamente.
+
+*$X$, conjunto de nodos, que significan una posible situación del juego. El nodo inicial se representa por $o$. A partir de este conjunto podemos diferenciar dos: $T(X)$ conjunto de nodos terminales del juego, y $D(X)=X-T(X)$ los nodos donde algún jugador tiene que tomar una decisión (no final)
+
+
+
+
+
+*$A$, conjunto de todas las posibles acciones del juego
+
+*Para cada jugador $i \in J$, sea $X_i$ los nodos en los que el jugador $i$ tiene que tomar una decisión
+
+*$H$, familia de conjuntos de información que son la información que conoce el jugador en cada nodo.
+
+*Una función de probabilidad 
+$$
+\begin{array}{cccc}
+P : & H_o \times A & \rightarrow & [0,1] \\
+   &  (h,a) & \rightarrow   & P(h,a)
+\end{array}
+$$
+que proporciona una probabilidad a las acciones en los que interviene el azar.
 
 *Función de pagos o utilidad 
 $$
@@ -93,6 +114,13 @@ U: & T(X) & \rightarrow & \mathbb{R}^N \\
 \end{array}
 $$
 donde $U_i(x)$ representa la utilidad que recibe el jugador i. Podemos suponer que estas funciones son de Von Newmann-Morgenstern
+
+Al igual que hicimos en el apartado anterior, vamos a formalizar el ejemplo que hemos propuesto en forma extensiva: Tenemos los jugadores $J=\{0, Pepe, Ana\} = {0,1,2}$; el conjunto de nodos $X=\{0,x_1,x_2,x_3,x_4,x_5,x_6,x_7,x_7,x_8,x_9 \}$; el conjunto de acciones $A=\{Ac_1,Ac_2,Ac_3,Ac_4,Ac_5,Ac_6,Ac_7,Ac_8 \}$; los conjuntos de decisión para cada jugador $X_i, \ i \in J=\{0,1,2\}$, $X_0=\{o \}$, $X_1=\{x_1,x_2 \}$, $X_2= \{x_3,x_5 \}$ ; el conjunto de información de la que disponen los jugadores $H=\{ \{o\}, \{x_1\},\{x_2\}, \{x_3,x_5\} \}$; la funcion de probabilidad para cada una de las acciones en las que interviene el azar, $P(\{o\},a)=\frac{1}{2}$ y $P(\{o\},b)=\frac{1}{2}$; y las funciones de pagos que reciben los jugadores en los distintos nodos finales, $U(x_4)=(1,-1)$, $U(x_6)=(-1,1)$, $U(x_7)=(2,-2)$, $U(x_8)=(1,-1)$, $U(x_9)=(-2,2)$, $U(x_10)=(1,-1)$. Así pues, vamos a ver el diagrama del juego con esta forma de escribirlo mas rigurosa:
+
+```{r forma_extensiva_rigurosa, fig.cap = "\\label{forma_extensiva_rigurosa}Diagrama Juego", fig.align='center',out.width='80%'}
+knitr::include_graphics("forma_extensiva_rigurosa.png")
+```
+
 ## Equilibrio de Nash{#Seccion23}
 
 De manera coloquial diríamos que un juego se encuentra en equilibrio si ningún jugador obtiene mas utilidad al cambiar su estrategia de manera unilateral, es decir, cada elección es la mejor respecto al resto de elecciones de los adversarios, así ningún jugador tiene razones para cambiar du elección y por tanto el juego se encuentra en equilibrio. Pasamos a aportar una definición formal de este concepto.
