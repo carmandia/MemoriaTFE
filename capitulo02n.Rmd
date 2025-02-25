@@ -25,6 +25,8 @@ source("cabecera_chunk_inicio.R")
 
 ## Tipos de juego{#Seccion21}
 
+
+
 ## Formas de representacion de un juego{#Seccion22}
 
 ### Forma normal o estratégica{#Seccion221}
@@ -165,3 +167,18 @@ $$
 y ($Montar$,$Montar$) es el equilibrio de Nash
 
 ### Resolución de un juego en forma extensiva{#Seccion232}
+Recordemos que hemos llegado al siguiente esquema del juego:
+
+```{r forma_extensiva_rigurosa_2, fig.cap = "\\label{forma_extensiva_rigurosa_2}Diagrama Juego", fig.align='center',out.width='80%'}
+knitr::include_graphics("forma_extensiva_rigurosa.png")
+```
+En cuanto al jugador 2, este no sabe en cual de los nodos $x_3$ o $x_5$ se encuentra pues no ve la carta que se saca de la baraja. Así, se encuentra con una probabilidad de $\frac{1}{2}$ de estar en $x_3$ o en $x_5$. Si decidimos apostar, el valor esperado a ganar es $\frac{1}{2}*(-2) +\frac{1}{2}*2 =0$, mientras que si decide no apostar y plantarse el valor esperado a ganar es $\frac{1}{2}*(-1) +\frac{1}{2}*(-1) =-1$, por lo que el jugador 2 decidirá apostar pues el valor esperado de la utilidad que recibe es mayor en ese caso.
+
+Por otra parte, el jugador 1 si sabe en cual de los nodos de decisión $x_1$ o $x_2$ pues el si ve la carta que saca del mazo. De esta forma si se encuentra en el nodo de decisión $x_1$ puede decidir plantarse y de esta forma se lleva con probabilidad 1 1 euro, mientras que si decide apostar, como el jugador 2 siempre decide apostar (g), tiene un valor esperado de utilidad de $\frac{1}{2}*(-2) +\frac{1}{2}*2 =0$ por lo que siempre decidirá plantarse (d). Si se encuentra en $x_2$, si decide plantarse (f) tiene probabilidad 1 de perder 1 euro, mientras que si decide apostar, al saber igual que antes que el jugador 2 siempre decide g, el valor esperado de utilidad de $\frac{1}{2}*2 +\frac{1}{2}*(-2) =0$ que es mayor así que en este nodo siempre decide e.
+
+```{r forma_extensiva_equilibrio, fig.cap = "\\label{forma_extensiva_equilibrio}Diagrama Juego Equilibrio", fig.align='center',out.width='80%'}
+knitr::include_graphics("forma_extensiva_equilibrio.png")
+```
+
+
+
