@@ -25,7 +25,45 @@ source("cabecera_chunk_inicio.R")
 
 ## Tipos de juego{#Seccion21}
 
+*Juegos según el número de jugadores*
 
+Según el numero de jugadores nos encontramos con los juegos bipersonales, de 2 personas como puede ser el ajedrez, o n-personales en el que participan mas de 2 jugadores como en el poker.
+
+*Juegos cooperativos y no cooperativos*
+
+Los juegos cooperativos son aquellos en los que entre varios jugadores acuerdan no competir entre ellos sino buscar un mismo objetivo ganando o perdiendo a la misma vez. En los juegos no cooperativos, que son los casos mas generales, los jugadores deciden de forma independiente buscando sacar un beneficio máximo de las distintas situaciones.
+
+*Juegos de información completa e incompleta*
+
+En los juegos de información completa, todos los jugadores tienen tienen la misma información, conocen las estrategias que pueden seguir el resto de jugadores y las recompensas que recibirían. 
+
+*Juegos simultáneos y secuenciales*
+
+En los juegos simultáneos, los jugadores toman sus decisiones a la vez, y por tanto desconocen la estrategia que va a seguir el resto de jugadores. Por otro lado los secuenciales los jugadores toman las decisiones uno tras otros, pudiendo modificar sus estrategias en función de las del resto de jugadores. La información que tengan del resto de los otros jugadores no tiene porque ser perfecta.
+
+*Juegos en función de la suma de los beneficios de los jugadores*
+
+Dependiendo de la suma de los beneficios entre todos los jugadores encontramos tres casos:
+
+*Suma cero: En esta clase de juegos, uno de los jugadores se beneficia del resto de jugadores obteniendo como beneficio las pérdidas de los otros jugadores.
+
+*Suma no nula: En ellos el balance entre pérdidas y beneficios de los jugadores no tiene porque ser 0 por lo que la ganancia o pérdida de los jugadores no se compensa.
+
+*Juegos simétricos y asimétricos*
+
+En los juegos simétricos los jugadores pueden tomar las mismas decisiones, por lo que los beneficios solo dependen de las estrategias empleadas y no de los jugadores. Mientras tanto, en los juegos asimétricos las estrategias no tienen por que reportar el mismo beneficio a un jugador que a otro.
+
+*Juegos discretos y continuos*
+
+En los juegos discretos los jugadores toman sus decisiones en un conjunto finito de estrategias. En los juegos continuos extendemos esta idea permitiendo conjunto de ideas infinito no numerable.
+
+*Juegos de longitud finita o infinita*
+
+Si el juego termina tras un número finito de movimientos sera de longitud finita. En los juegos de longitud infinita hay infinitos movimientos y el ganador no se conoce hasta que se conocen todos los movimiento.
+
+*Juegos repetidos o iterados*
+
+Cuando los jugadores tras un movimiento de cada jugador vuelven a tener que decidir en un escenario similar varias veces seguidas, observando las estrategias y recompensas que han han obtenido el resto. En cada etapa los jugadores pueden modificar su estrategia anterior.
 
 ## Formas de representacion de un juego{#Seccion22}
 
@@ -73,7 +111,7 @@ La forma mas común de representación es mediante un árbol de decisión. En el
 
 Así pues el ejemplo anterior podríamos representarlo en forma de árbol de la siguiente forma:
 
-```{r forma_extensiva, fig.cap = "\\label{forma_extensiva}Diagrama Juego", fig.align='center',out.width='80%'}
+```{r forma_extensiva, fig.cap = "\\label{forma_extensiva}Diagrama Juego", fig.align='center',out.width='80%',echo=FALSE}
 knitr::include_graphics("forma_extensiva.png")
 ```
 La linea discontinua uniendo los dos nodos donde participa la jugadora Ana denotan que no sabe en que parte del árbol se encuentra, es decir, hace si apuesta o se retira sin saber de que palo es la carta que saca
@@ -119,7 +157,7 @@ donde $U_i(x)$ representa la utilidad que recibe el jugador i. Podemos suponer q
 
 Al igual que hicimos en el apartado anterior, vamos a formalizar el ejemplo que hemos propuesto en forma extensiva: Tenemos los jugadores $J=\{0, Pepe, Ana\} = {0,1,2}$; el conjunto de nodos $X=\{0,x_1,x_2,x_3,x_4,x_5,x_6,x_7,x_7,x_8,x_9 \}$; el conjunto de acciones $A=\{Ac_1,Ac_2,Ac_3,Ac_4,Ac_5,Ac_6,Ac_7,Ac_8 \}$; los conjuntos de decisión para cada jugador $X_i, \ i \in J=\{0,1,2\}$, $X_0=\{o \}$, $X_1=\{x_1,x_2 \}$, $X_2= \{x_3,x_5 \}$ ; el conjunto de información de la que disponen los jugadores $H=\{ \{o\}, \{x_1\},\{x_2\}, \{x_3,x_5\} \}$; la funcion de probabilidad para cada una de las acciones en las que interviene el azar, $P(\{o\},a)=\frac{1}{2}$ y $P(\{o\},b)=\frac{1}{2}$; y las funciones de pagos que reciben los jugadores en los distintos nodos finales, $U(x_4)=(1,-1)$, $U(x_6)=(-1,1)$, $U(x_7)=(2,-2)$, $U(x_8)=(1,-1)$, $U(x_9)=(-2,2)$, $U(x_10)=(1,-1)$. Así pues, vamos a ver el diagrama del juego con esta forma de escribirlo mas rigurosa:
 
-```{r forma_extensiva_rigurosa, fig.cap = "\\label{forma_extensiva_rigurosa}Diagrama Juego", fig.align='center',out.width='80%'}
+```{r forma_extensiva_rigurosa, fig.cap = "\\label{forma_extensiva_rigurosa}Diagrama Juego", fig.align='center',out.width='80%',echo=FALSE}
 knitr::include_graphics("forma_extensiva_rigurosa.png")
 ```
 
@@ -169,14 +207,14 @@ y ($Montar$,$Montar$) es el equilibrio de Nash
 ### Resolución de un juego en forma extensiva{#Seccion232}
 Recordemos que hemos llegado al siguiente esquema del juego:
 
-```{r forma_extensiva_rigurosa_2, fig.cap = "\\label{forma_extensiva_rigurosa_2}Diagrama Juego", fig.align='center',out.width='80%'}
+```{r forma_extensiva_rigurosa_2, fig.cap = "\\label{forma_extensiva_rigurosa_2}Diagrama Juego", fig.align='center',out.width='80%',echo=FALSE}
 knitr::include_graphics("forma_extensiva_rigurosa.png")
 ```
 En cuanto al jugador 2, este no sabe en cual de los nodos $x_3$ o $x_5$ se encuentra pues no ve la carta que se saca de la baraja. Así, se encuentra con una probabilidad de $\frac{1}{2}$ de estar en $x_3$ o en $x_5$. Si decidimos apostar, el valor esperado a ganar es $\frac{1}{2}*(-2) +\frac{1}{2}*2 =0$, mientras que si decide no apostar y plantarse el valor esperado a ganar es $\frac{1}{2}*(-1) +\frac{1}{2}*(-1) =-1$, por lo que el jugador 2 decidirá apostar pues el valor esperado de la utilidad que recibe es mayor en ese caso.
 
 Por otra parte, el jugador 1 si sabe en cual de los nodos de decisión $x_1$ o $x_2$ pues el si ve la carta que saca del mazo. De esta forma si se encuentra en el nodo de decisión $x_1$ puede decidir plantarse y de esta forma se lleva con probabilidad 1 1 euro, mientras que si decide apostar, como el jugador 2 siempre decide apostar (g), tiene un valor esperado de utilidad de $\frac{1}{2}*(-2) +\frac{1}{2}*2 =0$ por lo que siempre decidirá plantarse (d). Si se encuentra en $x_2$, si decide plantarse (f) tiene probabilidad 1 de perder 1 euro, mientras que si decide apostar, al saber igual que antes que el jugador 2 siempre decide g, el valor esperado de utilidad de $\frac{1}{2}*2 +\frac{1}{2}*(-2) =0$ que es mayor así que en este nodo siempre decide e.
 
-```{r forma_extensiva_equilibrio, fig.cap = "\\label{forma_extensiva_equilibrio}Diagrama Juego Equilibrio", fig.align='center',out.width='80%'}
+```{r forma_extensiva_equilibrio, fig.cap = "\\label{forma_extensiva_equilibrio}Diagrama Juego Equilibrio", fig.align='center',out.width='80%',echo=FALSE}
 knitr::include_graphics("forma_extensiva_equilibrio.png")
 ```
 

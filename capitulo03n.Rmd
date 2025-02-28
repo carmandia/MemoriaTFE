@@ -21,7 +21,7 @@ source("cabecera_chunk_inicio.R")
 ```
 
 
-# Título del Capítulo
+# Aplicación práctica: el blackjack
 
 ## Primera sección
 

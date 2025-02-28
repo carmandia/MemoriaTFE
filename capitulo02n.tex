@@ -36,6 +36,50 @@
 \urlstyle{same}  % don't use monospace font for urls
 %
 \usepackage[usenames,dvipsnames]{xcolor}  %new PLLC
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+
+% PLLC modifica-ini
+% PLLC modifica-fin
+
 \IfFileExists{parskip.sty}{%
 \usepackage{parskip}
 }{% else
@@ -544,6 +588,14 @@ Nash}\label{Seccion2}}
 \hypertarget{Seccion21}{%
 \section{Tipos de juego}\label{Seccion21}}
 
+\emph{Juegos según el número de jugadores}
+
+Según el numero de jugadores nos encontramos con los juegos
+bipersonales, de 2 personas como puede ser el ajedrez, o n-personales en
+el que participan mas de 2 jugadores como en el poker.
+
+\emph{Juegos cooperativos y no cooperativos}
+
 \hypertarget{Seccion22}{%
 \section{Formas de representacion de un juego}\label{Seccion22}}
 
@@ -570,7 +622,7 @@ dependerán de si la otra empresa decide montar el negocio al final
 
 Esta forma suele venir representada en forma de tabla que muestra el
 umero de jugadores, las posibles estrategias de cada uno y los pagos o
-utilidades que recibe cada jugador en funcion de las decisiones que ha
+utilidades que recibe cada jugador en función de las decisiones que ha
 tomado cada uno. Lo ilustramos con el ejemplo anterior.
 
 \[
@@ -615,6 +667,138 @@ estrategias seguidas: \(U_1(M,NM)=4\), \(U_1(M,M)=1\), \(U_1(NM,NM)=0\),
 
 \hypertarget{Seccion222}{%
 \subsection{Forma extensiva}\label{Seccion222}}
+
+Al contrario de la suposición que hemos realizado en el apartado
+anterior de que los jugadores tomaban las decisiones a la vez, en este
+caso obviamos este hecho y abrimos la posibilidad de que los jugadores
+tomen las decisiones de manera secuencial. Con esta forma dejamos de
+limitarnos a ese hecho y podemos fijar las distintas secuencias de
+jugadas que tiene un juego como la información de la que dispone cada
+jugador antes de tomar la decisión. Al igual que hemos hecho en la
+sección \(\ref{Seccion221}\) vamos a acompañar la explicación de esta
+forma con un ejemplo
+
+\emph{Ejemplo} Supongamos que tenemos una baraja clásica, con 4 palos
+(oros, bastos, copas y espadas) con 12 cartas cada uno de los palos (del
+1 al9, sota, caballo y rey) y que está barajada. Sean dos jugadores Pepe
+y Ana. Para participar, cada uno de los jugadores apuesta 1 euro. Pepe
+saca una carta del mazo ve cual es, y tiene dos posibles opciones,
+retirarse o apostar poniendo otro euro. Si se retira con la carta siendo
+un oro o una espada, el dinero que hay en la mesa es para él, mientras
+que si la carta es una copa o un basto el dinero es para Ana. En cambio,
+si apuesta un euro más, le toca a Ana jugar, y ella puede pasar, en cuyo
+caso el dinero se lo lleva Pepe o puede decidir jugar. Para ello,
+apuesta un euro más y saca una carta. Si es un oro o una espada, se
+lleva todo el dinero Pepe, y si es una copa o un basto se lo lleva todo
+Ana.
+
+La forma mas común de representación es mediante un árbol de decisión.
+En el que en cada nodo aparece el jugador que toma la decisión, del cual
+salen aristas hacia otros nodos que representan las posibles estrategias
+de ese jugador en dicho nodo y que situaciones del juego se derivan. Al
+final, nos encontramos con los nodos terminales donde una vez los
+jugadores ya han tomado todas las posibles decisiones se representan las
+utilidades o pagos que reciben cada uno de los jugadores. Hay que
+entender que esta representación tiene limitaciones en el hecho de que
+las estrategias pueden ser continuas o tener infinidad de etapas como
+ocurre con el ajedrez.
+
+Así pues el ejemplo anterior podríamos representarlo en forma de árbol
+de la siguiente forma:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{knitr}\SpecialCharTok{::}\FunctionTok{include\_graphics}\NormalTok{(}\StringTok{"forma\_extensiva.png"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}[H]
+
+{\centering \includegraphics[width=0.8\linewidth]{forma_extensiva} 
+
+}
+
+\caption{\label{forma_extensiva}Diagrama Juego}\label{fig:forma_extensiva}
+\end{figure}
+
+La linea discontinua uniendo los dos nodos donde participa la jugadora
+Ana denotan que no sabe en que parte del árbol se encuentra, es decir,
+hace si apuesta o se retira sin saber de que palo es la carta que saca
+
+Al igual que hicimos en la forma normal de un juego, vamos a
+caracterizar la forma extensiva de un juego por los distintos elementos
+que intervienen en tal representación
+
+\emph{Definición} Un juego en forma extensiva \(\Gamma\) viene
+caracterizado por una 7-tupla:
+\[\Gamma=\{J,X,A,\{X_i\}_{i \in J},H,P,U \}\] Los elementos que lo
+forman son:
+
+*Conjunto de jugadores que participan en el juego \(J=\{1,\cdots,N\}\).
+También es común denotar como jugador 0 a los movimientos que se
+realizan aleatoriamente.
+
+*\(X\), conjunto de nodos, que significan una posible situación del
+juego. El nodo inicial se representa por \(o\). A partir de este
+conjunto podemos diferenciar dos: \(T(X)\) conjunto de nodos terminales
+del juego, y \(D(X)=X-T(X)\) los nodos donde algún jugador tiene que
+tomar una decisión (no final)
+
+*\(A\), conjunto de todas las posibles acciones del juego
+
+*Para cada jugador \(i \in J\), sea \(X_i\) los nodos en los que el
+jugador \(i\) tiene que tomar una decisión
+
+*\(H\), familia de conjuntos de información que son la información que
+conoce el jugador en cada nodo.
+
+*Una función de probabilidad \[
+\begin{array}{cccc}
+P : & H_o \times A & \rightarrow & [0,1] \\
+   &  (h,a) & \rightarrow   & P(h,a)
+\end{array}
+\] que proporciona una probabilidad a las acciones en los que interviene
+el azar.
+
+*Función de pagos o utilidad \[
+\begin{array}{cccc}
+U: & T(X) & \rightarrow & \mathbb{R}^N \\
+   &  x & \rightarrow   & U(x)=(U_1(x),\cdots,U_N(x))
+\end{array}
+\] donde \(U_i(x)\) representa la utilidad que recibe el jugador i.
+Podemos suponer que estas funciones son de Von Newmann-Morgenstern
+
+Al igual que hicimos en el apartado anterior, vamos a formalizar el
+ejemplo que hemos propuesto en forma extensiva: Tenemos los jugadores
+\(J=\{0, Pepe, Ana\} = {0,1,2}\); el conjunto de nodos
+\(X=\{0,x_1,x_2,x_3,x_4,x_5,x_6,x_7,x_7,x_8,x_9 \}\); el conjunto de
+acciones \(A=\{Ac_1,Ac_2,Ac_3,Ac_4,Ac_5,Ac_6,Ac_7,Ac_8 \}\); los
+conjuntos de decisión para cada jugador \(X_i, \ i \in J=\{0,1,2\}\),
+\(X_0=\{o \}\), \(X_1=\{x_1,x_2 \}\), \(X_2= \{x_3,x_5 \}\) ; el
+conjunto de información de la que disponen los jugadores
+\(H=\{ \{o\}, \{x_1\},\{x_2\}, \{x_3,x_5\} \}\); la funcion de
+probabilidad para cada una de las acciones en las que interviene el
+azar, \(P(\{o\},a)=\frac{1}{2}\) y \(P(\{o\},b)=\frac{1}{2}\); y las
+funciones de pagos que reciben los jugadores en los distintos nodos
+finales, \(U(x_4)=(1,-1)\), \(U(x_6)=(-1,1)\), \(U(x_7)=(2,-2)\),
+\(U(x_8)=(1,-1)\), \(U(x_9)=(-2,2)\), \(U(x_10)=(1,-1)\). Así pues,
+vamos a ver el diagrama del juego con esta forma de escribirlo mas
+rigurosa:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{knitr}\SpecialCharTok{::}\FunctionTok{include\_graphics}\NormalTok{(}\StringTok{"forma\_extensiva\_rigurosa.png"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}[H]
+
+{\centering \includegraphics[width=0.8\linewidth]{forma_extensiva_rigurosa} 
+
+}
+
+\caption{\label{forma_extensiva_rigurosa}Diagrama Juego}\label{fig:forma_extensiva_rigurosa}
+\end{figure}
 
 \hypertarget{Seccion23}{%
 \section{Equilibrio de Nash}\label{Seccion23}}
@@ -687,6 +871,61 @@ matriz anterior
 \hypertarget{Seccion232}{%
 \subsection{Resolución de un juego en forma
 extensiva}\label{Seccion232}}
+
+Recordemos que hemos llegado al siguiente esquema del juego:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{knitr}\SpecialCharTok{::}\FunctionTok{include\_graphics}\NormalTok{(}\StringTok{"forma\_extensiva\_rigurosa.png"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}[H]
+
+{\centering \includegraphics[width=0.8\linewidth]{forma_extensiva_rigurosa} 
+
+}
+
+\caption{\label{forma_extensiva_rigurosa_2}Diagrama Juego}\label{fig:forma_extensiva_rigurosa_2}
+\end{figure}
+
+En cuanto al jugador 2, este no sabe en cual de los nodos \(x_3\) o
+\(x_5\) se encuentra pues no ve la carta que se saca de la baraja. Así,
+se encuentra con una probabilidad de \(\frac{1}{2}\) de estar en \(x_3\)
+o en \(x_5\). Si decidimos apostar, el valor esperado a ganar es
+\(\frac{1}{2}*(-2) +\frac{1}{2}*2 =0\), mientras que si decide no
+apostar y plantarse el valor esperado a ganar es
+\(\frac{1}{2}*(-1) +\frac{1}{2}*(-1) =-1\), por lo que el jugador 2
+decidirá apostar pues el valor esperado de la utilidad que recibe es
+mayor en ese caso.
+
+Por otra parte, el jugador 1 si sabe en cual de los nodos de decisión
+\(x_1\) o \(x_2\) pues el si ve la carta que saca del mazo. De esta
+forma si se encuentra en el nodo de decisión \(x_1\) puede decidir
+plantarse y de esta forma se lleva con probabilidad 1 1 euro, mientras
+que si decide apostar, como el jugador 2 siempre decide apostar (g),
+tiene un valor esperado de utilidad de
+\(\frac{1}{2}*(-2) +\frac{1}{2}*2 =0\) por lo que siempre decidirá
+plantarse (d). Si se encuentra en \(x_2\), si decide plantarse (f) tiene
+probabilidad 1 de perder 1 euro, mientras que si decide apostar, al
+saber igual que antes que el jugador 2 siempre decide g, el valor
+esperado de utilidad de \(\frac{1}{2}*2 +\frac{1}{2}*(-2) =0\) que es
+mayor así que en este nodo siempre decide e.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{knitr}\SpecialCharTok{::}\FunctionTok{include\_graphics}\NormalTok{(}\StringTok{"forma\_extensiva\_equilibrio.png"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}[H]
+
+{\centering \includegraphics[width=0.8\linewidth]{forma_extensiva_equilibrio} 
+
+}
+
+\caption{\label{forma_extensiva_equilibrio}Diagrama Juego Equilibrio}\label{fig:forma_extensiva_equilibrio}
+\end{figure}
 
 \bibliography{bib/library.bib,bib/paquetes.bib}
 
