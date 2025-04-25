@@ -1,12 +1,12 @@
 ---
 output:
+  html_document: default
   pdf_document:
     keep_tex: yes
     number_sections: yes
     citation_package: natbib  # comentado usa: pandoc-citeproc
     template: latex/templateMemoriaTFE.tex
     pandoc_args: ["--metadata-file=cabecera_capitulos.yaml"]
-  html_document: default
 #bibliography: bib/library.bib # descomentar si: editor visual RStudio  
 ---
 
@@ -21,7 +21,59 @@ source("cabecera_chunk_inicio.R")
 ```
 
 
-# Título del Capítulo
+# Estudios individuales en el BlackJack. Diferenciamos por casos{#Seccion4}
+Hacemos un breve recordatorio de varios puntos que comentamos en el apartado anterior y que vamos a utilizar individualmente en este apartado
 
-## Primera sección
+**Mano dura:** son aquellas manos del jugador que teniendo un as, si este vale 11 podemos pasarnos de 21.
+
+**Mano blanda:** son las manos del jugador que pueden tener un as valiendo 11 sin excederse del total de 21.
+Si tomamos la decisión de pedir una carta mas y con ella pasamos el límite, ese as pasa a tener valor de 1. 
+
+**Suma de las cartas:** que notaremos por $x$.
+
+**Carta del crupier:** que notaremos por $D$.
+
+**Valor final del crupier:** que es una variable aleatoria notada por $T$.
+
+**Suma del jugador:** es una variable aleatoria notada por $J$ que representa la suma del jugador tras pedir una única carta mas.
+
+De aquí en adelante dejamos claro que la cantidad apostada por el jugador es una unidad monetaria, ya sea euro o dolar, para asi simplificar los calculos
+
+## Manos duras{#Seccion41}
+
+Notemos por $b$ la carta que se sirve el crupier. $b = 2, \cdots, 10, (1,11)$. Así pues en cada momento tenemos el para $(x,b)$ en la que el jugador tiene la información de $x$ puesto que es el valor total de sus cartas y ve la carta que se sirve el crupier. En esta situación el jugador debe decidir si parar y plantarse o pedir mas cartas. 
+
+Definimos entonces $G^*(x,b)$ como la máxima ganancia esperada por el jugador dado una situación $(x,b)$ suponiendo que el jugador actúa de forma optima y juega de manera racional.
+
+De igual manera definimos $G_0(x,b)$ como la ganancia esperada por el jugador si este decide plantarse ante la situación del juego $(x,b)$.
+
+Recordamos también que suponemos que la probabilidad de tener una determinada carta de un valor es equiprobable es decir, la probabilidad (notemos la como $P_c$) de obtener una carta de valor $c$ es:
+
+$$
+P_c = 
+\begin{cases}
+4/13 & \text{si } c=10 \\
+1/13 & \text{si } c \neq 10
+\end{cases}
+$$
+Con esta información podemos caracterizar $G^*(x,b)$ como:
+
+$$
+G^*(x,b) = Max \\ \{G_0(x,b), \sum_{c=1}^{10}P_cG^*(x+c,b) \}
+$$
+
+Es decir, tenemos el máximo entre la opción de plantarnos en ese instante o de la situación en la que nos encontraríamos si pidiéramos una carta mas. Así nos plantaremos cuando el máximo lo alcancemos el $G_0(x,b)$.
+
+Nos queda evaluar ese máximo para cada $x$ y cada $b$ posibles. Para poder hacerlo necesitamos lo siguiente:
+
+1. $G_0(x,b)$, $ \forall x=4, \cdots $ y $\forall b= 2, \cdots, 10, (1,11)$
+
+2. Algunos valores finales de $G^*(x,b)$ para iniciar el la inducción hacia atrás, $\forall x,b$
+
+
+
+
+
+## Manos blandas{#Seccion42}
+
 

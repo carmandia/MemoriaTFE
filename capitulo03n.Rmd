@@ -21,7 +21,126 @@ source("cabecera_chunk_inicio.R")
 ```
 
 
-# Aplicación práctica: el blackjack
+# Aplicación práctica: el blackjack{#Seccion3}
 
-## Primera sección
+## Cómo se juega al blacjack y qué tipo de juego es{#Seccion31}
+El BlackJack, también conocido en lenguaje castellano como veintiuno, es uno de los juegos mas populares en los casinos de todo el mundo junto con el poker y la ruleta. A lo largo de estos últimos capítulos buscaremos estudiar en profundidad este juego para encontrar la estrategia optima con la que jugar para maximizar beneficios (o minimizar pérdidas). La característica mas importante que convierte la búsqueda de esta estrategia óptima en algo mas sencillo de lo que pudiera parecer en un principio, es el hecho de que el crupier (persona que reparte las cartas y asegura la normalidad del juego en cada mesa) está obligado a jugar de manera fija y conocida por todos los jugadores. Solo son los jugadores los que pueden ir tomando decisiones a lo largo del juego siempre y cuando se sigan las reglas que ahora pasamos a comentar.
+
+*Reglas del BlackJack*
+
+* Usamos una baraje francesa de 52 cartas, es decir, 4 palos con 13 cartas cada uno, del 1 al 10 y 3 figuras (las conocidas en España como sota, caballo y rey). Las cartas tienen unos valores: las figuras valen 10, y el resto de cartas tienen el mismo valor que su número, por ejemplo un 6 vale 6, menos el as que puede tomar los valores 1 u 11 dependiendo de lo que prefiera el jugador (ya comentaremos en que situaciones preferirá que valga una cosa u otra.)
+
+* En el juego, a parte del crupier, participan como mucho 7 jugadores. Estos jugadores tienen que apostar el dinero antes de recibir la primera carta, lo que le da un atractivo al juego distinto al poker, en el que una vez recibamos cartas podemos aumentar la apuesta.
+
+* **Desempeño y estrategia del crupier.** En primer lugar, una vez todos los jugadores han hecho su apuestas, el crupier procede a repartir las cartas a los jugadores. Una vez que estos han hecho su juego, el crupier empieza a darse cartas a si mismo y está obligado a plantarse cuando la suma de las cartas que se haya dado sume al menos 17. Cuando este tenga un as, que ya comentamos que pueden valer 1 u 11 a gusto, deberá contarlo como 11 si al recibir el as y contarlo con valor 11 la suma de sus cartas es al menos 17. Para aclararlo, si tiene un 7 y la carta siguiente es un as, este contará como 11 puesto que la suma de los dos cartas sumarían 18, mientras que si por ejemplo tuviera un 3 y recibiera un as, no lo contará como 11 y su suma será 4.
+
+* **Pagos.** Los pagos se basan en el hecho de "ganar" o no al crupier. Si el crupier se pasa y el jugador no lo hace, recibe una cantidad igual a su apuesta. Si no se pasan ninguno, quien mas se aproxime a 21 (de ahí el nombre del juego en español), si es el jugador recibe otra vez una cantidad igual a lo que ha apostado y si es el crupier se queda con el dinero apostado por el jugador. En caso de que empaten, no se producen juegos y el jugador recupera su dinero.
+
+* **BlackJack.** Esta jugada es la más famosa y la que da nombre al juego. Es la mano más poderosa y gana a cualquier otra mano que tenga el crupier. Si el jugador posee un blackjack y el crupier no, este último deberá pagarle al jugador el 150% de su apuesta.
+
+* Otras posibilidades que tiene el jugador.
+  - **Doblarse.** Si la suma de las dos primeras cartas es igual a 9, 10 u 11, el jugador tiene la posibilidad de doblar su apuesta inicial, pero como desventaja solo podrá recibir una carta más.
+  - **Abrirse.** Cuando las dos primeras cartas que recibe el jugador tienen el mismo valor, un 10 y una figura o dos 7 por ejemplo, este puede separarlas y jugar a dos manos, teniendo que apostar en cada una la cantidad inicial que apostó. Si separamos un dos ases, al igual que pasaba antes cuando nos podíamos doblar, solo recibiremos una carta más en cada mano. Este apartado aunque parece ventajoso tiene el inconveniente de no poder abrirnos mas de una vez en cada jugada y en el caso de abrirnos con un as, en caso de recibir una carta que valga 10 puntos (figura o un 10) esto no contará como blackjack y en el caso de que el crupier lo obtuviese el jugador perdería el dinero de las dos manos.
+  - **Asegurarse.** En caso de que la primera carta que el crupier se reparta a si mismo sea un as, los jugadores tendrán la opción de asegurarse y prevenir un posible blackjack del crupier con una apuesta adicional de a lo mas el 50% de la apuesta inicial. Si efectivamente ocurre que el crupier obtiene un blackjack, el jugador recibe por el seguro el doble de lo que apostó. Este seguro los jugadores deberán obtenerlo si así lo desean antes de que el crupier reparta la tercera carta al primer jugador que lo desee.
+  
+
+## Estudio riguroso. Como jugar según la mano que tengamos{#Seccion32}
+Llamemos $x$ al valor total de las cartas que posee el jugador. Consideramos dos tipos de manos que puede poseer un jugador: la que el total del jugador es único y menor a 21, llamadas "manos duras", y la que el jugador tiene uno o mas ases de manera que el jugador posee dos cartas con valores menores a 21. A este último tipo de mano la llamaremos "manos blandas" y requieren diferentes estudios a las manos duras.
+
+Definamos $D$ como el valor de la carta mas alta que posee el crupier. Así tomará los valores $D=2, \cdots, 10, (1,11)$. Sea $M(D)$ un entero tal que si la carta mas alta del crupier es $D$ y el valor $x$ es menor que $M(D)$, el jugador debería pedir una carta más. Mientras que dicho valor $x$ sea al menos el valor de $M(D)$, el jugador deberá plantarse. De la misma manera definimos $M^*(D)$ para el caso de las manos blandas.
+
+La suposición que hacemos es que una buena manera de saber cuando dejamos de pedir cartas se da cuando tenemos al menos estos números $M(D)$ y $M^*(D)$. Es decir, si hemos dicho que es bueno para cualquier jugador dejar de pedir cartas si llegamos a ese valor, también será correcto hacerlo cuando el valor de la mano sea incluso mayor. Esta suposición suele ser correcta la mayoría de veces salvo en casos especiales como cuando el hecho de dejar de pedir cartas se da cuando los jugadores tienen manos bajas con un numero de cartas restantes a repartir en el mazo bajo.
+
+El primer paso es comparar la esperanza matemática de elegir $M(D)=x$ o $M(D)=x+1$, con $x$ tomando un valor único sin exceder 21. Para las manos blandas comparamos $M^*(D)=x$ con $M^*(D)=x+1$. En ambos casos empleamos la misma estrategia con la diferencia de que para el primer caso una vez llegamos al valor nos paramos y para el otro pedimos una carta mas. Para el caso de manos duras, comparar las dos esperanzas es equivalente a comparar $E_{p,x}$ la esperanza de pararse en un total de $x$, con $E_{d,x}$, la esperanza de un jugador que con un total de $x$ pide una carta mas.Para el caso de las manos blandas, en el primer caso el jugador se para mientras que en el otro pide una o más cartas. Por ejemplo, en el caso de que tengamos una mano blanda con un valor de 17 en el primer caso nos plantaríamos, mientras que en el segundo caso pediríamos una carta mas. Pongamos que es un 5 por lo tanto nos pasaríamos pero como el valor del as puede ser 1 u 11, seria de valor 1 en este caso y obtenemos un total de 12, en cuyo caso deberíamos pedir una carta mas en la mayoría de ocasiones.
+
+A partir de ahora nos centramos en la diferencia de esas dos esperanzas antes comentadas, $E_{p,x}-E_{d,x}$ para ver si es mayor o menor que 0. Si fijamos un valor $x$, la diferencia $E_{p,x}-E_{d,x}$ es una función decreciente en x, $M(D)$ se obtiene como el menor valor de $x$ para el que $E_{p,x}-E_{d,x} < 0$. Esta función es no creciente siempre salvo casos excepcional como comentamos anteriormente en los que crece con $x$.
+
+Definamos ahora $T$ variable aleatoria como el valor final del crupier. Sabemos por las reglas que comentamos en la apartado $\ref{Seccion31}$ que si ocurre que $T>21$ o $T<x$, el jugador gana (en el caso de que se haya plantado con ese valor $x$ en sus cartas), mientras que si $T=x$ cada uno recupera el dinero apostado, y si $x < T \leq 21$ el jugador pierde la apuesta. Así podemos definir mejor la esperanza antes comentada:
+
+$$
+\begin{array}{ccl}
+E_{p,x} & = & P(T>21) + P(T<x) - P(x<T \leq 21) \\
+        & = & 2P(T>21) -1
+\end{array}
+$$
+Para el caso de la esperanza $E_{d,x}$ definimos una nueva variable aleatoria $J$, que es la suma que le queda al jugador después de pedir una carta mas (solo una). En caso de que el total pueda tener dos valores sin exceder de 21 (caso de tener un as), $J$ toma el mayor de los dos valores.
+
+Sabemos por las reglas que la mano del crupier siempre tiene un valor mayor que 17 por lo que $T \geq 17$, así que si $J<17$, solo ganaríamos en caso de que $T>21$ y perderíamos para el resto de los valores de la variable $T$. Para este caso la esperanza sería:
+
+$$
+P(T>21) - P(T \leq 21)= 2P(T>21) -1
+$$
+
+Si el valor de las cartas del jugador es $17 \leq J \leq 21$, la esperanza quedaría como:
+
+$$
+P(T>21) +P(T<J) - P(J < T \leq 21)
+$$
+
+Lógicamente si el valor de la mano del jugador es $J>21$ siempre vamos a perder y por tanto esa esperanza sería -1, es decir perderíamos cada euro apostado.
+
+Una pregunta que podríamos hacernos es si estas variables $T$ y $J$ son independientes. Analizando, El valor que tome la variable $J$ afecta a la variable $T$ en solo si descartamos la posibilidad de que el crupier desvele una carta de valor $J-x$. Por lo tanto, si asumimos la independencia de estas dos variables estaríamos cometiendo un pequeño sesgo en el calculo de la esperanza. De esta manera:
+
+$$
+\begin{array}{ccl}
+E_{d,x} & = & P(J<17)[2P(T>21)-1] - P(J>21) \\
+        &   & + \Sigma_{j=17}^21 P(J=j) [P(T>21) + P(T<j) - P(j<T \leq21)]
+\end{array}
+$$
+
+Ya tenemos calculadas las dos esperanzas. Restándolas nos queda:
+
+$$
+\begin{array}{ccl}
+E_{d,x} -E_{p,x} & = & -2P(T<x) - P(T=x) -2P(T>21)P(J>21) \\
+                 &   & + 2P(T<J \leq 21)+P(T=J \leq 21)
+\end{array}
+$$
+
+Si $T \geq 17$, los primeros dos términos son cero para el caso en que $x<17$. Además, $P(J>21)$ es también cero para el caso de una mano dura y menos de 12 para valores de una mano blanda. Por lo tanto esa diferencia de esperanza $E_{d,x} -E_{p,x} \geq 0$ para manos duras con $x<12$ y para manos blandas con $x<17$, de lo que sacamos que $M(D)>11$ y $M^*(D)>16$, $\forall D$ 
+
+Consideremos ahora esta diferencia de esperanzas para el caso de valores $12 \leq x \geq 16$ en el caso de manos duras. Los dos primeros términos vuelven a ser ceros, mientras que el ultimo lo podemos reescribir usando la independencia entre $J$ y $T$ como usamos anteriormente.
+
+$$
+E_{d,x} -E_{p,x} = -2P(T>21)P(J>21) + \sum_{t=17}^{21} P(T=t)[2P(t<J \leq 21) + P(J=t)]
+$$
+
+Ahora introducimos un supuesto, y es que la distribución de probabilidad de $J-x$, la única carta que pide el jugador está dada por:
+
+* $P(J-x=10) = 4/13$, del hecho de que tenemos 3 figuras más el 10 por cada palo en la baraja.
+
+* $P(J-x=i) = 1/13, i=2,\cdots,9, (1,11)$
+
+De esta manera asumimos la suposición de que obtener una carta es equiprobable. De primera mano podríamos danos cuenta de que esta suposición es incorrecta en manos individuales, pero es cierta cuando nos damos cuenta de que tenemos $52!$ permutaciones posibles de cartas en la baraja. Así pues, tendríamos lo siguiente:
+
+$P(J>21) = \frac{1}{13}(x-8)$, para $x \geq 12$ en manos duras y $P(t<J \leq 21)=\frac{1}{13}(21-t)$, $P(J=t) = \frac{1}{13}$ con $t$ tal que $17 \leq t \leq 21$. Entonces:
+
+$$
+E_{d,x} - E_{p,x} = -2/13(x-8)P(T>21) + \sum_{t=17}^{21} 1/13(43-2t)P(T=t)
+$$
+
+Para valores de $x$, $12 \leq  x \leq 16$ no necesitamos hacer esta diferencia y ahora explicamos el porqué. Si la diferencia anterior la igualamos a 0, y teniendo en cuenta que como comentamos la función es decreciente en $x$, se obtiene una única solución $x_0$
+
+$$
+x_0 = 8+ \frac{\sum_{t=17}^{21}(21 \frac{1}{2}-t)P(T=t)}{P(T>21)}
+$$
+Así, si $x_0 < 12$ entonces $M(D)=12$. Si $x_0>16 entonces M(D)>16$ y si $12 \leq x_0 \leq 16$ entonces $M(D) = [x_0]+1$ (parte entera de $x_0$).
+Para un valor dado de $P(T>17)$, mas probabilidad tiene el crupier de tener una buena mano, mas bajo sea el numero en el que el jugador se pare. Por ejemplo, si $P(T>21)=2/5$ y $P(T=18)=3/5$ entonces $M(D)=14$ mientras que si $P(T>21)=2/5$ y $P(T=19)=3/5$, entonces $M(D)=12$.
+
+En el caso de que $x=17$ (en mano dura):
+
+$$
+E_{d,17}-E_{p,17} = -18/13P(T>21)- 5/13P(T=17)+ \sum_{t=18}^{21}1/13(43-2t)P(T=t)
+$$
+Evaluando para cada $t$ la probabilidad $P(T=t)$ muestra que esa diferencia en negativa para todo $D$ y por tanto, $M(D) \leq 17$.
+
+Para el caso de manos blandas nos queda también el estudio cuando $x=17$. En esa situación, 
+
+$$
+E_{d,17}-E_{p,17} = -1/13P(T=17)+ \sum_{t=18}^{21}1/13(43-2t)P(T=t)
+$$
+
+donde evaluando para cada $t$ otra vez $P(T=t)$, muestra que la diferencia es positiva para todo $D$ y por lo tanto $M^*(D)>17$.
+
+A partir de ahora, dado que siempre estamos comparando los estudios de las manos duras con las manos blandas junto con los hechos de doblarse y jugar a dos bandas, etc. Vamos a continuar el estudio por separado, analizando bien cada situación para después sintetizar ambos resultados en uno de carácter general.
 

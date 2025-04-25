@@ -1,0 +1,838 @@
+\documentclass[12pt,a4paper,]{book}
+\def\ifdoblecara{} %% set to true
+\def\ifprincipal{} %% set to true
+\let\ifprincipal\undefined %% set to false
+\def\ifcitapandoc{} %% set to true
+\let\ifcitapandoc\undefined %% set to false
+\usepackage{lmodern}
+% sin fontmathfamily
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+%\usepackage{fixltx2e} % provides \textsubscript %PLLC
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin = 2.5cm]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdfauthor={Nombre Completo Autor},
+              pdfborder={0 0 0},
+              breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+%
+\usepackage[usenames,dvipsnames]{xcolor}  %new PLLC
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+
+  \title{}
+    \author{Nombre Completo Autor}
+      \date{18/11/2021}
+
+
+%%%%%%% inicio: latex_preambulo.tex PLLC
+
+
+%% UTILIZA CODIFICACIÓN UTF-8
+%% MODIFICARLO CONVENIENTEMENTE PARA USARLO CON OTRAS CODIFICACIONES
+
+
+%\usepackage[spanish,es-nodecimaldot,es-noshorthands]{babel}
+\usepackage[spanish,es-nodecimaldot,es-noshorthands,es-tabla]{babel}
+% Ver: es-tabla (en: https://osl.ugr.es/CTAN/macros/latex/contrib/babel-contrib/spanish/spanish.pdf)
+% es-tabla (en: https://tex.stackexchange.com/questions/80443/change-the-word-table-in-table-captions)
+\usepackage[spanish, plain, datebegin,sortcompress,nocomment,
+noabstract]{flexbib}
+ 
+\usepackage{float}
+\usepackage{placeins}
+\usepackage{fancyhdr}
+% Solucion: ! LaTeX Error: Command \counterwithout already defined.
+% https://tex.stackexchange.com/questions/425600/latex-error-command-counterwithout-already-defined
+\let\counterwithout\relax
+\let\counterwithin\relax
+\usepackage{chngcntr}
+%\usepackage{microtype}  %antes en template PLLC
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc} % Usa codificación 8-bit que tiene 256 glyphs
+
+%\usepackage[dvipsnames]{xcolor}
+%\usepackage[usenames,dvipsnames]{xcolor}  %new
+\usepackage{pdfpages}
+%\usepackage{natbib}
+
+
+
+
+% Para portada: latex_paginatitulo_mod_ST02.tex (inicio)
+\usepackage{tikz}
+\usepackage{epigraph}
+\input{portadas/latex_paginatitulo_mod_ST02_add.sty}
+% Para portada: latex_paginatitulo_mod_ST02.tex (fin)
+
+% Para portada: latex_paginatitulo_mod_OV01.tex (inicio)
+\usepackage{cpimod}
+% Para portada: latex_paginatitulo_mod_OV01.tex (fin)
+
+% Para portada: latex_paginatitulo_mod_OV03.tex (inicio)
+\usepackage{KTHEEtitlepage}
+% Para portada: latex_paginatitulo_mod_OV03.tex (fin)
+
+\renewcommand{\contentsname}{Índice}
+\renewcommand{\listfigurename}{Índice de figuras}
+\renewcommand{\listtablename}{Índice de tablas}
+\newcommand{\bcols}{}
+\newcommand{\ecols}{}
+\newcommand{\bcol}[1]{\begin{minipage}{#1\linewidth}}
+\newcommand{\ecol}{\end{minipage}}
+\newcommand{\balertblock}[1]{\begin{alertblock}{#1}}
+\newcommand{\ealertblock}{\end{alertblock}}
+\newcommand{\bitemize}{\begin{itemize}}
+\newcommand{\eitemize}{\end{itemize}}
+\newcommand{\benumerate}{\begin{enumerate}}
+\newcommand{\eenumerate}{\end{enumerate}}
+\newcommand{\saltopagina}{\newpage}
+\newcommand{\bcenter}{\begin{center}}
+\newcommand{\ecenter}{\end{center}}
+\newcommand{\beproof}{\begin{proof}} %new
+\newcommand{\eeproof}{\end{proof}} %new
+%De: https://texblog.org/2007/11/07/headerfooter-in-latex-with-fancyhdr/
+% \fancyhead
+% E: Even page
+% O: Odd page
+% L: Left field
+% C: Center field
+% R: Right field
+% H: Header
+% F: Footer
+%\fancyhead[CO,CE]{Resultados}
+
+%OPCION 1
+% \fancyhead[LE,RO]{\slshape \rightmark}
+% \fancyhead[LO,RE]{\slshape \leftmark}
+% \fancyfoot[C]{\thepage}
+% \renewcommand{\headrulewidth}{0.4pt}
+% \renewcommand{\footrulewidth}{0pt}
+
+%OPCION 2
+% \fancyhead[LE,RO]{\slshape \rightmark}
+% \fancyfoot[LO,RE]{\slshape \leftmark}
+% \fancyfoot[LE,RO]{\thepage}
+% \renewcommand{\headrulewidth}{0.4pt}
+% \renewcommand{\footrulewidth}{0.4pt}
+%%%%%%%%%%
+\usepackage{calc,amsfonts}
+% Elimina la cabecera de páginas impares vacías al finalizar los capítulos
+\usepackage{emptypage}
+\makeatletter
+
+%\definecolor{ocre}{RGB}{25,25,243} % Define el color azul (naranja) usado para resaltar algunas salidas
+\definecolor{ocre}{RGB}{0,0,0} % Define el color a negro (aparece en los teoremas
+
+%\usepackage{calc} 
+
+
+%era if(csl-refs) con dolares
+% metodobib: true
+
+
+\usepackage{lipsum}
+
+%\usepackage{tikz} % Requerido para dibujar formas personalizadas
+
+%\usepackage{amsmath,amsthm,amssymb,amsfonts}
+\usepackage{amsthm}
+
+
+% Boxed/framed environments
+\newtheoremstyle{ocrenumbox}% % Theorem style name
+{0pt}% Space above
+{0pt}% Space below
+{\normalfont}% % Body font
+{}% Indent amount
+{\small\bf\sffamily\color{ocre}}% % Theorem head font
+{\;}% Punctuation after theorem head
+{0.25em}% Space after theorem head
+{\small\sffamily\color{ocre}\thmname{#1}\nobreakspace\thmnumber{\@ifnotempty{#1}{}\@upn{#2}}% Theorem text (e.g. Theorem 2.1)
+\thmnote{\nobreakspace\the\thm@notefont\sffamily\bfseries\color{black}---\nobreakspace#3.}} % Optional theorem note
+\renewcommand{\qedsymbol}{$\blacksquare$}% Optional qed square
+
+\newtheoremstyle{blacknumex}% Theorem style name
+{5pt}% Space above
+{5pt}% Space below
+{\normalfont}% Body font
+{} % Indent amount
+{\small\bf\sffamily}% Theorem head font
+{\;}% Punctuation after theorem head
+{0.25em}% Space after theorem head
+{\small\sffamily{\tiny\ensuremath{\blacksquare}}\nobreakspace\thmname{#1}\nobreakspace\thmnumber{\@ifnotempty{#1}{}\@upn{#2}}% Theorem text (e.g. Theorem 2.1)
+\thmnote{\nobreakspace\the\thm@notefont\sffamily\bfseries---\nobreakspace#3.}}% Optional theorem note
+
+\newtheoremstyle{blacknumbox} % Theorem style name
+{0pt}% Space above
+{0pt}% Space below
+{\normalfont}% Body font
+{}% Indent amount
+{\small\bf\sffamily}% Theorem head font
+{\;}% Punctuation after theorem head
+{0.25em}% Space after theorem head
+{\small\sffamily\thmname{#1}\nobreakspace\thmnumber{\@ifnotempty{#1}{}\@upn{#2}}% Theorem text (e.g. Theorem 2.1)
+\thmnote{\nobreakspace\the\thm@notefont\sffamily\bfseries---\nobreakspace#3.}}% Optional theorem note
+
+% Non-boxed/non-framed environments
+\newtheoremstyle{ocrenum}% % Theorem style name
+{5pt}% Space above
+{5pt}% Space below
+{\normalfont}% % Body font
+{}% Indent amount
+{\small\bf\sffamily\color{ocre}}% % Theorem head font
+{\;}% Punctuation after theorem head
+{0.25em}% Space after theorem head
+{\small\sffamily\color{ocre}\thmname{#1}\nobreakspace\thmnumber{\@ifnotempty{#1}{}\@upn{#2}}% Theorem text (e.g. Theorem 2.1)
+\thmnote{\nobreakspace\the\thm@notefont\sffamily\bfseries\color{black}---\nobreakspace#3.}} % Optional theorem note
+\renewcommand{\qedsymbol}{$\blacksquare$}% Optional qed square
+\makeatother
+
+
+
+% Define el estilo texto theorem para cada tipo definido anteriormente
+\newcounter{dummy} 
+\numberwithin{dummy}{section}
+\theoremstyle{ocrenumbox}
+\newtheorem{theoremeT}[dummy]{Teorema}  % (Pedro: Theorem)
+\newtheorem{problem}{Problema}[chapter]  % (Pedro: Problem)
+\newtheorem{exerciseT}{Ejercicio}[chapter] % (Pedro: Exercise)
+\theoremstyle{blacknumex}
+\newtheorem{exampleT}{Ejemplo}[chapter] % (Pedro: Example)
+\theoremstyle{blacknumbox}
+\newtheorem{vocabulary}{Vocabulario}[chapter]  % (Pedro: Vocabulary)
+\newtheorem{definitionT}{Definición}[section]  % (Pedro: Definition)
+\newtheorem{corollaryT}[dummy]{Corolario}  % (Pedro: Corollary)
+\theoremstyle{ocrenum}
+\newtheorem{proposition}[dummy]{Proposición} % (Pedro: Proposition)
+
+
+\usepackage[framemethod=default]{mdframed}
+
+
+
+\newcommand{\intoo}[2]{\mathopen{]}#1\,;#2\mathclose{[}}
+\newcommand{\ud}{\mathop{\mathrm{{}d}}\mathopen{}}
+\newcommand{\intff}[2]{\mathopen{[}#1\,;#2\mathclose{]}}
+\newtheorem{notation}{Notation}[chapter]
+
+
+\mdfdefinestyle{exampledefault}{%
+rightline=true,innerleftmargin=10,innerrightmargin=10,
+frametitlerule=true,frametitlerulecolor=green,
+frametitlebackgroundcolor=yellow,
+frametitlerulewidth=2pt}
+
+
+% Theorem box
+\newmdenv[skipabove=7pt,
+skipbelow=7pt,
+backgroundcolor=black!5,
+linecolor=ocre,
+innerleftmargin=5pt,
+innerrightmargin=5pt,
+innertopmargin=10pt,%5pt
+leftmargin=0cm,
+rightmargin=0cm,
+innerbottommargin=5pt]{tBox}
+
+% Exercise box	  
+\newmdenv[skipabove=7pt,
+skipbelow=7pt,
+rightline=false,
+leftline=true,
+topline=false,
+bottomline=false,
+backgroundcolor=ocre!10,
+linecolor=ocre,
+innerleftmargin=5pt,
+innerrightmargin=5pt,
+innertopmargin=10pt,%5pt
+innerbottommargin=5pt,
+leftmargin=0cm,
+rightmargin=0cm,
+linewidth=4pt]{eBox}	
+
+% Definition box
+\newmdenv[skipabove=7pt,
+skipbelow=7pt,
+rightline=false,
+leftline=true,
+topline=false,
+bottomline=false,
+linecolor=ocre,
+innerleftmargin=5pt,
+innerrightmargin=5pt,
+innertopmargin=10pt,%0pt
+leftmargin=0cm,
+rightmargin=0cm,
+linewidth=4pt,
+innerbottommargin=0pt]{dBox}	
+
+% Corollary box
+\newmdenv[skipabove=7pt,
+skipbelow=7pt,
+rightline=false,
+leftline=true,
+topline=false,
+bottomline=false,
+linecolor=gray,
+backgroundcolor=black!5,
+innerleftmargin=5pt,
+innerrightmargin=5pt,
+innertopmargin=10pt,%5pt
+leftmargin=0cm,
+rightmargin=0cm,
+linewidth=4pt,
+innerbottommargin=5pt]{cBox}
+
+% Crea un entorno para cada tipo de theorem y le asigna un estilo 
+% con ayuda de las cajas coloreadas anteriores
+\newenvironment{theorem}{\begin{tBox}\begin{theoremeT}}{\end{theoremeT}\end{tBox}}
+\newenvironment{exercise}{\begin{eBox}\begin{exerciseT}}{\hfill{\color{ocre}\tiny\ensuremath{\blacksquare}}\end{exerciseT}\end{eBox}}				  
+\newenvironment{definition}{\begin{dBox}\begin{definitionT}}{\end{definitionT}\end{dBox}}	
+\newenvironment{example}{\begin{exampleT}}{\hfill{\tiny\ensuremath{\blacksquare}}\end{exampleT}}		
+\newenvironment{corollary}{\begin{cBox}\begin{corollaryT}}{\end{corollaryT}\end{cBox}}	
+
+%	ENVIRONMENT remark
+\newenvironment{remark}{\par\vspace{10pt}\small 
+% Espacio blanco vertical sobre la nota y tamaño de fuente menor
+\begin{list}{}{
+\leftmargin=35pt % Indentación sobre la izquierda
+\rightmargin=25pt}\item\ignorespaces % Indentación sobre la derecha
+\makebox[-2.5pt]{\begin{tikzpicture}[overlay]
+\node[draw=ocre!60,line width=1pt,circle,fill=ocre!25,font=\sffamily\bfseries,inner sep=2pt,outer sep=0pt] at (-15pt,0pt){\textcolor{ocre}{N}}; \end{tikzpicture}} % R naranja en un círculo (Pedro)
+\advance\baselineskip -1pt}{\end{list}\vskip5pt} 
+% Espaciado de línea más estrecho y espacio en blanco después del comentario
+
+
+\newenvironment{solutionExe}{\par\vspace{10pt}\small 
+\begin{list}{}{
+\leftmargin=35pt 
+\rightmargin=25pt}\item\ignorespaces 
+\makebox[-2.5pt]{\begin{tikzpicture}[overlay]
+\node[draw=ocre!60,line width=1pt,circle,fill=ocre!25,font=\sffamily\bfseries,inner sep=2pt,outer sep=0pt] at (-15pt,0pt){\textcolor{ocre}{S}}; \end{tikzpicture}} 
+\advance\baselineskip -1pt}{\end{list}\vskip5pt} 
+
+\newenvironment{solutionExa}{\par\vspace{10pt}\small 
+\begin{list}{}{
+\leftmargin=35pt 
+\rightmargin=25pt}\item\ignorespaces 
+\makebox[-2.5pt]{\begin{tikzpicture}[overlay]
+\node[draw=ocre!60,line width=1pt,circle,fill=ocre!55,font=\sffamily\bfseries,inner sep=2pt,outer sep=0pt] at (-15pt,0pt){\textcolor{ocre}{S}}; \end{tikzpicture}} 
+\advance\baselineskip -1pt}{\end{list}\vskip5pt} 
+
+\usepackage{tcolorbox}
+
+\usetikzlibrary{trees}
+
+\theoremstyle{ocrenum}
+\newtheorem{solutionT}[dummy]{Solución}  % (Pedro: Corollary)
+\newenvironment{solution}{\begin{cBox}\begin{solutionT}}{\end{solutionT}\end{cBox}}	
+
+
+\newcommand{\tcolorboxsolucion}[2]{%
+\begin{tcolorbox}[colback=green!5!white,colframe=green!75!black,title=#1] 
+ #2
+ %\tcblower  % pone una línea discontinua
+\end{tcolorbox}
+}% final definición comando
+
+\newtcbox{\mybox}[1][green]{on line,
+arc=0pt,outer arc=0pt,colback=#1!10!white,colframe=#1!50!black, boxsep=0pt,left=1pt,right=1pt,top=2pt,bottom=2pt, boxrule=0pt,bottomrule=1pt,toprule=1pt}
+
+
+
+\mdfdefinestyle{exampledefault}{%
+rightline=true,innerleftmargin=10,innerrightmargin=10,
+frametitlerule=true,frametitlerulecolor=green,
+frametitlebackgroundcolor=yellow,
+frametitlerulewidth=2pt}
+
+
+
+
+
+\newcommand{\betheorem}{\begin{theorem}}
+\newcommand{\eetheorem}{\end{theorem}}
+\newcommand{\bedefinition}{\begin{definition}}
+\newcommand{\eedefinition}{\end{definition}}
+
+\newcommand{\beremark}{\begin{remark}}
+\newcommand{\eeremark}{\end{remark}}
+\newcommand{\beexercise}{\begin{exercise}}
+\newcommand{\eeexercise}{\end{exercise}}
+\newcommand{\beexample}{\begin{example}}
+\newcommand{\eeexample}{\end{example}}
+\newcommand{\becorollary}{\begin{corollary}}
+\newcommand{\eecorollary}{\end{corollary}}
+
+
+\newcommand{\besolutionExe}{\begin{solutionExe}}
+\newcommand{\eesolutionExe}{\end{solutionExe}}
+\newcommand{\besolutionExa}{\begin{solutionExa}}
+\newcommand{\eesolutionExa}{\end{solutionExa}}
+
+
+%%%%%%%%
+
+
+% Caja Salida Markdown
+\newmdenv[skipabove=7pt,
+skipbelow=7pt,
+rightline=false,
+leftline=true,
+topline=false,
+bottomline=false,
+backgroundcolor=GreenYellow!10,
+linecolor=GreenYellow!80,
+innerleftmargin=5pt,
+innerrightmargin=5pt,
+innertopmargin=10pt,%5pt
+innerbottommargin=5pt,
+leftmargin=0cm,
+rightmargin=0cm,
+linewidth=4pt]{mBox}	
+
+%% RMarkdown
+\newenvironment{markdownsal}{\begin{mBox}}{\end{mBox}}	
+
+\newcommand{\bmarkdownsal}{\begin{markdownsal}}
+\newcommand{\emarkdownsal}{\end{markdownsal}}
+
+
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage{subfig} %new
+%\usepackage{booktabs,dcolumn,rotating,thumbpdf,longtable}
+\usepackage{dcolumn,rotating}  %new
+\usepackage[graphicx]{realboxes} %new de: https://stackoverflow.com/questions/51633434/prevent-pagebreak-in-kableextra-landscape-table
+
+%define el interlineado vertical
+%\renewcommand{\baselinestretch}{1.5}
+
+%define etiqueta para las Tablas o Cuadros
+%\renewcommand\spanishtablename{Tabla}
+
+%%\bibliographystyle{plain} %new no necesario
+
+
+%%%%%%%%%%%% PARA USO CON biblatex
+% \DefineBibliographyStrings{english}{%
+%   backrefpage = {ver pag.\adddot},%
+%   backrefpages = {ver pags.\adddot}%
+% }
+
+% \DefineBibliographyStrings{spanish}{%
+%   backrefpage = {ver pag.\adddot},%
+%   backrefpages = {ver pags.\adddot}%
+% }
+% 
+% \DeclareFieldFormat{pagerefformat}{\mkbibparens{{\color{red}\mkbibemph{#1}}}}
+% \renewbibmacro*{pageref}{%
+%   \iflistundef{pageref}
+%     {}
+%     {\printtext[pagerefformat]{%
+%        \ifnumgreater{\value{pageref}}{1}
+%          {\bibstring{backrefpages}\ppspace}
+%          {\bibstring{backrefpage}\ppspace}%
+%        \printlist[pageref][-\value{listtotal}]{pageref}}}}
+% 
+%%% de kableExtra
+\usepackage{booktabs}
+\usepackage{longtable}
+%\usepackage{array}
+%\usepackage{multirow}
+%\usepackage{wrapfig}
+%\usepackage{float}
+%\usepackage{colortbl}
+%\usepackage{pdflscape}
+%\usepackage{tabu}
+%\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage[normalem]{ulem}
+\usepackage{makecell}
+%\usepackage{xcolor}
+
+%%%%%%% fin: latex_preambulo.tex PLLC
+
+
+\begin{document}
+
+\bibliographystyle{flexbib}
+
+
+
+\raggedbottom
+
+\ifdefined\ifprincipal
+\else
+\setlength{\parindent}{1em}
+\pagestyle{fancy}
+\setcounter{tocdepth}{4}
+\tableofcontents
+
+\fi
+
+\ifdefined\ifdoblecara
+\fancyhead{}{}
+\fancyhead[LE,RO]{\scriptsize\rightmark}
+\fancyfoot[LO,RE]{\scriptsize\slshape \leftmark}
+\fancyfoot[C]{}
+\fancyfoot[LE,RO]{\footnotesize\thepage}
+\else
+\fancyhead{}{}
+\fancyhead[RO]{\scriptsize\rightmark}
+\fancyfoot[LO]{\scriptsize\slshape \leftmark}
+\fancyfoot[C]{}
+\fancyfoot[RO]{\footnotesize\thepage}
+\fi
+
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+\hypertarget{Seccion3}{%
+\chapter{Aplicación práctica: el blackjack}\label{Seccion3}}
+
+\hypertarget{Seccion31}{%
+\section{Cómo se juega al blacjack y qué tipo de juego
+es}\label{Seccion31}}
+
+El BlackJack, también conocido en lenguaje castellano como veintiuno, es
+uno de los juegos mas populares en los casinos de todo el mundo junto
+con el poker y la ruleta. A lo largo de estos últimos capítulos
+buscaremos estudiar en profundidad este juego para encontrar la
+estrategia optima con la que jugar para maximizar beneficios (o
+minimizar pérdidas). La característica mas importante que convierte la
+búsqueda de esta estrategia óptima en algo mas sencillo de lo que
+pudiera parecer en un principio, es el hecho de que el crupier (persona
+que reparte las cartas y asegura la normalidad del juego en cada mesa)
+está obligado a jugar de manera fija y conocida por todos los jugadores.
+Solo son los jugadores los que pueden ir tomando decisiones a lo largo
+del juego siempre y cuando se sigan las reglas que ahora pasamos a
+comentar.
+
+\emph{Reglas del BlackJack}
+
+\begin{itemize}
+\item
+  Usamos una baraje francesa de 52 cartas, es decir, 4 palos con 13
+  cartas cada uno, del 1 al 10 y 3 figuras (las conocidas en España como
+  sota, caballo y rey). Las cartas tienen unos valores: las figuras
+  valen 10, y el resto de cartas tienen el mismo valor que su número,
+  por ejemplo un 6 vale 6, menos el as que puede tomar los valores 1 u
+  11 dependiendo de lo que prefiera el jugador (ya comentaremos en que
+  situaciones preferirá que valga una cosa u otra.)
+\item
+  En el juego, a parte del crupier, participan como mucho 7 jugadores.
+  Estos jugadores tienen que apostar el dinero antes de recibir la
+  primera carta, lo que le da un atractivo al juego distinto al poker,
+  en el que una vez recibamos cartas podemos aumentar la apuesta.
+\item
+  \textbf{Desempeño y estrategia del crupier.} En primer lugar, una vez
+  todos los jugadores han hecho su apuestas, el crupier procede a
+  repartir las cartas a los jugadores. Una vez que estos han hecho su
+  juego, el crupier empieza a darse cartas a si mismo y está obligado a
+  plantarse cuando la suma de las cartas que se haya dado sume al menos
+  17. Cuando este tenga un as, que ya comentamos que pueden valer 1 u 11
+  a gusto, deberá contarlo como 11 si al recibir el as y contarlo con
+  valor 11 la suma de sus cartas es al menos 17. Para aclararlo, si
+  tiene un 7 y la carta siguiente es un as, este contará como 11 puesto
+  que la suma de los dos cartas sumarían 18, mientras que si por ejemplo
+  tuviera un 3 y recibiera un as, no lo contará como 11 y su suma será
+  4.
+\item
+  \textbf{Pagos.} Los pagos se basan en el hecho de ``ganar'' o no al
+  crupier. Si el crupier se pasa y el jugador no lo hace, recibe una
+  cantidad igual a su apuesta. Si no se pasan ninguno, quien mas se
+  aproxime a 21 (de ahí el nombre del juego en español), si es el
+  jugador recibe otra vez una cantidad igual a lo que ha apostado y si
+  es el crupier se queda con el dinero apostado por el jugador. En caso
+  de que empaten, no se producen juegos y el jugador recupera su dinero.
+\item
+  \textbf{BlackJack.} Esta jugada es la más famosa y la que da nombre al
+  juego. Es la mano más poderosa y gana a cualquier otra mano que tenga
+  el crupier. Si el jugador posee un blackjack y el crupier no, este
+  último deberá pagarle al jugador el 150\% de su apuesta.
+\item
+  Otras posibilidades que tiene el jugador.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \textbf{Doblarse.} Si la suma de las dos primeras cartas es igual a
+    9, 10 u 11, el jugador tiene la posibilidad de doblar su apuesta
+    inicial, pero como desventaja solo podrá recibir una carta más.
+  \item
+    \textbf{Abrirse.} Cuando las dos primeras cartas que recibe el
+    jugador tienen el mismo valor, un 10 y una figura o dos 7 por
+    ejemplo, este puede separarlas y jugar a dos manos, teniendo que
+    apostar en cada una la cantidad inicial que apostó. Si separamos un
+    dos ases, al igual que pasaba antes cuando nos podíamos doblar, solo
+    recibiremos una carta más en cada mano. Este apartado aunque parece
+    ventajoso tiene el inconveniente de no poder abrirnos mas de una vez
+    en cada jugada y en el caso de abrirnos con un as, en caso de
+    recibir una carta que valga 10 puntos (figura o un 10) esto no
+    contará como blackjack y en el caso de que el crupier lo obtuviese
+    el jugador perdería el dinero de las dos manos.
+  \item
+    \textbf{Asegurarse.} En caso de que la primera carta que el crupier
+    se reparta a si mismo sea un as, los jugadores tendrán la opción de
+    asegurarse y prevenir un posible blackjack del crupier con una
+    apuesta adicional de a lo mas el 50\% de la apuesta inicial. Si
+    efectivamente ocurre que el crupier obtiene un blackjack, el jugador
+    recibe por el seguro el doble de lo que apostó. Este seguro los
+    jugadores deberán obtenerlo si así lo desean antes de que el crupier
+    reparta la tercera carta al primer jugador que lo desee.
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{Seccion32}{%
+\section{Estudio riguroso. Como jugar según la mano que
+tengamos}\label{Seccion32}}
+
+Llamemos \(x\) al valor total de las cartas que posee el jugador.
+Consideramos dos tipos de manos que puede poseer un jugador: la que el
+total del jugador es único y menor a 21, llamadas ``manos duras'', y la
+que el jugador tiene uno o mas ases de manera que el jugador posee dos
+cartas con valores menores a 21. A este último tipo de mano la
+llamaremos ``manos blandas'' y requieren diferentes estudios a las manos
+duras.
+
+Definamos \(D\) como el valor de la carta mas alta que posee el crupier.
+Así tomará los valores \(D=2, \cdots, 10, (1,11)\). Sea \(M(D)\) un
+entero tal que si la carta mas alta del crupier es \(D\) y el valor
+\(x\) es menor que \(M(D)\), el jugador debería pedir una carta más.
+Mientras que dicho valor \(x\) sea al menos el valor de \(M(D)\), el
+jugador deberá plantarse. De la misma manera definimos \(M^*(D)\) para
+el caso de las manos blandas.
+
+La suposición que hacemos es que una buena manera de saber cuando
+dejamos de pedir cartas se da cuando tenemos al menos estos números
+\(M(D)\) y \(M^*(D)\). Es decir, si hemos dicho que es bueno para
+cualquier jugador dejar de pedir cartas si llegamos a ese valor, también
+será correcto hacerlo cuando el valor de la mano sea incluso mayor. Esta
+suposición suele ser correcta la mayoría de veces salvo en casos
+especiales como cuando el hecho de dejar de pedir cartas se da cuando
+los jugadores tienen manos bajas con un numero de cartas restantes a
+repartir en el mazo bajo.
+
+El primer paso es comparar la esperanza matemática de elegir \(M(D)=x\)
+o \(M(D)=x+1\), con \(x\) tomando un valor único sin exceder 21. Para
+las manos blandas comparamos \(M^*(D)=x\) con \(M^*(D)=x+1\). En ambos
+casos empleamos la misma estrategia con la diferencia de que para el
+primer caso una vez llegamos al valor nos paramos y para el otro pedimos
+una carta mas. Para el caso de manos duras, comparar las dos esperanzas
+es equivalente a comparar \(E_{p,x}\) la esperanza de pararse en un
+total de \(x\), con \(E_{d,x}\), la esperanza de un jugador que con un
+total de \(x\) pide una carta mas.Para el caso de las manos blandas, en
+el primer caso el jugador se para mientras que en el otro pide una o más
+cartas. Por ejemplo, en el caso de que tengamos una mano blanda con un
+valor de 17 en el primer caso nos plantaríamos, mientras que en el
+segundo caso pediríamos una carta mas. Pongamos que es un 5 por lo tanto
+nos pasaríamos pero como el valor del as puede ser 1 u 11, seria de
+valor 1 en este caso y obtenemos un total de 12, en cuyo caso deberíamos
+pedir una carta mas en la mayoría de ocasiones.
+
+A partir de ahora nos centramos en la diferencia de esas dos esperanzas
+antes comentadas, \(E_{p,x}-E_{d,x}\) para ver si es mayor o menor que
+0. Si fijamos un valor \(x\), la diferencia \(E_{p,x}-E_{d,x}\) es una
+función decreciente en x, \(M(D)\) se obtiene como el menor valor de
+\(x\) para el que \(E_{p,x}-E_{d,x} < 0\). Esta función es no creciente
+siempre salvo casos excepcional como comentamos anteriormente en los que
+crece con \(x\).
+
+Definamos ahora \(T\) variable aleatoria como el valor final del
+crupier. Sabemos por las reglas que comentamos en la apartado
+\(\ref{Seccion31}\) que si ocurre que \(T>21\) o \(T<x\), el jugador
+gana (en el caso de que se haya plantado con ese valor \(x\) en sus
+cartas), mientras que si \(T=x\) cada uno recupera el dinero apostado, y
+si \(x < T \leq 21\) el jugador pierde la apuesta. Así podemos definir
+mejor la esperanza antes comentada:
+
+\[
+\begin{array}{ccl}
+E_{p,x} & = & P(T>21) + P(T<x) - P(x<T \leq 21) \\
+        & = & 2P(T>21) -1
+\end{array}
+\] Para el caso de la esperanza \(E_{d,x}\) definimos una nueva variable
+aleatoria \(J\), que es la una que le queda al jugador después de pedir
+una carta mas (solo una). En caso de que el total pueda tener dos
+valores sin exceder de 21 (caso de tener un as), \(J\) toma el mayor de
+los dos valores.
+
+Sabemos por las reglas que la mano del crupier siempre tiene un valor
+mayor que 17 por lo que \(T \geq 17\), así que si \(J<17\), solo
+ganaríamos en caso de que \(T>21\) y perderíamos para el resto de los
+valores de la variable \(T\). Para este caso la esperanza sería:
+
+\[
+P(T>21) - P(T \leq 21)= 2P(T>21) -1
+\]
+
+Si el valor de las cartas del jugador es \(17 \leq J \leq 21\), la
+esperanza quedaría como:
+
+\[
+P(T>21) +P(T<J) - P(J < T \leq 21)
+\]
+
+Lógicamente si el valor de la mano del jugador es \(J>21\) siempre vamos
+a perder y por tanto esa esperanza sería -1, es decir perderíamos cada
+euro apostado.
+
+Una pregunta que podríamos hacernos es si estas variables \(T\) y \(J\)
+son independientes. Analizando, El valor que tome la variable \(J\)
+afecta a la variable \(T\) en solo si descartamos la posibilidad de que
+el crupier desvele una carta de valor \(J-x\). Por lo tanto, si asumimos
+la independencia de estas dos variables estaríamos cometiendo un pequeño
+sesgo en el calculo de la esperanza. De esta manera:
+
+\[
+\begin{array}{ccl}
+E_{d,x} & = & P(J<17)[2P(T>21)-1] - P(J>21) \\
+        &   & + \Sigma_{j=17}^21 P(J=j) [P(T>21) + P(T<j) - P(j<T \leq21)]
+\end{array}
+\]
+
+Ya tenemos calculadas las dos esperanzas. Restándolas nos queda:
+
+\[
+\begin{array}{ccl}
+E_{d,x} -E_{p,x} & = & -2P(T<x) - P(T=x) -2P(T>21)P(J>21) \\
+                 &   & + 2P(T<J \leq 21)+P(T=J \leq 21)
+\end{array}
+\]
+
+Si \(T \geq 17\), los primeros dos términos son cero para el caso en que
+\(x<17\). Además, \(P(J>21)\) es también cero para el caso de una mano
+dura y menos de 12 para valores de una mano blanda. Por lo tanto esa
+diferencia de esperanza \(E_{d,x} -E_{p,x} \geq 0\) para manos duras con
+\(x<12\) y para manos blandas con \(x<17\), de lo que sacamos que
+\(M(D)>11\) y \(M^*(D)>16\), \(\forall D\)
+
+Consideremos ahora esta diferencia de esperanzas para el caso de valores
+\(12 \leq x \geq 16\) en el caso de manos duras. Los dos primeros
+términos vuelven a ser ceros, mientras que el ultimo lo podemos
+reescribir usando la independencia entre \(J\) y \(T\) como usamos
+anteriormente.
+
+\[
+E_{d,x} -E_{p,x} = -2P(T>21)P(J>21) + \sum_{t=17}^{21} P(T=t)[2P(t<J \leq 21) + P(J=t)]
+\]
+
+Ahora introducimos un supuesto, y es que la distribución de probabilidad
+de \(J-x\), la única carta que pide el jugador está dada por:
+
+\begin{itemize}
+\item
+  \(P(J-x=10) = 4/13\), del hecho de que tenemos 3 figuras más el 10 por
+  cada palo en la baraja.
+\item
+  \(P(J-x=i) = 1/13, i=2,\cdots,9, (1,11)\)
+\end{itemize}
+
+De esta manera asumimos la suposición de que obtener una carta es
+equiprobable. De primera mano podríamos danos cuenta de que esta
+suposición es incorrecta en manos individuales, pero es cierta cuando
+nos damos cuenta de que tenemos \(52!\) permutaciones posibles de cartas
+en la baraja. Así pues, tendríamos lo siguiente:
+
+\(P(J>21) = \frac{1}{13}(x-8)\), para \(x \geq 12\) en manos duras y
+\(P(t<J \leq 21)=\frac{1}{13}(21-t)\), \(P(J=t) = \frac{1}{13}\) con
+\(t\) tal que \(17 \leq t \leq 21\). Entonces:
+
+\[
+E_{d,x} - E_{p,x} = -2/13(x-8)P(T>21) + \sum_{t=17}^{21} 1/13(43-2t)P(T=t)
+\]
+
+Para valores de \(x\), \(12 \leq x \leq 16\) no necesitamos hacer esta
+diferencia y ahora explicamos el porqué. Si la diferencia anterior la
+igualamos a 0, y teniendo en cuenta que como comentamos la función es
+decreciente en \(x\), se obtiene una única solución \(x_0\)
+
+\[
+x_0 = 8+ \frac{\sum_{t=17}^{21}(21 \frac{1}{2}-t)P(T=t)}{P(T>21)}
+\] Así, si \(x_0 < 12\) entonces \(M(D)=12\). Si
+\(x_0>16 entonces M(D)>16\) y si \(12 \leq x_0 \leq 16\) entonces
+\(M(D) = [x_0]+1\) (parte entera de \(x_0\)). Para un valor dado de
+\(P(T>17)\), mas probabilidad tiene el crupier de tener una buena mano,
+mas bajo sea el numero en el que el jugador se pare. Por ejemplo, si
+\(P(T>21)=2/5\) y \(P(T=18)=3/5\) entonces \(M(D)=14\) mientras que si
+\(P(T>21)=2/5\) y \(P(T=19)=3/5\), entonces \(M(D)=12\).
+
+En el caso de que \(x=17\) (en mano dura):
+
+\[
+E_{d,17}-E_{p,17} = -18/13P(T>21)- 5/13P(T=17)+ \sum_{t=18}^{21}1/13(43-2t)P(T=t)
+\] Evaluando para cada \(t\) la probabilidad \(P(T=t)\) muestra que esa
+diferencia en negativa para todo \(D\) y por tanto, \(M(D) \leq 17\).
+
+Para el caso de manos blandas nos queda también el estudio cuando
+\(x=17\). En esa situación,
+
+\[
+E_{d,17}-E_{p,17} = -1/13P(T=17)+ \sum_{t=18}^{21}1/13(43-2t)P(T=t)
+\]
+
+donde evaluando para cada \(t\) otra vez \(P(T=t)\), muestra que la
+diferencia es positiva para todo \(D\) y por lo tanto \(M^*(D)>17\).
+
+A partir de ahora, dado que siempre estamos comparando los estudios de
+las manos duras con las manos blandas, vamos a continuar el estudio por
+separado, analizando bien cada situación para después sintetizar ambos
+resultados en uno de carácter general.
+
+\bibliography{bib/library.bib,bib/paquetes.bib}
+
+
+%
+
+
+\end{document}
