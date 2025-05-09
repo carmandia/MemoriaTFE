@@ -172,6 +172,11 @@ knitr::write_bib(c("knitr","rmarkdown"),
 ```{r child = 'capitulo04n.Rmd'}
 ```
 
+\FloatBarrier
+
+```{r child = 'capitulo05n.Rmd'}
+```
+
 
 <!-- 
 Descomentarlo para incluir el capítulo 5 el cual contiene utilidades de ejemplo
