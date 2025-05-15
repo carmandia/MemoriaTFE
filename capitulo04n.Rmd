@@ -87,13 +87,13 @@ Así pues el siguiente paso es calcular las probabilidades del crupier que dada 
 library(knitr)
 library(kableExtra)
 library(tidyverse)
-Cartas <- c("1","2","3","4","5","6","7","8","9","Figura","As")
-Cantidad_de_cada_carta <- c(4,4,4,4,4,4,4,4,4,16,4)
-Valor_cartas <- c(1,2,3,4,5,6,7,8,9,10,11)
-Probabilidades_sacar_carta = Cantidad_de_cada_carta/sum(Cantidad_de_cada_carta)
 
-set.seed(47563)
-sample(Cartas,size = 2,prob = Probabilidades_sacar_carta,replace = T)
+Cartas <- c("2","3","4","5","6","7","8","9","Figura","As")
+Cantidad_de_cada_carta <- c(4,4,4,4,4,4,4,4,16,4)
+Valor_cartas <- c(2,3,4,5,6,7,8,9,10,11)
+Probabilidades_sacar_carta = Cantidad_de_cada_carta/sum(Cantidad_de_cada_carta)
+Valor_cartas_mano_dura =c(2,3,4,5,6,7,8,9,10,1)
+Valor_cartas_mano_blanda = Valor_cartas
 
 encuentra_as_en_mano <- function(mano){
   if ("As" %in% mano) {
@@ -115,20 +115,23 @@ cuenta_ases_mano <- function(mano){
 
 
 Devuelve_salida <- function(suma,mano){
-  if (suma== 21 && length(mano)==2 && (all(sort(mano) == sort(c("Figura", "As"))))) {
+  if ((all(sort(mano) == sort(c("Figura", "As"))))) {
     return("BlackJack")
   } else{
-      if (suma >21) {
-        return("Se pasa")
-      } else{
-        return(as.character(suma))
-      }
-    } 
+    if (suma >21) {
+      return("Se pasa")
+    } else{
+      return(as.character(suma))
+    }
   } 
+} 
 
 
 Calcular_suma_mano_crupier <- function(mano){
-    suma=0
+  suma=0
+  if ((all(sort(mano) == sort(c("Figura", "As"))))) {
+    suma = 21
+  } else {
     if (encuentra_as_en_mano(mano)) {
       mano_sin_ases <- mano[mano != "As"]
       mano_solo_ases <- mano[mano == "As"]
@@ -136,21 +139,20 @@ Calcular_suma_mano_crupier <- function(mano){
         suma= suma + Valor_cartas[which(Cartas == carta)]
       }
       while (cuenta_ases_mano(mano_solo_ases)>0) {
-        if (suma + 11 <= 21) {
-          suma = suma + 11
-        } else {
-          suma = suma + 1
-          
-        }
+        if ((suma + 11>=17) && (suma + 11 <= 21)) {
+          suma = suma+11
+        } else{
+          suma=suma+1}
         mano_solo_ases =mano_solo_ases[-1]
       }
-      } 
-      else {
+    } 
+    else {
       for (carta in mano) {
         suma= suma + Valor_cartas[which(Cartas == carta)]
       }
-      }
-    return(suma)
+    }
+  }
+  return(suma)
 }
 
 Mano_dada_crupier <- function(b){ #b es la carta que todos ven que tiene el crupier
@@ -168,13 +170,13 @@ resultados_tabla <- data.frame()
 
 # Calcular probabilidades para cada carta visible
 for (carta in Cartas) {
-  salida <- replicate(100000, Mano_dada_crupier(carta))
+  salida <- replicate(10000, Mano_dada_crupier(carta))
   tabla <- prop.table(table(factor(salida, 
                                    levels = c("17","18","19","20","21","BlackJack","Se pasa"))))
   resultados_tabla <- rbind(resultados_tabla, as.numeric(tabla))
   colnames(resultados_tabla)=c("17","18","19","20","21","BlackJack","Se pasa")
 }
-rownames(resultados_tabla)=c("1","2","3","4","5","6","7","8","9","Figura","As")
+rownames(resultados_tabla)=c("2","3","4","5","6","7","8","9","Figura","As")
 ```
 
 ```{r,echo=FALSE,warning=FALSE}
@@ -197,7 +199,85 @@ knitr::include_graphics("tabla_probabilidades_baldwin.png")
 
 ```
 
-Podemos ver que los resultados son muy similares, por lo que podemos deducir que los cálculos que hemos realizado son correctos. Una vez conocidas las probabilidades, ya estamos en disposición de calcular $G_0(x,b)$ como detallábamos al comienzo, $\forall \ x=4,\cdots$ y $\forall \  b=2,\cdots,10,(1,11)$
+Podemos ver que los resultados son muy similares, por lo que podemos deducir que los cálculos que hemos realizado son correctos. Una vez conocidas las probabilidades, ya estamos en disposición de calcular $G_0(x,b)$ como detallábamos al comienzo, $\forall \ x=4,\cdots$ y $\forall \  b=2,\cdots,10,(1,11)$. Una vez construyamos los $G_0(x,b)$ los utilizamos para implementarlos en el algoritmo, teniendo en cuenta que si el máximo lo alcanzamos en dicho valor nos plantaremos, y en caso contrario pediremos carta.
+
+```{r,echo=FALSE,include=FALSE}
+Calculo_G_0 <- function(x, b, tabla, es_blackjack = FALSE) {
+  probabilidades_final_crupier <- tabla[b, ]
+  
+  # Extraemos probabilidades
+  pr_T_17_20 <- as.numeric(probabilidades_final_crupier[c("17", "18", "19", "20")])
+  pr_T_21 <- probabilidades_final_crupier$"21"
+  pr_T_bj <- probabilidades_final_crupier$"BlackJack"
+  pr_T_pasa <- probabilidades_final_crupier$`Se pasa`
+  
+  if (x > 21) {
+    return(-1)
+  }
+  
+  if (x == 21 && es_blackjack) {
+    return(1.5 * (1 - pr_T_bj))  # 0 * pr_T_bj es innecesario
+  }
+  
+  pr_T_menor <- sum(pr_T_17_20[which(17:20 < x)])
+  pr_T_igual <- sum(pr_T_17_20[which(17:20 == x)]) + ifelse(x == 21, pr_T_21, 0)
+  pr_T_mayor <- sum(pr_T_17_20[which(17:20 > x)]) + ifelse(x < 21, pr_T_21, 0) + pr_T_bj
+  
+  ganancia <- (+1) * (pr_T_menor + pr_T_pasa) + (0) * pr_T_igual + (-1) * pr_T_mayor
+  
+  return(ganancia)
+}
+
+
+estrategia_G_optima <- matrix("", nrow = 28, ncol = 10)
+rownames(estrategia_G_optima) <- as.character(4:31)
+colnames(estrategia_G_optima) <- Cartas  # del 2 al As
+ganancia_G_optima <- matrix(NA, nrow = 28, ncol = 10)
+rownames(ganancia_G_optima) <- as.character(4:31)
+colnames(ganancia_G_optima) <- Cartas  # del 2 al As
+for (x in 22:31) {
+  ganancia_G_optima[as.character(x),] <- -1
+  estrategia_G_optima[as.character(x),] <- "P"
+}
+
+for (x in 21:4) {
+  for (b in Cartas) {
+    
+    # Verifica si es blackjack (21 con 2 cartas), solo posible si x == 21
+    es_blackjack <- (x == 21)  # Aquí podrías añadir verificación con número de cartas
+    
+    G0 <- Calculo_G_0(x, b, resultados_tabla,es_blackjack = es_blackjack)
+    
+    # Esperanza de continuar
+    G_continuar <- 0
+    for (j in 1:10) {
+      nueva_x <- x + Valor_cartas_mano_dura[j]
+      if (nueva_x > 21) {
+        G_continuar <- G_continuar - Probabilidades_sacar_carta[j]
+      } else {
+        G_continuar <- G_continuar + Probabilidades_sacar_carta[j] *ganancia_G_optima[as.character(nueva_x),b] 
+      }
+    }
+    
+    if (G0 >= G_continuar) {
+      estrategia_G_optima[as.character(x), b] <- "P"
+      ganancia_G_optima[as.character(x),b] <- G0
+    } else {
+      estrategia_G_optima[as.character(x), b] <- "C"
+      ganancia_G_optima[as.character(x),b] <- G_continuar
+    }
+  }
+}
+```
+
+```{r,echo=FALSE}
+kable(estrategia_G_optima, 
+      caption = "Tabla de procedimientos si el jugador posee una mano dura",
+      align = "c") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
+                full_width = F, font_size = 12)
+```
+
 
 
 ## Manos blandas{#Seccion42}
@@ -212,6 +292,56 @@ $\bar G^*(x,b) = G^*(x-10,b),x>21$ y $\forall b$
 
 Ahora nuestra regla de parada es la siguiente:
 
+```{r,include=FALSE}
+estrategia_G_optima_mano_blanda <- matrix("", nrow = 28, ncol = 10)
+rownames(estrategia_G_optima_mano_blanda) <- as.character(4:31)
+colnames(estrategia_G_optima_mano_blanda) <- Cartas  # del 2 al As
+ganancia_G_optima_mano_blanda <- matrix(NA, nrow = 28, ncol = 10)
+rownames(ganancia_G_optima_mano_blanda) <- as.character(4:31)
+colnames(ganancia_G_optima_mano_blanda) <- Cartas  # del 2 al As
+for (x in 22:31) {
+  ganancia_G_optima_mano_blanda[as.character(x),] <- -1
+  estrategia_G_optima_mano_blanda[as.character(x),] <- "P"
+}
+
+for (x in 21:4) {
+  for (b in Cartas) {
+    
+    # Verifica si es blackjack (21 con 2 cartas), solo posible si x == 21
+    es_blackjack <- (x == 21)  # Aquí podrías añadir verificación con número de cartas
+    
+    G0 <- Calculo_G_0(x, b, resultados_tabla,es_blackjack = es_blackjack)
+    
+    # Esperanza de continuar
+    G_continuar <- 0
+    for (j in 1:10) {
+      nueva_x <- x + Valor_cartas_mano_blanda[j]
+      if (nueva_x > 21) {
+        nueva_x_dura <- nueva_x-10
+        G_continuar <- G_continuar - Probabilidades_sacar_carta[j]*ganancia_G_optima[as.character(nueva_x_dura),b]
+      } else {
+        G_continuar <- G_continuar + Probabilidades_sacar_carta[j] *ganancia_G_optima_mano_blanda[as.character(nueva_x),b] 
+      }
+    }
+    
+    if (G0 >= G_continuar) {
+      estrategia_G_optima_mano_blanda[as.character(x), b] <- "P"
+      ganancia_G_optima_mano_blanda[as.character(x),b] <- G0
+    } else {
+      estrategia_G_optima_mano_blanda[as.character(x), b] <- "C"
+      ganancia_G_optima_mano_blanda[as.character(x),b] <- G_continuar
+    }
+  }
+}
+```
+
+```{r,echo=FALSE}
+kable(estrategia_G_optima_mano_blanda, 
+      caption = "Tabla de procedimientos si el jugador posee una mano blanda",
+      align = "c") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
+                full_width = F, font_size = 12)
+```
 
 
 ## Doblar la apuesta{#Seccion43}
@@ -226,6 +356,45 @@ $$
 $$
 
 Y la estrategia optima de cuando doblarse y cuando no es la siguiente:
+
+```{r,include=FALSE}
+estrategia_doblarse_NoDoblarse <- matrix("", nrow = 3, ncol = 10)
+rownames(estrategia_doblarse_NoDoblarse) <- as.character(9:11)
+colnames(estrategia_doblarse_NoDoblarse) <- Cartas  # del 2 al As
+ganancia_doblarse_NoDoblarse <- matrix(NA, nrow = 3, ncol = 10)
+rownames(ganancia_doblarse_NoDoblarse) <- as.character(9:11)
+colnames(ganancia_doblarse_NoDoblarse) <- Cartas  # del 2 al As
+
+for (x in 9:11) {
+  for (b in Cartas) {
+    G_estrella=ganancia_G_optima[as.character(x),b]
+    # Verifica si es blackjack (21 con 2 cartas), solo posible si x == 21
+    es_blackjack <- (x == 21)  # Aquí podrías añadir verificación con número de cartas
+    # Esperanza de continuar
+    G_continuar <- 0
+    for (j in 1:10) {
+      nueva_x <- x + Valor_cartas_mano_blanda[j]
+      G_continuar <- G_continuar + Probabilidades_sacar_carta[j] * Calculo_G_0(nueva_x,b,resultados_tabla,es_blackjack = es_blackjack) 
+    }
+    if (2*G_continuar > G_estrella) {
+      estrategia_doblarse_NoDoblarse[as.character(x), b] <- "D"
+      ganancia_doblarse_NoDoblarse [as.character(x),b] <- 2*G_continuar
+    } else {
+      estrategia_doblarse_NoDoblarse[as.character(x), b] <- "No D"
+      ganancia_doblarse_NoDoblarse [as.character(x),b] <- G_estrella
+    }
+  }
+}
+```
+
+
+```{r,echo=FALSE}
+kable(estrategia_doblarse_NoDoblarse, 
+      caption = "Tabla de procedimientos para decidir si doblarse o no",
+      align = "c") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
+                full_width = F, font_size = 12)
+```
 
 
 ## Abrise y jugar a dos manos{#Seccion44}
@@ -249,13 +418,70 @@ $$
 \end{array}
 $$
 
-Y obtendríamos las siguientes conclusiones:
+Y obtendríamos las siguiente tabla con los procedimientos que debe llevar el jugador:
+
+```{r,include=FALSE}
+estrategia_abrirse_NoAbrirse <- matrix("", nrow = 10, ncol = 10)
+rownames(estrategia_abrirse_NoAbrirse) <- as.character(2:11)
+colnames(estrategia_abrirse_NoAbrirse) <- Cartas  # del 2 al As
+ganancia_abrirse_NoAbrirse <- matrix(NA, nrow = 10, ncol = 10)
+rownames(ganancia_abrirse_NoAbrirse) <- as.character(2:11)
+colnames(ganancia_abrirse_NoAbrirse) <- Cartas  # del 2 al As
+
+for (z in 2:10) {
+  for (b in Cartas) {
+    G_estrella=ganancia_G_optima[as.character(2*z),b]
+    # Esperanza de continuar
+    G_continuar <- 0
+    for (j in 1:10) {
+      nueva_z <- z + Valor_cartas_mano_blanda[j]
+      G_continuar <- G_continuar + Probabilidades_sacar_carta[j] * ganancia_G_optima[as.character(nueva_z),b] 
+    }
+    if (2*G_continuar > G_estrella) {
+      estrategia_abrirse_NoAbrirse[as.character(z), b] <- "A"
+      ganancia_abrirse_NoAbrirse[as.character(z),b] <- 2*G_continuar
+    } else {
+      estrategia_abrirse_NoAbrirse[as.character(z), b] <- "No A"
+      ganancia_abrirse_NoAbrirse[as.character(z),b] <- G_estrella
+    }
+  }
+}
+
+for (b in Cartas) {
+  G_estrella=ganancia_G_optima_mano_blanda[as.character(12),b]
+  # Esperanza de continuar
+  G_continuar <- 0
+  for (j in 1:10) {
+    nueva_z <- z + Valor_cartas_mano_blanda[j]
+    G_continuar <- G_continuar + Probabilidades_sacar_carta[j] * Calculo_G_0(nueva_z,b,tabla = resultados_tabla)
+  }
+  if (2*G_continuar > G_estrella) {
+    estrategia_abrirse_NoAbrirse[as.character(11), b] <- "A"
+    ganancia_abrirse_NoAbrirse[as.character(11),b] <- 2*G_continuar
+  } else {
+    estrategia_abrirse_NoAbrirse[as.character(11), b] <- "No A"
+    ganancia_abrirse_NoAbrirse[as.character(11),b] <- G_estrella
+  }
+}
+rownames(estrategia_abrirse_NoAbrirse) <- paste0(Cartas,"-",Cartas)
+rownames(ganancia_abrirse_NoAbrirse) <- paste0(Cartas,"-",Cartas)
+```
+
+
+```{r,echo=FALSE}
+kable(estrategia_abrirse_NoAbrirse, 
+      caption = "Tabla de procedimientos para decidir si abrirse o no",
+      align = "c") %>%
+kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
+              full_width = F, font_size = 12)
+```
+
 
 ## Asegurarse{#Seccion45}
 
 Suponemos ahora que la carta visible del crupier es un As. La apuesta adicional que puede hacer el jugador es de un valor $v$, $v \leq \frac{1}{2}$. Lo que ocurre aquí, es que el jugador decide asegurarse, su mano ya no compite contra el crupier, sino que el compite contra el hecho de que el crupier obtenga un BlacjJack. Por ejemplo, si la suma de cartas del jugador es 13 y la primera carta del crupier es un As, este podría asegurarse. En caso de hacerlo, si el crupier no obtuviera BlackJack, obtuviera una suma de 20, el jugador gana aunque su suma es inferior a la suma del crupier.
 
-Esta apuesta por tanto se reduce al hecho de que salga una figura o no. La probabilidad de que salga una figura, como desde un comienzo estamos en la hipótesis de sucesos equiprobables, es de $\frac{16}{52}$ que es aproximadamente $0.3077 \aprox 30,77 \%$. Llamemosle $p$ a la probabilidad de que salga una figura, obteniendo el crupier un blackjack. Supongamos que la cantidad con la que nos aseguramos es $v=\frac{1}{2}$. Entonces nos interesa que el valor esperado al asegurarnos sea no negativo al menos.
+Esta apuesta por tanto se reduce al hecho de que salga una figura o no. La probabilidad de que salga una figura, como desde un comienzo estamos en la hipótesis de sucesos equiprobables, es de $\frac{16}{52}$ que es aproximadamente $0.3077 \rightarrow 30,77 \%$. Llamemosle $p$ a la probabilidad de que salga una figura, obteniendo el crupier un blackjack. Supongamos que la cantidad con la que nos aseguramos es $v=\frac{1}{2}$. Entonces nos interesa que el valor esperado al asegurarnos sea no negativo al menos.
 
 El valor esperado lo podemos calcular con la fórmula $E[ \ Asegurarse \ ]= 1·p - \frac{1}{2}·(1-p)$ veamos cuando esa esperanza es mayor o igual a 0:
 
@@ -274,7 +500,7 @@ Como hemos asumido como hipótesis inicial que sacar una carta es equiprobable a
 
 Algo que podemos hacer es construir la forma normal del juego para ver como sería este reparto:
 
-```{r}
+```{r,echo=FALSE}
 tabla <- matrix(c(1,1,0,3/2),nrow = 2,ncol = 2,byrow = T)
 rownames(tabla) <- c("J Asegura","J No Asegura")
 colnames(tabla) <- c("C BJ","C No BJ")

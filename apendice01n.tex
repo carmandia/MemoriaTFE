@@ -36,6 +36,50 @@
 \urlstyle{same}  % don't use monospace font for urls
 %
 \usepackage[usenames,dvipsnames]{xcolor}  %new PLLC
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+
+% PLLC modifica-ini
+% PLLC modifica-fin
+
 \IfFileExists{parskip.sty}{%
 \usepackage{parskip}
 }{% else
@@ -537,434 +581,194 @@ linewidth=4pt]{mBox}
 \renewcommand{\headrulewidth}{0.4pt}
 \renewcommand{\footrulewidth}{0.4pt}
 
-\hypertarget{Seccion4}{%
-\chapter{Estudios individuales en el BlackJack. Diferenciamos por
-casos}\label{Seccion4}}
+\hypertarget{apuxe9ndice-tablas-de-ganancia-esperada}{%
+\chapter{Apéndice: Tablas de ganancia
+esperada}\label{apuxe9ndice-tablas-de-ganancia-esperada}}
 
-Hacemos un breve recordatorio de varios puntos que comentamos en el
-apartado anterior y que vamos a utilizar individualmente en este
-apartado
-
-\textbf{Mano dura:} son aquellas manos del jugador que teniendo un as,
-si este vale 11 podemos pasarnos de 21.
-
-\textbf{Mano blanda:} son las manos del jugador que pueden tener un as
-valiendo 11 sin excederse del total de 21. Si tomamos la decisión de
-pedir una carta mas y con ella pasamos el límite, ese as pasa a tener
-valor de 1.
-
-\textbf{Suma de las cartas:} que notaremos por \(x\).
-
-\textbf{Carta del crupier:} que notaremos por \(D\).
-
-\textbf{Valor final del crupier:} que es una variable aleatoria notada
-por \(T\).
-
-\textbf{Suma del jugador:} es una variable aleatoria notada por \(J\)
-que representa la suma del jugador tras pedir una única carta mas.
-
-De aquí en adelante dejamos claro que la cantidad apostada por el
-jugador es una unidad monetaria, ya sea euro o dolar, para asi
-simplificar los calculos
-
-\hypertarget{Seccion41}{%
-\section{Manos duras}\label{Seccion41}}
-
-Notemos por \(b\) la carta que se sirve el crupier.
-\(b = 2, \cdots, 10, (1,11)\). Así pues en cada momento tenemos el para
-\((x,b)\) en la que el jugador tiene la información de \(x\) puesto que
-es el valor total de sus cartas y ve la carta que se sirve el crupier.
-En esta situación el jugador debe decidir si parar y plantarse o pedir
-mas cartas.
-
-Definimos entonces \(G^*(x,b)\) como la máxima ganancia esperada por el
-jugador dado una situación \((x,b)\) suponiendo que el jugador actúa de
-forma optima y juega de manera racional.
-
-De igual manera definimos \(G_0(x,b)\) como la ganancia esperada por el
-jugador si este decide plantarse ante la situación del juego \((x,b)\).
-
-Recordamos también que suponemos que la probabilidad de tener una
-determinada carta de un valor es equiprobable es decir, la probabilidad
-(notemos la como \(P_c\)) de obtener una carta de valor \(c\) es:
-
-\[
-P_c = 
-\begin{cases}
-4/13 & \text{si } c=10 \\
-1/13 & \text{si } c \neq 10
-\end{cases}
-\] Con esta información podemos caracterizar \(G^*(x,b)\) como:
-
-\[
-G^*(x,b) = Max \\ \{G_0(x,b), \sum_{c=1}^{10}P_cG^*(x+c,b) \}
-\]
-
-Es decir, tenemos el máximo entre la opción de plantarnos en ese
-instante o de la situación en la que nos encontraríamos si pidiéramos
-una carta mas. Así nos plantaremos cuando el máximo lo alcancemos el
-\(G_0(x,b)\).
-
-Nos queda evaluar ese máximo para cada \(x\) y cada \(b\) posibles. Para
-poder hacerlo necesitamos lo siguiente:
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\item
-  \(G_0(x,b)\), \(\forall x=4, \cdots\) y
-  \(\forall b= 2, \cdots, 10, (1,11)\)
-\item
-  Algunos valores finales de \(G^*(x,b)\) para iniciar el la inducción
-  hacia atrás, \(\forall x,b\)
-\end{enumerate}
-
-\textbf{Calculo de \(G_0(x,b)\)}
-
-De lo que obtuvimos en la sección anterior sabemos que:
-
-\[ 
-G_0(x,b) \ = \ Pr(T>21) \ + \ Pr(T<x) \ - \ Pr(x<T \leq 21) 
-\] Ha de constar que esta ganancia se basa en que estamos apostando
-
-Así pues el siguiente paso es calcular las probabilidades del crupier
-que dada una carta de valor \(b\), la variable \(T\) tenga un
-determinado valor final.
-
-\textbf{Cálculo de las probabilidades de la variable \(T\) dada una
-carta conocida \(b\)}
-
-\begingroup\fontsize{12}{14}\selectfont
-
-\begin{longtable}[t]{lccccccc}
-\caption{\label{tab:unnamed-chunk-3}Probabilidades de resultado final del crupier según carta visible}\\
-\toprule
- & 17 & 18 & 19 & 20 & 21 & BlackJack & Se pasa\\
-\midrule
-2 & 0.1336 & 0.1375 & 0.1343 & 0.1237 & 0.1201 & 0.0000 & 0.3508\\
-3 & 0.1365 & 0.1339 & 0.1281 & 0.1257 & 0.1131 & 0.0000 & 0.3627\\
-4 & 0.1284 & 0.1299 & 0.1236 & 0.1224 & 0.1091 & 0.0000 & 0.3866\\
-5 & 0.1166 & 0.1221 & 0.1176 & 0.1136 & 0.1106 & 0.0000 & 0.4195\\
-6 & 0.1647 & 0.1084 & 0.1074 & 0.1033 & 0.0936 & 0.0000 & 0.4226\\
-\addlinespace
-7 & 0.3656 & 0.1373 & 0.0744 & 0.0817 & 0.0734 & 0.0000 & 0.2676\\
-8 & 0.1280 & 0.3612 & 0.1283 & 0.0688 & 0.0693 & 0.0000 & 0.2444\\
-9 & 0.1208 & 0.1178 & 0.3505 & 0.1191 & 0.0622 & 0.0000 & 0.2296\\
-Figura & 0.1144 & 0.1134 & 0.1118 & 0.3307 & 0.0342 & 0.0784 & 0.2171\\
-As & 0.1303 & 0.1277 & 0.1333 & 0.1256 & 0.0498 & 0.3023 & 0.1310\\
-\bottomrule
-\end{longtable}
-\endgroup{}
-
-Ahí tenemos las probabilidades calculadas en función de cada carta
-inicial que veamos. Si las comparamos con las de la biografía
-
-\begin{figure}[H]
-
-{\centering \includegraphics[width=0.8\linewidth]{tabla_probabilidades_español} 
-
-}
-
-\caption{\label{forma_extensiva}Diagrama Juego}\label{fig:español_blackjack}
-\end{figure}
-
-\begin{figure}[H]
-
-{\centering \includegraphics[width=0.8\linewidth]{tabla_probabilidades_baldwin} 
-
-}
-
-\caption{\label{forma_extensiva}Diagrama Juego}\label{fig:ingles_blackjack}
-\end{figure}
-
-Podemos ver que los resultados son muy similares, por lo que podemos
-deducir que los cálculos que hemos realizado son correctos. Una vez
-conocidas las probabilidades, ya estamos en disposición de calcular
-\(G_0(x,b)\) como detallábamos al comienzo, \(\forall \ x=4,\cdots\) y
-\(\forall \  b=2,\cdots,10,(1,11)\). Una vez construyamos los
-\(G_0(x,b)\) los utilizamos para implementarlos en el algoritmo,
-teniendo en cuenta que si el máximo lo alcanzamos en dicho valor nos
-plantaremos, y en caso contrario pediremos carta.
+\hypertarget{ganancias-esperadas-si-el-jugador-posee-una-mano-dura}{%
+\section{Ganancias esperadas si el jugador posee una mano
+dura}\label{ganancias-esperadas-si-el-jugador-posee-una-mano-dura}}
 
 \begingroup\fontsize{12}{14}\selectfont
 
 \begin{longtable}[t]{lcccccccccc}
-\caption{\label{tab:unnamed-chunk-5}Tabla de procedimientos si el jugador posee una mano dura}\\
+\caption{\label{tab:unnamed-chunk-4}Tabla de ganancias si el jugador posee una mano dura}\\
 \toprule
  & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & Figura & As\\
 \midrule
-4 & C & C & C & C & C & C & C & C & C & C\\
-5 & C & C & C & C & C & C & C & C & C & C\\
-6 & C & C & C & C & C & C & C & C & C & C\\
-7 & C & C & C & C & C & C & C & C & C & C\\
-8 & C & C & C & C & C & C & C & C & C & C\\
+4 & -0.11886 & -0.08037 & -0.05401 & -0.00814 & 0.00861 & -0.05625 & -0.13053 & -0.20904 & -0.30558 & -0.41769\\
+5 & -0.13256 & -0.09301 & -0.06593 & -0.01959 & -0.00336 & -0.08642 & -0.15806 & -0.23391 & -0.32737 & -0.43593\\
+6 & -0.14528 & -0.10475 & -0.07701 & -0.03022 & -0.01448 & -0.11709 & -0.18609 & -0.25927 & -0.34959 & -0.45454\\
+7 & -0.11823 & -0.07720 & -0.05181 & -0.00503 & 0.02117 & -0.05942 & -0.19458 & -0.26254 & -0.34388 & -0.46623\\
+8 & -0.04348 & -0.00540 & 0.01738 & 0.06347 & 0.09631 & 0.08249 & -0.06860 & -0.20400 & -0.28673 & -0.40266\\
 \addlinespace
-9 & C & C & C & C & C & C & C & C & C & C\\
-10 & C & C & C & C & C & C & C & C & C & C\\
-11 & C & C & C & C & C & C & C & C & C & C\\
-12 & C & C & C & C & C & C & C & C & C & C\\
-13 & C & C & P & P & P & C & C & C & C & C\\
+9 & 0.04602 & 0.07855 & 0.09855 & 0.14338 & 0.16961 & 0.16603 & 0.08359 & -0.06704 & -0.22003 & -0.32773\\
+10 & 0.14494 & 0.17252 & 0.19027 & 0.23156 & 0.25304 & 0.24222 & 0.17702 & 0.09202 & -0.07622 & -0.23919\\
+11 & 0.42572 & 0.45022 & 0.46595 & 0.49766 & 0.51427 & 0.48860 & 0.42334 & 0.35114 & 0.23152 & 0.04202\\
+12 & -0.21183 & -0.18909 & -0.17448 & -0.14503 & -0.12961 & -0.15345 & -0.21405 & -0.28108 & -0.36780 & -0.46922\\
+13 & -0.26813 & -0.24701 & -0.22100 & -0.16840 & -0.15900 & -0.21391 & -0.27018 & -0.33243 & -0.41295 & -0.50713\\
 \addlinespace
-14 & P & P & P & P & P & C & C & C & C & C\\
-15 & P & P & P & P & P & C & C & C & C & C\\
-16 & P & P & P & P & P & C & C & C & C & C\\
-17 & P & P & P & P & P & P & P & P & P & P\\
-18 & P & P & P & P & P & P & P & P & P & P\\
+14 & -0.31060 & -0.25740 & -0.22100 & -0.16840 & -0.15900 & -0.27006 & -0.32231 & -0.38012 & -0.45488 & -0.54234\\
+15 & -0.31060 & -0.25740 & -0.22100 & -0.16840 & -0.15900 & -0.32220 & -0.37072 & -0.42439 & -0.49382 & -0.57503\\
+16 & -0.31060 & -0.25740 & -0.22100 & -0.16840 & -0.15900 & -0.37062 & -0.41567 & -0.46551 & -0.52998 & -0.60538\\
+17 & -0.17460 & -0.12280 & -0.09680 & -0.04570 & 0.00190 & -0.10540 & -0.38800 & -0.42540 & -0.46490 & -0.60860\\
+18 & 0.10110 & 0.13990 & 0.15660 & 0.20420 & 0.26970 & 0.40280 & 0.10130 & -0.17980 & -0.23460 & -0.35050\\
 \addlinespace
-19 & P & P & P & P & P & P & P & P & P & P\\
-20 & P & P & P & P & P & P & P & P & P & P\\
-21 & P & P & P & P & P & P & P & P & P & P\\
-22 & Parar & Parar & Parar & Parar & Parar & Parar & Parar & Parar & Parar & Parar\\
-23 & Parar & Parar & Parar & Parar & Parar & Parar & Parar & Parar & Parar & Parar\\
+19 & 0.37820 & 0.39740 & 0.40590 & 0.44870 & 0.48290 & 0.61510 & 0.59150 & 0.29350 & -0.01420 & -0.10130\\
+20 & 0.64140 & 0.64660 & 0.65010 & 0.68100 & 0.69660 & 0.76950 & 0.79150 & 0.76010 & 0.43770 & 0.15200\\
+21 & 1.50000 & 1.50000 & 1.50000 & 1.50000 & 1.50000 & 1.50000 & 1.50000 & 1.50000 & 1.38630 & 1.03845\\
+22 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000\\
+23 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000\\
 \addlinespace
-24 & Parar & Parar & Parar & Parar & Parar & Parar & Parar & Parar & Parar & Parar\\
-25 & Parar & Parar & Parar & Parar & Parar & Parar & Parar & Parar & Parar & Parar\\
-26 & Parar & Parar & Parar & Parar & Parar & Parar & Parar & Parar & Parar & Parar\\
-27 & Parar & Parar & Parar & Parar & Parar & Parar & Parar & Parar & Parar & Parar\\
-28 & Parar & Parar & Parar & Parar & Parar & Parar & Parar & Parar & Parar & Parar\\
+24 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000\\
+25 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000\\
+26 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000\\
+27 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000\\
+28 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000\\
 \addlinespace
-29 & Parar & Parar & Parar & Parar & Parar & Parar & Parar & Parar & Parar & Parar\\
-30 & Parar & Parar & Parar & Parar & Parar & Parar & Parar & Parar & Parar & Parar\\
-31 & Parar & Parar & Parar & Parar & Parar & Parar & Parar & Parar & Parar & Parar\\
+29 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000\\
+30 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000\\
+31 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000\\
 \bottomrule
 \end{longtable}
 \endgroup{}
 
-\hypertarget{Seccion42}{%
-\section{Manos blandas}\label{Seccion42}}
+\hypertarget{ganancias-esperadas-si-el-jugador-posee-una-mano-blanda}{%
+\section{Ganancias esperadas si el jugador posee una mano
+blanda}\label{ganancias-esperadas-si-el-jugador-posee-una-mano-blanda}}
 
-Ahora, nuestro propósito es hacer lo mismo para el caso de que el
-jugador posea una mano blanda. La principal modificación reside en lo
-que comentamos al comienzo, que si nos pasamos de 21 con este tipo de
-manos recurrimos a contar ese As como un 1. Ahora llamamos
-\(\bar G^*(x,b)\) a la ganancia esperada en el caso de manos blandas.
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{estrategia\_G\_optima\_mano\_blanda }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\StringTok{""}\NormalTok{, }\AttributeTok{nrow =} \DecValTok{28}\NormalTok{, }\AttributeTok{ncol =} \DecValTok{10}\NormalTok{)}
+\FunctionTok{rownames}\NormalTok{(estrategia\_G\_optima\_mano\_blanda) }\OtherTok{\textless{}{-}} \FunctionTok{as.character}\NormalTok{(}\DecValTok{4}\SpecialCharTok{:}\DecValTok{31}\NormalTok{)}
+\FunctionTok{colnames}\NormalTok{(estrategia\_G\_optima\_mano\_blanda) }\OtherTok{\textless{}{-}}\NormalTok{ Cartas  }\CommentTok{\# del 2 al As}
+\NormalTok{ganancia\_G\_optima\_mano\_blanda }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\ConstantTok{NA}\NormalTok{, }\AttributeTok{nrow =} \DecValTok{28}\NormalTok{, }\AttributeTok{ncol =} \DecValTok{10}\NormalTok{)}
+\FunctionTok{rownames}\NormalTok{(ganancia\_G\_optima\_mano\_blanda) }\OtherTok{\textless{}{-}} \FunctionTok{as.character}\NormalTok{(}\DecValTok{4}\SpecialCharTok{:}\DecValTok{31}\NormalTok{)}
+\FunctionTok{colnames}\NormalTok{(ganancia\_G\_optima\_mano\_blanda) }\OtherTok{\textless{}{-}}\NormalTok{ Cartas  }\CommentTok{\# del 2 al As}
+\ControlFlowTok{for}\NormalTok{ (x }\ControlFlowTok{in} \DecValTok{22}\SpecialCharTok{:}\DecValTok{31}\NormalTok{) \{}
+\NormalTok{  ganancia\_G\_optima\_mano\_blanda[}\FunctionTok{as.character}\NormalTok{(x),] }\OtherTok{\textless{}{-}} \SpecialCharTok{{-}}\DecValTok{1}
+\NormalTok{  estrategia\_G\_optima\_mano\_blanda[}\FunctionTok{as.character}\NormalTok{(x),] }\OtherTok{\textless{}{-}} \StringTok{"Parar"}
+\NormalTok{\}}
 
-\[
-\bar G^*(x,b) = Max \\ \{G_0(x,b), \sum_{c=1}^{10}P_c \bar G^*(x+c,b) \}
-\] Como vemos la ecuación es exactamente igual al caso de manos duras.
-Lo que diferencia el tratamiento son los valores finales que le damos a
-\(\bar G^*(x,b)\), por el tratamiento diferente que reciben estas manos.
-los valores iniciales son: \(\bar G^*(x,b) = G^*(x-10,b),x>21\) y
-\(\forall b\)
-
-Ahora nuestra regla de parada es la siguiente:
+\ControlFlowTok{for}\NormalTok{ (x }\ControlFlowTok{in} \DecValTok{21}\SpecialCharTok{:}\DecValTok{4}\NormalTok{) \{}
+  \ControlFlowTok{for}\NormalTok{ (b }\ControlFlowTok{in}\NormalTok{ Cartas) \{}
+    
+    \CommentTok{\# Verifica si es blackjack (21 con 2 cartas), solo posible si x == 21}
+\NormalTok{    es\_blackjack }\OtherTok{\textless{}{-}}\NormalTok{ (x }\SpecialCharTok{==} \DecValTok{21}\NormalTok{)  }\CommentTok{\# Aquí podrías añadir verificación con número de cartas}
+    
+\NormalTok{    G0 }\OtherTok{\textless{}{-}} \FunctionTok{Calculo\_G\_0}\NormalTok{(x, b, resultados\_tabla,}\AttributeTok{es\_blackjack =}\NormalTok{ es\_blackjack)}
+    
+    \CommentTok{\# Esperanza de continuar}
+\NormalTok{    G\_continuar }\OtherTok{\textless{}{-}} \DecValTok{0}
+    \ControlFlowTok{for}\NormalTok{ (j }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{10}\NormalTok{) \{}
+\NormalTok{      nueva\_x }\OtherTok{\textless{}{-}}\NormalTok{ x }\SpecialCharTok{+}\NormalTok{ Valor\_cartas\_mano\_blanda[j]}
+      \ControlFlowTok{if}\NormalTok{ (nueva\_x }\SpecialCharTok{\textgreater{}} \DecValTok{21}\NormalTok{) \{}
+\NormalTok{        nueva\_x\_dura }\OtherTok{\textless{}{-}}\NormalTok{ nueva\_x}\DecValTok{{-}10}
+\NormalTok{        G\_continuar }\OtherTok{\textless{}{-}}\NormalTok{ G\_continuar }\SpecialCharTok{{-}}\NormalTok{ Probabilidades\_sacar\_carta[j]}\SpecialCharTok{*}\NormalTok{ganancia\_G\_optima[}\FunctionTok{as.character}\NormalTok{(nueva\_x\_dura),b]}
+\NormalTok{      \} }\ControlFlowTok{else}\NormalTok{ \{}
+\NormalTok{        G\_continuar }\OtherTok{\textless{}{-}}\NormalTok{ G\_continuar }\SpecialCharTok{+}\NormalTok{ Probabilidades\_sacar\_carta[j] }\SpecialCharTok{*}\NormalTok{ganancia\_G\_optima\_mano\_blanda[}\FunctionTok{as.character}\NormalTok{(nueva\_x),b] }
+\NormalTok{      \}}
+\NormalTok{    \}}
+    
+    \ControlFlowTok{if}\NormalTok{ (G0 }\SpecialCharTok{\textgreater{}=}\NormalTok{ G\_continuar) \{}
+\NormalTok{      estrategia\_G\_optima\_mano\_blanda[}\FunctionTok{as.character}\NormalTok{(x), b] }\OtherTok{\textless{}{-}} \StringTok{"Parar"}
+\NormalTok{      ganancia\_G\_optima\_mano\_blanda[}\FunctionTok{as.character}\NormalTok{(x),b] }\OtherTok{\textless{}{-}}\NormalTok{ G0}
+\NormalTok{    \} }\ControlFlowTok{else}\NormalTok{ \{}
+\NormalTok{      estrategia\_G\_optima\_mano\_blanda[}\FunctionTok{as.character}\NormalTok{(x), b] }\OtherTok{\textless{}{-}} \StringTok{"Continuar"}
+\NormalTok{      ganancia\_G\_optima\_mano\_blanda[}\FunctionTok{as.character}\NormalTok{(x),b] }\OtherTok{\textless{}{-}}\NormalTok{ G\_continuar}
+\NormalTok{    \}}
+\NormalTok{  \}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
 
 \begingroup\fontsize{12}{14}\selectfont
 
 \begin{longtable}[t]{lcccccccccc}
-\caption{\label{tab:unnamed-chunk-7}Tabla de procedimientos si el jugador posee una mano blanda}\\
+\caption{\label{tab:unnamed-chunk-6}Tabla de ganancias si el jugador posee una mano blanda}\\
 \toprule
  & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & Figura & As\\
 \midrule
-4 & C & C & C & C & C & C & C & C & C & C\\
-5 & C & C & C & C & C & C & C & C & C & C\\
-6 & C & C & C & C & C & C & C & C & C & C\\
-7 & C & C & C & C & C & C & C & C & C & C\\
-8 & C & C & C & C & C & C & C & C & C & C\\
+4 & 0.45469 & 0.43180 & 0.41540 & 0.40186 & 0.40762 & 0.49969 & 0.52246 & 0.53103 & 0.52637 & 0.52040\\
+5 & 0.45018 & 0.42632 & 0.40928 & 0.39450 & 0.39979 & 0.49814 & 0.52142 & 0.53113 & 0.52846 & 0.52482\\
+6 & 0.44184 & 0.41709 & 0.39973 & 0.38333 & 0.38644 & 0.48702 & 0.51950 & 0.52988 & 0.52841 & 0.52906\\
+7 & 0.41662 & 0.39111 & 0.37407 & 0.35853 & 0.36054 & 0.45291 & 0.49629 & 0.51676 & 0.51662 & 0.52439\\
+8 & 0.38475 & 0.36150 & 0.34594 & 0.34738 & 0.37050 & 0.47675 & 0.45299 & 0.47978 & 0.48779 & 0.49963\\
 \addlinespace
-9 & C & C & C & C & C & C & C & C & C & C\\
-10 & C & C & C & C & C & C & C & C & C & C\\
-11 & C & C & C & C & C & C & C & C & C & C\\
-12 & C & C & C & C & C & C & C & C & C & C\\
-13 & C & C & C & C & C & C & C & C & C & C\\
+9 & 0.42701 & 0.41705 & 0.40879 & 0.41539 & 0.43160 & 0.53662 & 0.54271 & 0.46875 & 0.45316 & 0.45944\\
+10 & 0.54704 & 0.53490 & 0.52622 & 0.53040 & 0.54182 & 0.62808 & 0.64370 & 0.63136 & 0.53335 & 0.43981\\
+11 & 0.72917 & 0.71554 & 0.70598 & 0.70179 & 0.70827 & 0.77418 & 0.78715 & 0.78588 & 0.74209 & 0.63904\\
+12 & 0.41991 & 0.40097 & 0.38737 & 0.37396 & 0.37597 & 0.44560 & 0.47460 & 0.49210 & 0.49991 & 0.50694\\
+13 & 0.42406 & 0.40367 & 0.38625 & 0.36523 & 0.36777 & 0.44582 & 0.47552 & 0.49477 & 0.50584 & 0.51681\\
 \addlinespace
-14 & C & C & C & C & C & C & C & C & C & C\\
-15 & C & C & C & C & C & C & C & C & C & C\\
-16 & C & C & C & C & C & C & C & C & C & C\\
-17 & C & C & C & C & C & C & C & C & C & C\\
-18 & C & C & C & P & P & P & C & C & C & C\\
+14 & 0.42557 & 0.39608 & 0.37516 & 0.35202 & 0.35375 & 0.44859 & 0.47881 & 0.49948 & 0.51331 & 0.52768\\
+15 & 0.41831 & 0.38723 & 0.36524 & 0.34010 & 0.34119 & 0.45461 & 0.48431 & 0.50620 & 0.52243 & 0.53938\\
+16 & 0.40495 & 0.37240 & 0.34993 & 0.32334 & 0.32230 & 0.44884 & 0.48946 & 0.51102 & 0.52818 & 0.55139\\
+17 & 0.34836 & 0.31566 & 0.29578 & 0.26361 & 0.24368 & 0.32566 & 0.45589 & 0.48604 & 0.49866 & 0.54352\\
+18 & 0.22655 & 0.19390 & 0.17485 & 0.20420 & 0.26970 & 0.40280 & 0.25198 & 0.38421 & 0.42315 & 0.46246\\
 \addlinespace
-19 & P & P & P & P & P & P & P & P & C & C\\
-20 & P & P & P & P & P & P & P & P & P & P\\
-21 & P & P & P & P & P & P & P & P & P & P\\
-22 & Parar & Parar & Parar & Parar & Parar & Parar & Parar & Parar & Parar & Parar\\
-23 & Parar & Parar & Parar & Parar & Parar & Parar & Parar & Parar & Parar & Parar\\
+19 & 0.37820 & 0.39740 & 0.40590 & 0.44870 & 0.48290 & 0.61510 & 0.59150 & 0.29350 & 0.30495 & 0.38076\\
+20 & 0.64140 & 0.64660 & 0.65010 & 0.68100 & 0.69660 & 0.76950 & 0.79150 & 0.76010 & 0.43770 & 0.16254\\
+21 & 1.50000 & 1.50000 & 1.50000 & 1.50000 & 1.50000 & 1.50000 & 1.50000 & 1.50000 & 1.38630 & 1.03845\\
+22 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000\\
+23 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000\\
 \addlinespace
-24 & Parar & Parar & Parar & Parar & Parar & Parar & Parar & Parar & Parar & Parar\\
-25 & Parar & Parar & Parar & Parar & Parar & Parar & Parar & Parar & Parar & Parar\\
-26 & Parar & Parar & Parar & Parar & Parar & Parar & Parar & Parar & Parar & Parar\\
-27 & Parar & Parar & Parar & Parar & Parar & Parar & Parar & Parar & Parar & Parar\\
-28 & Parar & Parar & Parar & Parar & Parar & Parar & Parar & Parar & Parar & Parar\\
+24 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000\\
+25 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000\\
+26 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000\\
+27 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000\\
+28 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000\\
 \addlinespace
-29 & Parar & Parar & Parar & Parar & Parar & Parar & Parar & Parar & Parar & Parar\\
-30 & Parar & Parar & Parar & Parar & Parar & Parar & Parar & Parar & Parar & Parar\\
-31 & Parar & Parar & Parar & Parar & Parar & Parar & Parar & Parar & Parar & Parar\\
+29 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000\\
+30 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000\\
+31 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000 & -1.00000\\
 \bottomrule
 \end{longtable}
 \endgroup{}
 
-\hypertarget{Seccion43}{%
-\section{Doblar la apuesta}\label{Seccion43}}
-
-Para poder doblarnos los valores de las dos primeras cartas deben sumar
-9, 10 u 11, recibiendo una carta mas y solo una si lo hace. Así tenemos
-las siguientes situaciones \((9,b)\), \((10,b)\), \((11,b)\),
-\(\forall b\). Ahora tenemos que calcular la ganancia esperada de doblar
-nuestra apuesta, en función de la carta que nos toque y compararla con
-la ganancia esperada en el caso de no hacerlo, resultando en:
-
-\[
-\begin{array}{cllll}
-\text{Si} & 2 \sum_{c=1}^{10}P_cG_0(x+c,b) & > & G^*(x,b) & \text{doblar apuesta} \\
-\text{Si} & 2 \sum_{c=1}^{10}P_cG_0(x+c,b) & \leq & G^*(x,b) & \text{no doblar apuesta}\\
-\end{array}
-\]
-
-Y la estrategia optima de cuando doblarse y cuando no es la siguiente:
+\hypertarget{ganancias-esperadas-en-caso-de-doblarse-o-no-doblarse}{%
+\section{Ganancias esperadas en caso de doblarse o no
+doblarse}\label{ganancias-esperadas-en-caso-de-doblarse-o-no-doblarse}}
 
 \begingroup\fontsize{12}{14}\selectfont
 
 \begin{longtable}[t]{lcccccccccc}
-\caption{\label{tab:unnamed-chunk-9}Tabla de procedimientos para decidir si doblarse o no}\\
+\caption{\label{tab:unnamed-chunk-8}Tabla de ganancias al doblarse o no hacerlo}\\
 \toprule
  & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & Figura & As\\
 \midrule
-9 & No D & D & D & D & D & No D & No D & No D & No D & No D\\
-10 & D & D & D & D & D & D & D & D & No D & No D\\
-11 & No D & No D & No D & No D & D & No D & No D & No D & No D & No D\\
+9 & 0.04602 & 0.10906 & 0.15500 & 0.24983 & 0.29935 & 0.16603 & 0.08359 & -0.06704 & -0.22003 & -0.32773\\
+10 & 0.33860 & 0.39955 & 0.43818 & 0.52111 & 0.56122 & 0.38815 & 0.27846 & 0.14243 & -0.07622 & -0.23919\\
+11 & 0.42572 & 0.45022 & 0.46595 & 0.49766 & 0.52663 & 0.48860 & 0.42334 & 0.35114 & 0.23152 & 0.04202\\
 \bottomrule
 \end{longtable}
 \endgroup{}
 
-\hypertarget{Seccion44}{%
-\section{Abrise y jugar a dos manos}\label{Seccion44}}
-
-En este apartado tendremos que comparar la ganancia esperada cuando no
-nos abrimos y jugamos de manera óptima como hicimos en los subapartados
-\(\ref{#Seccion41}\) y \(\ref{#Seccion41}\), a la ganancia que
-tendríamos en el caso de abrirnos y jugar óptimamente cada una de las
-manos.
-
-Así, construimos la siguiente regla que nos marca que camino tenemos que
-coger:
-
-\[
-\begin{array}{cllll}
-\text{Si} & 2 \sum_{c=1}^{10}P_cG^*(z+c,b) & > & G^*(2z,b) & \text{Abrirse} \\
-\text{Si} & 2 \sum_{c=1}^{10}P_cG^*(z+c,b) & \leq & G^*(2z,b) & \text{No abrirse}\\
-\end{array}
-\] Donde \(z\) es la carta que recibimos doble. Aquí nos encontramos un
-pequeño impedimento que es el caso cuando recibimos dos Ases, en este
-caso tendríamos que:
-
-\[
-\begin{array}{cllll}
-\text{Si} & 2 \sum_{c=1}^{10}P_cG_0(11+c,b) & > & \bar G^*(12,b) & \text{Abrirse} \\
-\text{Si} & 2 \sum_{c=1}^{10}P_cG_0(11+c,b) & \leq & \bar G^*(12,b)& \text{No abrirse}\\
-\end{array}
-\]
-
-Y obtendríamos las siguiente tabla con los procedimientos que debe
-llevar el jugador:
+\hypertarget{ganancias-esperadas-en-caso-de-abrirse-o-no-abrirse}{%
+\section{Ganancias esperadas en caso de abrirse o no
+abrirse}\label{ganancias-esperadas-en-caso-de-abrirse-o-no-abrirse}}
 
 \begingroup\fontsize{12}{14}\selectfont
 
 \begin{longtable}[t]{lcccccccccc}
-\caption{\label{tab:unnamed-chunk-11}Tabla de procedimientos para decidir si abrirse o no}\\
+\caption{\label{tab:unnamed-chunk-10}Tabla de ganancias al abrirse o no hacerlo}\\
 \toprule
  & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & Figura & As\\
 \midrule
-2-2 & No A & No A & No A & A & A & A & No A & No A & No A & No A\\
-3-3 & No A & No A & No A & A & A & A & No A & No A & No A & No A\\
-4-4 & No A & No A & No A & No A & No A & No A & No A & No A & No A & No A\\
-5-5 & No A & No A & No A & No A & No A & No A & No A & No A & No A & No A\\
-6-6 & No A & No A & A & A & A & No A & No A & No A & No A & No A\\
+2-2 & -0.11886 & -0.08037 & -0.05401 & 0.01916 & 0.05658 & -0.02577 & -0.13053 & -0.20904 & -0.30558 & -0.41769\\
+3-3 & -0.14528 & -0.10475 & -0.07701 & -0.01628 & 0.01722 & -0.08658 & -0.18609 & -0.25927 & -0.34959 & -0.45454\\
+4-4 & -0.04348 & -0.00540 & 0.01738 & 0.06347 & 0.09631 & 0.08249 & -0.06860 & -0.20400 & -0.28673 & -0.40266\\
+5-5 & 0.14494 & 0.17252 & 0.19027 & 0.23156 & 0.25304 & 0.24222 & 0.17702 & 0.09202 & -0.07622 & -0.23919\\
+6-6 & -0.21183 & -0.18909 & -0.16094 & -0.06669 & -0.03192 & -0.15345 & -0.21405 & -0.28108 & -0.36780 & -0.46922\\
 \addlinespace
-7-7 & A & A & A & A & A & A & No A & No A & No A & No A\\
-8-8 & A & A & A & A & A & A & A & A & A & No A\\
-9-9 & A & A & A & A & A & A & A & A & No A & No A\\
-Figura-Figura & No A & No A & No A & No A & No A & No A & No A & No A & No A & No A\\
-As-As & No A & No A & A & A & A & No A & No A & No A & No A & No A\\
+7-7 & -0.21421 & -0.13205 & -0.08220 & 0.01159 & 0.06902 & -0.06957 & -0.32231 & -0.38012 & -0.45488 & -0.54234\\
+8-8 & -0.03586 & 0.03825 & 0.08204 & 0.17391 & 0.24082 & 0.23407 & -0.05906 & -0.35253 & -0.52998 & -0.60538\\
+9-9 & 0.16841 & 0.23003 & 0.26784 & 0.35590 & 0.40746 & 0.41318 & 0.26172 & -0.03131 & -0.23460 & -0.35050\\
+Figura-Figura & 0.64140 & 0.64660 & 0.65010 & 0.68100 & 0.69660 & 0.76950 & 0.79150 & 0.76010 & 0.43770 & 0.15200\\
+As-As & 0.41991 & 0.40097 & 0.43818 & 0.52111 & 0.56122 & 0.44560 & 0.47460 & 0.49210 & 0.49991 & 0.50694\\
 \bottomrule
 \end{longtable}
 \endgroup{}
-
-\hypertarget{Seccion45}{%
-\section{Asegurarse}\label{Seccion45}}
-
-Suponemos ahora que la carta visible del crupier es un As. La apuesta
-adicional que puede hacer el jugador es de un valor \(v\),
-\(v \leq \frac{1}{2}\). Lo que ocurre aquí, es que el jugador decide
-asegurarse, su mano ya no compite contra el crupier, sino que el compite
-contra el hecho de que el crupier obtenga un BlacjJack. Por ejemplo, si
-la suma de cartas del jugador es 13 y la primera carta del crupier es un
-As, este podría asegurarse. En caso de hacerlo, si el crupier no
-obtuviera BlackJack, obtuviera una suma de 20, el jugador gana aunque su
-suma es inferior a la suma del crupier.
-
-Esta apuesta por tanto se reduce al hecho de que salga una figura o no.
-La probabilidad de que salga una figura, como desde un comienzo estamos
-en la hipótesis de sucesos equiprobables, es de \(\frac{16}{52}\) que es
-aproximadamente \(0.3077 \rightarrow 30,77 \%\). Llamemosle \(p\) a la
-probabilidad de que salga una figura, obteniendo el crupier un
-blackjack. Supongamos que la cantidad con la que nos aseguramos es
-\(v=\frac{1}{2}\). Entonces nos interesa que el valor esperado al
-asegurarnos sea no negativo al menos.
-
-El valor esperado lo podemos calcular con la fórmula
-\(E[ \ Asegurarse \ ]= 1·p - \frac{1}{2}·(1-p)\) veamos cuando esa
-esperanza es mayor o igual a 0:
-
-\[
-\begin{array}{ccl}
-p - \frac{1}{2}(1-p)& \geq  & 0 \\
-p - \frac{1}{2} +\frac{1}{2}p& \geq  & 0\\
-\frac{3}{2}p - \frac{1}{2} & \geq  & 0\\
-3p - 1& \geq  & 0 \\
-p & \geq & \frac{1}{3}
-\end{array}
-\] Es decir, para que asegurarse sea rentable la probabilidad debe ser
-al menos de un tercio, \(33,3 \%\), por lo que no sería rentable
-asegurarse, ya que la probabilidad que tenemos actualmente es inferior.
-Esta probabilidad podría aumentar si el jugador viese si faltan muchas
-figuras por salir de la baraja.
-
-Como hemos asumido como hipótesis inicial que sacar una carta es
-equiprobable a sacar otra, es decir, no contamos cartas, descartamos el
-hecho de que asegurarse sea rentable a la larga y por lo tanto la
-conclusion es no asegurarse.
-
-Algo que podemos hacer es construir la forma normal del juego para ver
-como sería este reparto:
-
-\begingroup\fontsize{12}{14}\selectfont
-
-\begin{longtable}[t]{lcc}
-\caption{\label{tab:unnamed-chunk-12}Forma normal cuando jugador posee un Blackjack}\\
-\toprule
- & C BJ & C No BJ\\
-\midrule
-J Asegura & 1 & 1.0\\
-J No Asegura & 0 & 1.5\\
-\bottomrule
-\end{longtable}
-\endgroup{}
-
-Esto podríamos extenderlo a todos los casos, cuando la suma del jugador
-es \(x\), que no es un Blackjack, y en caso de no conseguir un
-Blackjack, la suma del crupier es \(T\) a lo siguiente y calcular las
-ganancias esperadas en cada caso en función de la probabilidades de que
-\(T\) supere a \(x\) o no
-
-\hypertarget{Seccion46}{%
-\section{Conclusion. Utilidad de seguir la estrategia
-óptima.}\label{Seccion46}}
-
-Ahora ya tenemos determinada nuestra estrategia optima, en la que
-sabemos en que suma de cartas debemos plantando en función de si tenemos
-una mano dura o una mano blanda; si debemos doblarnos o no dependiendo
-de la carta que tenga visible el crupier; si debemos abrirnos y jugar a
-dos manos siguiendo las estrategias anteriormente comentadas; y si
-debemos asegurarnos, que sabemos que nunca lo debemos hacer.
-
-Nuestro objetivo ahora es calcular cuantas unidades monetarias
-obtendremos por cada una apostada en este juego, si siguiéramos la
-estrategia ideal.
-
-Para ello, para cada situación inicial que se presenta, carta visible
-del crupier mas las dos cartas iniciales del jugador se genera una
-cantidad grande de jugadas calculando la cantidad media de ganancia
-obtenida en cada una mediante los métodos de montecarlo y se pondera por
-la probabilidad de que suceda esa mano
 
 \bibliography{bib/library.bib,bib/paquetes.bib}
 
