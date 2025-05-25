@@ -35,17 +35,16 @@ Si tomamos la decisión de pedir una carta mas y con ella pasamos el límite, es
 
 **Valor final del crupier:** que es una variable aleatoria notada por $T$.
 
-**Suma del jugador:** es una variable aleatoria notada por $J$ que representa la suma del jugador tras pedir una única carta mas.
 
-De aquí en adelante dejamos claro que la cantidad apostada por el jugador es una unidad monetaria, ya sea euro o dolar, para asi simplificar los calculos
+De aquí en adelante dejamos claro que la cantidad apostada por el jugador es una unidad monetaria, ya sea euro o dolar, para así simplificar los cálculos
 
 ## Manos duras{#Seccion41}
 
-Notemos por $b$ la carta que se sirve el crupier. $b = 2, \cdots, 10, (1,11)$. Así pues en cada momento tenemos el para $(x,b)$ en la que el jugador tiene la información de $x$ puesto que es el valor total de sus cartas y ve la carta que se sirve el crupier. En esta situación el jugador debe decidir si parar y plantarse o pedir mas cartas. 
+Notemos por $D$ la carta que se sirve el crupier. $D = 2, \cdots, 10, (1,11)$. Así pues en cada momento tenemos el para $(x,D)$ en la que el jugador tiene la información de $x$ puesto que es el valor total de sus cartas y ve la carta que se sirve el crupier. En esta situación el jugador debe decidir si parar y plantarse o pedir mas cartas. 
 
-Definimos entonces $G^*(x,b)$ como la máxima ganancia esperada por el jugador dado una situación $(x,b)$ suponiendo que el jugador actúa de forma optima y juega de manera racional.
+Definimos entonces $G^*(x,D)$ como la máxima ganancia esperada por el jugador dado una situación $(x,D)$ suponiendo que el jugador actúa de forma optima y juega de manera racional.
 
-De igual manera definimos $G_0(x,b)$ como la ganancia esperada por el jugador si este decide plantarse ante la situación del juego $(x,b)$.
+De igual manera definimos $G_0(x,D)$ como la ganancia esperada por el jugador si este decide plantarse ante la situación del juego $(x,D)$.
 
 Recordamos también que suponemos que la probabilidad de tener una determinada carta de un valor es equiprobable es decir, la probabilidad (notemos la como $P_c$) de obtener una carta de valor $c$ es:
 
@@ -59,27 +58,27 @@ $$
 Con esta información podemos caracterizar $G^*(x,b)$ como:
 
 $$
-G^*(x,b) = Max \\ \{G_0(x,b), \sum_{c=1}^{10}P_cG^*(x+c,b) \}
+G^*(x,D) = Max \\ \{G_0(x,D), \sum_{c=1}^{10}P_cG^*(x+c,D) \}
 $$
 
 Es decir, tenemos el máximo entre la opción de plantarnos en ese instante o de la situación en la que nos encontraríamos si pidiéramos una carta mas. Así nos plantaremos cuando el máximo lo alcancemos el $G_0(x,b)$.
 
-Nos queda evaluar ese máximo para cada $x$ y cada $b$ posibles. Para poder hacerlo necesitamos lo siguiente:
+Nos queda evaluar ese máximo para cada $x$ y cada $D$ posibles. Para poder hacerlo necesitamos lo siguiente:
 
-1. $G_0(x,b)$, $\forall x=4, \cdots$ y $\forall b= 2, \cdots, 10, (1,11)$
+1. $G_0(x,D)$, $\forall x=4, \cdots$ y $\forall D= 2, \cdots, 10, (1,11)$
 
-2. Algunos valores finales de $G^*(x,b)$ para iniciar el la inducción hacia atrás, $\forall x,b$
+2. Algunos valores finales de $G^*(x,D)$ para iniciar el la inducción hacia atrás, $\forall x,D$
 
-**Calculo de $G_0(x,b)$**
+**Calculo de $G_0(x,D)$**
 
-De lo que obtuvimos en la sección anterior sabemos que:
+De lo que obtuvimos en el capitulo anterior sabemos que:
 
 $$ 
-G_0(x,b) \ = \ Pr(T>21) \ + \ Pr(T<x) \ - \ Pr(x<T \leq 21) 
+G_0(x,D) \ = \ Pr(T>21) \ + \ Pr(T<x) \ - \ Pr(x<T \leq 21) 
 $$
 Ha de constar que esta ganancia se basa en que estamos apostando
 
-Así pues el siguiente paso es calcular las probabilidades del crupier que dada una carta de valor $b$, la variable $T$ tenga un determinado valor final. 
+Así pues el siguiente paso es calcular las probabilidades del crupier que dada una carta de valor $D$, la variable $T$ tenga un determinado valor final. 
 
 **Cálculo de las probabilidades de la variable $T$ dada una carta conocida $b$**
 
@@ -187,7 +186,7 @@ kable(round(resultados_tabla, 6),
                 full_width = F, font_size = 12)
 ```
 
-Ahí tenemos las probabilidades calculadas en función de cada carta inicial que veamos. Si las comparamos con las de la biografía
+Ahí tenemos las probabilidades calculadas en función de cada carta inicial que veamos. Si las comparamos con las de la biografía [@Libro16] y [@Libro14] respectivmente:
 
 ```{r español_blackjack, fig.cap = "\\label{forma_extensiva}Diagrama Juego", fig.align='center',out.width='80%',echo=FALSE}
 knitr::include_graphics("tabla_probabilidades_español.png")
@@ -199,7 +198,7 @@ knitr::include_graphics("tabla_probabilidades_baldwin.png")
 
 ```
 
-Podemos ver que los resultados son muy similares, por lo que podemos deducir que los cálculos que hemos realizado son correctos. Una vez conocidas las probabilidades, ya estamos en disposición de calcular $G_0(x,b)$ como detallábamos al comienzo, $\forall \ x=4,\cdots$ y $\forall \  b=2,\cdots,10,(1,11)$. Una vez construyamos los $G_0(x,b)$ los utilizamos para implementarlos en el algoritmo, teniendo en cuenta que si el máximo lo alcanzamos en dicho valor nos plantaremos, y en caso contrario pediremos carta.
+Podemos ver que los resultados son muy similares, por lo que podemos deducir que los cálculos que hemos realizado son correctos. Una vez conocidas las probabilidades, ya estamos en disposición de calcular $G_0(x,D)$ como detallábamos al comienzo, $\forall \ x=4,\cdots$ y $\forall \  D=2,\cdots,10,(1,11)$. Una vez construyamos los $G_0(x,D)$ los utilizamos para implementarlos en el algoritmo, teniendo en cuenta que si el máximo lo alcanzamos en dicho valor nos plantaremos, y en caso contrario pediremos carta.
 
 ```{r,echo=FALSE,include=FALSE}
 Calculo_G_0 <- function(x, b, tabla, es_blackjack = FALSE) {
@@ -278,17 +277,25 @@ kable(estrategia_G_optima,
                 full_width = F, font_size = 12)
 ```
 
+De esta forma ya tenemos calculado los topes que en el capitulo $\ref{#Seccion3}$ denotamos como $M(D)$:
 
+$$
+\begin{array}{cccccccccccc}
+D & : & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & \text{Figura} & \text{As} \\
+\hline
+M(D) & : & 14 & 14 & 13 &13 & 13 & 17 & 17 & 17 & 17 & 17
+\end{array}
+$$
 
 ## Manos blandas{#Seccion42}
 
 Ahora, nuestro propósito es hacer lo mismo para el caso de que el jugador posea una mano blanda. La principal modificación reside en lo que comentamos al comienzo, que si nos pasamos de 21 con este tipo de manos recurrimos a contar ese As como un 1. Ahora llamamos $\bar G^*(x,b)$ a la ganancia esperada en el caso de manos blandas.
 
 $$
-\bar G^*(x,b) = Max \\ \{G_0(x,b), \sum_{c=1}^{10}P_c \bar G^*(x+c,b) \}
+\bar G^*(x,D) = Max \\ \{G_0(x,D), \sum_{c=1}^{10}P_c \bar G^*(x+c,D) \}
 $$
 Como vemos la ecuación es exactamente igual al caso de manos duras. Lo que diferencia el tratamiento son los valores finales que le damos a $\bar G^*(x,b)$, por el tratamiento diferente que reciben estas manos. los valores iniciales son:
-$\bar G^*(x,b) = G^*(x-10,b),x>21$ y $\forall b$
+$\bar G^*(x,b) = G^*(x-10,D),x>21$ y $\forall D$
 
 Ahora nuestra regla de parada es la siguiente:
 
@@ -343,10 +350,19 @@ kable(estrategia_G_optima_mano_blanda,
                 full_width = F, font_size = 12)
 ```
 
+Y ya tenemos calculados los topes que llamamos $M^*(D)$:
+
+$$
+\begin{array}{cccccccccccc}
+D & : & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & \text{Figura} & \text{As} \\
+\hline
+M^*(D) & : & 19 & 19 & 19 &18 & 18 & 18 & 19 & 19 & 20 & 20
+\end{array}
+$$
 
 ## Doblar la apuesta{#Seccion43}
 
-Para poder doblarnos los valores de las dos primeras cartas deben sumar 9, 10 u 11, recibiendo una carta mas y solo una si lo hace. Así tenemos las siguientes situaciones $(9,b)$, $(10,b)$, $(11,b)$, $\forall b$. Ahora tenemos que calcular la ganancia esperada de doblar nuestra apuesta, en función de la carta que nos toque y compararla con la ganancia esperada en el caso de no hacerlo, resultando en:
+Para poder doblarnos los valores de las dos primeras cartas deben sumar 9, 10 u 11, recibiendo una carta mas y solo una si lo hace. Así tenemos las siguientes situaciones $(9,D)$, $(10,D)$, $(11,D)$, $\forall D$. Ahora tenemos que calcular la ganancia esperada de doblar nuestra apuesta, en función de la carta que nos toque y compararla con la ganancia esperada en el caso de no hacerlo, resultando en:
 
 $$
 \begin{array}{cllll}
@@ -496,7 +512,7 @@ p & \geq & \frac{1}{3}
 $$
 Es decir, para que asegurarse sea rentable la probabilidad debe ser al menos de un tercio, $33,3 \%$, por lo que no sería rentable asegurarse, ya que la probabilidad que tenemos actualmente es inferior. Esta probabilidad podría aumentar si el jugador viese si faltan muchas figuras por salir de la baraja.
 
-Como hemos asumido como hipótesis inicial que sacar una carta es equiprobable a sacar otra, es decir, no contamos cartas, descartamos el hecho de que asegurarse sea rentable a la larga y por lo tanto la conclusion es no asegurarse.
+Como hemos asumido como hipótesis inicial que sacar una carta es equiprobable a sacar otra, es decir, no contamos cartas, descartamos el hecho de que asegurarse sea rentable a la larga y por lo tanto la conclusión es no asegurarse.
 
 Algo que podemos hacer es construir la forma normal del juego para ver como sería este reparto:
 

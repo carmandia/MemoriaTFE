@@ -142,5 +142,5 @@ $$
 
 donde evaluando para cada $t$ otra vez $P(T=t)$, muestra que la diferencia es positiva para todo $D$ y por lo tanto $M^*(D)>17$.
 
-A partir de ahora, dado que siempre estamos comparando los estudios de las manos duras con las manos blandas junto con los hechos de doblarse y jugar a dos bandas, etc. Vamos a continuar el estudio por separado, analizando bien cada situación para después sintetizar ambos resultados en uno de carácter general.
+A partir de ahora, dado que siempre estamos comparando los estudios de las manos duras con las manos blandas junto con los hechos de doblarse y jugar a dos bandas, etc. Vamos a continuar el estudio por separado, analizando bien cada situación para después sintetizar cada resultado en uno de carácter general.
 
