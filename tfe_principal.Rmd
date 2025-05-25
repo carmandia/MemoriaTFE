@@ -244,6 +244,6 @@ install.packages(c("ggplot2","kableExtra","dplyr"))
 <!-- Si "metodobib: false", modificar el "nocite:" del inicio de este fichero  -->
 
 <!-- \nocite{*} -->
-\nocite{Libro1,Libro2,Libro3,Libro4,Libro5}
+\nocite{Libro1,Libro2,Libro3,Libro4,Libro5,Libro6,Libro7,Libro8,Libro9,Libro10,Libro11,Libro12,Libro13,Libro14,Libro15,Libro16,Libro17,Libro18,Libro19,Libro20,R-knitr,R-KableExtra,Tidyverse,R-tidyverse}
 
 \fi 

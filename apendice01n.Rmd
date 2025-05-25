@@ -192,7 +192,7 @@ for (x in 21:4) {
 ```
 
 ```{r,echo=FALSE}
-kable(round(ganancia_G_optima,5), 
+knitr::kable(round(ganancia_G_optima,3), 
       caption = "Tabla de ganancias si el jugador posee una mano dura",
       align = "c") %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"),

@@ -36,50 +36,6 @@
 \urlstyle{same}  % don't use monospace font for urls
 %
 \usepackage[usenames,dvipsnames]{xcolor}  %new PLLC
-\usepackage{color}
-\usepackage{fancyvrb}
-\newcommand{\VerbBar}{|}
-\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
-\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
-% Add ',fontsize=\small' for more characters per line
-\usepackage{framed}
-\definecolor{shadecolor}{RGB}{248,248,248}
-\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
-\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
-\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
-\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
-\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
-\newcommand{\BuiltInTok}[1]{#1}
-\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
-\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
-\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
-\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
-\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
-\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
-\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
-\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
-\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
-\newcommand{\ExtensionTok}[1]{#1}
-\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
-\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
-\newcommand{\ImportTok}[1]{#1}
-\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
-\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
-\newcommand{\NormalTok}[1]{#1}
-\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
-\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
-\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
-\newcommand{\RegionMarkerTok}[1]{#1}
-\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
-\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
-\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
-\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
-\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
-\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
-
-% PLLC modifica-ini
-% PLLC modifica-fin
-
 \IfFileExists{parskip.sty}{%
 \usepackage{parskip}
 }{% else
@@ -596,6 +552,68 @@ el que participan mas de 2 jugadores como en el poker.
 
 \emph{Juegos cooperativos y no cooperativos}
 
+Los juegos cooperativos son aquellos en los que entre varios jugadores
+acuerdan no competir entre ellos sino buscar un mismo objetivo ganando o
+perdiendo a la misma vez. En los juegos no cooperativos, que son los
+casos mas generales, los jugadores deciden de forma independiente
+buscando sacar un beneficio máximo de las distintas situaciones.
+
+\emph{Juegos de información completa e incompleta}
+
+En los juegos de información completa, todos los jugadores tienen tienen
+la misma información, conocen las estrategias que pueden seguir el resto
+de jugadores y las recompensas que recibirían.
+
+\emph{Juegos simultáneos y secuenciales}
+
+En los juegos simultáneos, los jugadores toman sus decisiones a la vez,
+y por tanto desconocen la estrategia que va a seguir el resto de
+jugadores. Por otro lado los secuenciales los jugadores toman las
+decisiones uno tras otros, pudiendo modificar sus estrategias en función
+de las del resto de jugadores. La información que tengan del resto de
+los otros jugadores no tiene porque ser perfecta.
+
+\emph{Juegos en función de la suma de los beneficios de los jugadores}
+
+Dependiendo de la suma de los beneficios entre todos los jugadores
+encontramos tres casos:
+
+*Suma cero: En esta clase de juegos, uno de los jugadores se beneficia
+del resto de jugadores obteniendo como beneficio las pérdidas de los
+otros jugadores.
+
+*Suma no nula: En ellos el balance entre pérdidas y beneficios de los
+jugadores no tiene porque ser 0 por lo que la ganancia o pérdida de los
+jugadores no se compensa.
+
+\emph{Juegos simétricos y asimétricos}
+
+En los juegos simétricos los jugadores pueden tomar las mismas
+decisiones, por lo que los beneficios solo dependen de las estrategias
+empleadas y no de los jugadores. Mientras tanto, en los juegos
+asimétricos las estrategias no tienen por que reportar el mismo
+beneficio a un jugador que a otro.
+
+\emph{Juegos discretos y continuos}
+
+En los juegos discretos los jugadores toman sus decisiones en un
+conjunto finito de estrategias. En los juegos continuos extendemos esta
+idea permitiendo conjunto de ideas infinito no numerable.
+
+\emph{Juegos de longitud finita o infinita}
+
+Si el juego termina tras un número finito de movimientos sera de
+longitud finita. En los juegos de longitud infinita hay infinitos
+movimientos y el ganador no se conoce hasta que se conocen todos los
+movimiento.
+
+\emph{Juegos repetidos o iterados}
+
+Cuando los jugadores tras un movimiento de cada jugador vuelven a tener
+que decidir en un escenario similar varias veces seguidas, observando
+las estrategias y recompensas que han han obtenido el resto. En cada
+etapa los jugadores pueden modificar su estrategia anterior.
+
 \hypertarget{Seccion22}{%
 \section{Formas de representacion de un juego}\label{Seccion22}}
 
@@ -706,19 +724,13 @@ ocurre con el ajedrez.
 Así pues el ejemplo anterior podríamos representarlo en forma de árbol
 de la siguiente forma:
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{knitr}\SpecialCharTok{::}\FunctionTok{include\_graphics}\NormalTok{(}\StringTok{"forma\_extensiva.png"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
 \begin{figure}[H]
 
 {\centering \includegraphics[width=0.8\linewidth]{forma_extensiva} 
 
 }
 
-\caption{\label{forma_extensiva}Diagrama Juego}\label{fig:forma_extensiva}
+\caption{\label{forma_extensiva}Diagrama Juego en Forma Extensiva}\label{fig:forma_extensiva}
 \end{figure}
 
 La linea discontinua uniendo los dos nodos donde participa la jugadora
@@ -785,19 +797,13 @@ finales, \(U(x_4)=(1,-1)\), \(U(x_6)=(-1,1)\), \(U(x_7)=(2,-2)\),
 vamos a ver el diagrama del juego con esta forma de escribirlo mas
 rigurosa:
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{knitr}\SpecialCharTok{::}\FunctionTok{include\_graphics}\NormalTok{(}\StringTok{"forma\_extensiva\_rigurosa.png"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
 \begin{figure}[H]
 
 {\centering \includegraphics[width=0.8\linewidth]{forma_extensiva_rigurosa} 
 
 }
 
-\caption{\label{forma_extensiva_rigurosa}Diagrama Juego}\label{fig:forma_extensiva_rigurosa}
+\caption{\label{forma_extensiva_rigurosa}Diagrama Juego en Forma Extensiva Rigurosa}\label{fig:forma_extensiva_rigurosa}
 \end{figure}
 
 \hypertarget{Seccion23}{%
@@ -872,22 +878,8 @@ matriz anterior
 \subsection{Resolución de un juego en forma
 extensiva}\label{Seccion232}}
 
-Recordemos que hemos llegado al siguiente esquema del juego:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{knitr}\SpecialCharTok{::}\FunctionTok{include\_graphics}\NormalTok{(}\StringTok{"forma\_extensiva\_rigurosa.png"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{figure}[H]
-
-{\centering \includegraphics[width=0.8\linewidth]{forma_extensiva_rigurosa} 
-
-}
-
-\caption{\label{forma_extensiva_rigurosa_2}Diagrama Juego}\label{fig:forma_extensiva_rigurosa_2}
-\end{figure}
+Recordemos que en la sección \(\ref{#Seccion222}\) llegado al siguiente
+esquema del juego \(\ref{forma_extensiva_rigurosa}\)
 
 En cuanto al jugador 2, este no sabe en cual de los nodos \(x_3\) o
 \(x_5\) se encuentra pues no ve la carta que se saca de la baraja. Así,
@@ -912,19 +904,13 @@ saber igual que antes que el jugador 2 siempre decide g, el valor
 esperado de utilidad de \(\frac{1}{2}*2 +\frac{1}{2}*(-2) =0\) que es
 mayor así que en este nodo siempre decide e.
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{knitr}\SpecialCharTok{::}\FunctionTok{include\_graphics}\NormalTok{(}\StringTok{"forma\_extensiva\_equilibrio.png"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
 \begin{figure}[H]
 
 {\centering \includegraphics[width=0.8\linewidth]{forma_extensiva_equilibrio} 
 
 }
 
-\caption{\label{forma_extensiva_equilibrio}Diagrama Juego Equilibrio}\label{fig:forma_extensiva_equilibrio}
+\caption{\label{forma_extensiva_equilibrio}Diagrama Juego Forma Extensiva en Equilibrio}\label{fig:forma_extensiva_equilibrio}
 \end{figure}
 
 \bibliography{bib/library.bib,bib/paquetes.bib}

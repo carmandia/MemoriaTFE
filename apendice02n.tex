@@ -1,0 +1,957 @@
+\documentclass[12pt,a4paper,]{book}
+\def\ifdoblecara{} %% set to true
+\def\ifprincipal{} %% set to true
+\let\ifprincipal\undefined %% set to false
+\def\ifcitapandoc{} %% set to true
+\let\ifcitapandoc\undefined %% set to false
+\usepackage{lmodern}
+% sin fontmathfamily
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+%\usepackage{fixltx2e} % provides \textsubscript %PLLC
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin = 2.5cm]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdfauthor={Nombre Completo Autor},
+              pdfborder={0 0 0},
+              breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+%
+\usepackage[usenames,dvipsnames]{xcolor}  %new PLLC
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+
+% PLLC modifica-ini
+% PLLC modifica-fin
+
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+
+  \title{}
+    \author{Nombre Completo Autor}
+      \date{18/11/2021}
+
+
+%%%%%%% inicio: latex_preambulo.tex PLLC
+
+
+%% UTILIZA CODIFICACIÓN UTF-8
+%% MODIFICARLO CONVENIENTEMENTE PARA USARLO CON OTRAS CODIFICACIONES
+
+
+%\usepackage[spanish,es-nodecimaldot,es-noshorthands]{babel}
+\usepackage[spanish,es-nodecimaldot,es-noshorthands,es-tabla]{babel}
+% Ver: es-tabla (en: https://osl.ugr.es/CTAN/macros/latex/contrib/babel-contrib/spanish/spanish.pdf)
+% es-tabla (en: https://tex.stackexchange.com/questions/80443/change-the-word-table-in-table-captions)
+\usepackage[spanish, plain, datebegin,sortcompress,nocomment,
+noabstract]{flexbib}
+ 
+\usepackage{float}
+\usepackage{placeins}
+\usepackage{fancyhdr}
+% Solucion: ! LaTeX Error: Command \counterwithout already defined.
+% https://tex.stackexchange.com/questions/425600/latex-error-command-counterwithout-already-defined
+\let\counterwithout\relax
+\let\counterwithin\relax
+\usepackage{chngcntr}
+%\usepackage{microtype}  %antes en template PLLC
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc} % Usa codificación 8-bit que tiene 256 glyphs
+
+%\usepackage[dvipsnames]{xcolor}
+%\usepackage[usenames,dvipsnames]{xcolor}  %new
+\usepackage{pdfpages}
+%\usepackage{natbib}
+
+
+
+
+% Para portada: latex_paginatitulo_mod_ST02.tex (inicio)
+\usepackage{tikz}
+\usepackage{epigraph}
+\input{portadas/latex_paginatitulo_mod_ST02_add.sty}
+% Para portada: latex_paginatitulo_mod_ST02.tex (fin)
+
+% Para portada: latex_paginatitulo_mod_OV01.tex (inicio)
+\usepackage{cpimod}
+% Para portada: latex_paginatitulo_mod_OV01.tex (fin)
+
+% Para portada: latex_paginatitulo_mod_OV03.tex (inicio)
+\usepackage{KTHEEtitlepage}
+% Para portada: latex_paginatitulo_mod_OV03.tex (fin)
+
+\renewcommand{\contentsname}{Índice}
+\renewcommand{\listfigurename}{Índice de figuras}
+\renewcommand{\listtablename}{Índice de tablas}
+\newcommand{\bcols}{}
+\newcommand{\ecols}{}
+\newcommand{\bcol}[1]{\begin{minipage}{#1\linewidth}}
+\newcommand{\ecol}{\end{minipage}}
+\newcommand{\balertblock}[1]{\begin{alertblock}{#1}}
+\newcommand{\ealertblock}{\end{alertblock}}
+\newcommand{\bitemize}{\begin{itemize}}
+\newcommand{\eitemize}{\end{itemize}}
+\newcommand{\benumerate}{\begin{enumerate}}
+\newcommand{\eenumerate}{\end{enumerate}}
+\newcommand{\saltopagina}{\newpage}
+\newcommand{\bcenter}{\begin{center}}
+\newcommand{\ecenter}{\end{center}}
+\newcommand{\beproof}{\begin{proof}} %new
+\newcommand{\eeproof}{\end{proof}} %new
+%De: https://texblog.org/2007/11/07/headerfooter-in-latex-with-fancyhdr/
+% \fancyhead
+% E: Even page
+% O: Odd page
+% L: Left field
+% C: Center field
+% R: Right field
+% H: Header
+% F: Footer
+%\fancyhead[CO,CE]{Resultados}
+
+%OPCION 1
+% \fancyhead[LE,RO]{\slshape \rightmark}
+% \fancyhead[LO,RE]{\slshape \leftmark}
+% \fancyfoot[C]{\thepage}
+% \renewcommand{\headrulewidth}{0.4pt}
+% \renewcommand{\footrulewidth}{0pt}
+
+%OPCION 2
+% \fancyhead[LE,RO]{\slshape \rightmark}
+% \fancyfoot[LO,RE]{\slshape \leftmark}
+% \fancyfoot[LE,RO]{\thepage}
+% \renewcommand{\headrulewidth}{0.4pt}
+% \renewcommand{\footrulewidth}{0.4pt}
+%%%%%%%%%%
+\usepackage{calc,amsfonts}
+% Elimina la cabecera de páginas impares vacías al finalizar los capítulos
+\usepackage{emptypage}
+\makeatletter
+
+%\definecolor{ocre}{RGB}{25,25,243} % Define el color azul (naranja) usado para resaltar algunas salidas
+\definecolor{ocre}{RGB}{0,0,0} % Define el color a negro (aparece en los teoremas
+
+%\usepackage{calc} 
+
+
+%era if(csl-refs) con dolares
+% metodobib: true
+
+
+\usepackage{lipsum}
+
+%\usepackage{tikz} % Requerido para dibujar formas personalizadas
+
+%\usepackage{amsmath,amsthm,amssymb,amsfonts}
+\usepackage{amsthm}
+
+
+% Boxed/framed environments
+\newtheoremstyle{ocrenumbox}% % Theorem style name
+{0pt}% Space above
+{0pt}% Space below
+{\normalfont}% % Body font
+{}% Indent amount
+{\small\bf\sffamily\color{ocre}}% % Theorem head font
+{\;}% Punctuation after theorem head
+{0.25em}% Space after theorem head
+{\small\sffamily\color{ocre}\thmname{#1}\nobreakspace\thmnumber{\@ifnotempty{#1}{}\@upn{#2}}% Theorem text (e.g. Theorem 2.1)
+\thmnote{\nobreakspace\the\thm@notefont\sffamily\bfseries\color{black}---\nobreakspace#3.}} % Optional theorem note
+\renewcommand{\qedsymbol}{$\blacksquare$}% Optional qed square
+
+\newtheoremstyle{blacknumex}% Theorem style name
+{5pt}% Space above
+{5pt}% Space below
+{\normalfont}% Body font
+{} % Indent amount
+{\small\bf\sffamily}% Theorem head font
+{\;}% Punctuation after theorem head
+{0.25em}% Space after theorem head
+{\small\sffamily{\tiny\ensuremath{\blacksquare}}\nobreakspace\thmname{#1}\nobreakspace\thmnumber{\@ifnotempty{#1}{}\@upn{#2}}% Theorem text (e.g. Theorem 2.1)
+\thmnote{\nobreakspace\the\thm@notefont\sffamily\bfseries---\nobreakspace#3.}}% Optional theorem note
+
+\newtheoremstyle{blacknumbox} % Theorem style name
+{0pt}% Space above
+{0pt}% Space below
+{\normalfont}% Body font
+{}% Indent amount
+{\small\bf\sffamily}% Theorem head font
+{\;}% Punctuation after theorem head
+{0.25em}% Space after theorem head
+{\small\sffamily\thmname{#1}\nobreakspace\thmnumber{\@ifnotempty{#1}{}\@upn{#2}}% Theorem text (e.g. Theorem 2.1)
+\thmnote{\nobreakspace\the\thm@notefont\sffamily\bfseries---\nobreakspace#3.}}% Optional theorem note
+
+% Non-boxed/non-framed environments
+\newtheoremstyle{ocrenum}% % Theorem style name
+{5pt}% Space above
+{5pt}% Space below
+{\normalfont}% % Body font
+{}% Indent amount
+{\small\bf\sffamily\color{ocre}}% % Theorem head font
+{\;}% Punctuation after theorem head
+{0.25em}% Space after theorem head
+{\small\sffamily\color{ocre}\thmname{#1}\nobreakspace\thmnumber{\@ifnotempty{#1}{}\@upn{#2}}% Theorem text (e.g. Theorem 2.1)
+\thmnote{\nobreakspace\the\thm@notefont\sffamily\bfseries\color{black}---\nobreakspace#3.}} % Optional theorem note
+\renewcommand{\qedsymbol}{$\blacksquare$}% Optional qed square
+\makeatother
+
+
+
+% Define el estilo texto theorem para cada tipo definido anteriormente
+\newcounter{dummy} 
+\numberwithin{dummy}{section}
+\theoremstyle{ocrenumbox}
+\newtheorem{theoremeT}[dummy]{Teorema}  % (Pedro: Theorem)
+\newtheorem{problem}{Problema}[chapter]  % (Pedro: Problem)
+\newtheorem{exerciseT}{Ejercicio}[chapter] % (Pedro: Exercise)
+\theoremstyle{blacknumex}
+\newtheorem{exampleT}{Ejemplo}[chapter] % (Pedro: Example)
+\theoremstyle{blacknumbox}
+\newtheorem{vocabulary}{Vocabulario}[chapter]  % (Pedro: Vocabulary)
+\newtheorem{definitionT}{Definición}[section]  % (Pedro: Definition)
+\newtheorem{corollaryT}[dummy]{Corolario}  % (Pedro: Corollary)
+\theoremstyle{ocrenum}
+\newtheorem{proposition}[dummy]{Proposición} % (Pedro: Proposition)
+
+
+\usepackage[framemethod=default]{mdframed}
+
+
+
+\newcommand{\intoo}[2]{\mathopen{]}#1\,;#2\mathclose{[}}
+\newcommand{\ud}{\mathop{\mathrm{{}d}}\mathopen{}}
+\newcommand{\intff}[2]{\mathopen{[}#1\,;#2\mathclose{]}}
+\newtheorem{notation}{Notation}[chapter]
+
+
+\mdfdefinestyle{exampledefault}{%
+rightline=true,innerleftmargin=10,innerrightmargin=10,
+frametitlerule=true,frametitlerulecolor=green,
+frametitlebackgroundcolor=yellow,
+frametitlerulewidth=2pt}
+
+
+% Theorem box
+\newmdenv[skipabove=7pt,
+skipbelow=7pt,
+backgroundcolor=black!5,
+linecolor=ocre,
+innerleftmargin=5pt,
+innerrightmargin=5pt,
+innertopmargin=10pt,%5pt
+leftmargin=0cm,
+rightmargin=0cm,
+innerbottommargin=5pt]{tBox}
+
+% Exercise box	  
+\newmdenv[skipabove=7pt,
+skipbelow=7pt,
+rightline=false,
+leftline=true,
+topline=false,
+bottomline=false,
+backgroundcolor=ocre!10,
+linecolor=ocre,
+innerleftmargin=5pt,
+innerrightmargin=5pt,
+innertopmargin=10pt,%5pt
+innerbottommargin=5pt,
+leftmargin=0cm,
+rightmargin=0cm,
+linewidth=4pt]{eBox}	
+
+% Definition box
+\newmdenv[skipabove=7pt,
+skipbelow=7pt,
+rightline=false,
+leftline=true,
+topline=false,
+bottomline=false,
+linecolor=ocre,
+innerleftmargin=5pt,
+innerrightmargin=5pt,
+innertopmargin=10pt,%0pt
+leftmargin=0cm,
+rightmargin=0cm,
+linewidth=4pt,
+innerbottommargin=0pt]{dBox}	
+
+% Corollary box
+\newmdenv[skipabove=7pt,
+skipbelow=7pt,
+rightline=false,
+leftline=true,
+topline=false,
+bottomline=false,
+linecolor=gray,
+backgroundcolor=black!5,
+innerleftmargin=5pt,
+innerrightmargin=5pt,
+innertopmargin=10pt,%5pt
+leftmargin=0cm,
+rightmargin=0cm,
+linewidth=4pt,
+innerbottommargin=5pt]{cBox}
+
+% Crea un entorno para cada tipo de theorem y le asigna un estilo 
+% con ayuda de las cajas coloreadas anteriores
+\newenvironment{theorem}{\begin{tBox}\begin{theoremeT}}{\end{theoremeT}\end{tBox}}
+\newenvironment{exercise}{\begin{eBox}\begin{exerciseT}}{\hfill{\color{ocre}\tiny\ensuremath{\blacksquare}}\end{exerciseT}\end{eBox}}				  
+\newenvironment{definition}{\begin{dBox}\begin{definitionT}}{\end{definitionT}\end{dBox}}	
+\newenvironment{example}{\begin{exampleT}}{\hfill{\tiny\ensuremath{\blacksquare}}\end{exampleT}}		
+\newenvironment{corollary}{\begin{cBox}\begin{corollaryT}}{\end{corollaryT}\end{cBox}}	
+
+%	ENVIRONMENT remark
+\newenvironment{remark}{\par\vspace{10pt}\small 
+% Espacio blanco vertical sobre la nota y tamaño de fuente menor
+\begin{list}{}{
+\leftmargin=35pt % Indentación sobre la izquierda
+\rightmargin=25pt}\item\ignorespaces % Indentación sobre la derecha
+\makebox[-2.5pt]{\begin{tikzpicture}[overlay]
+\node[draw=ocre!60,line width=1pt,circle,fill=ocre!25,font=\sffamily\bfseries,inner sep=2pt,outer sep=0pt] at (-15pt,0pt){\textcolor{ocre}{N}}; \end{tikzpicture}} % R naranja en un círculo (Pedro)
+\advance\baselineskip -1pt}{\end{list}\vskip5pt} 
+% Espaciado de línea más estrecho y espacio en blanco después del comentario
+
+
+\newenvironment{solutionExe}{\par\vspace{10pt}\small 
+\begin{list}{}{
+\leftmargin=35pt 
+\rightmargin=25pt}\item\ignorespaces 
+\makebox[-2.5pt]{\begin{tikzpicture}[overlay]
+\node[draw=ocre!60,line width=1pt,circle,fill=ocre!25,font=\sffamily\bfseries,inner sep=2pt,outer sep=0pt] at (-15pt,0pt){\textcolor{ocre}{S}}; \end{tikzpicture}} 
+\advance\baselineskip -1pt}{\end{list}\vskip5pt} 
+
+\newenvironment{solutionExa}{\par\vspace{10pt}\small 
+\begin{list}{}{
+\leftmargin=35pt 
+\rightmargin=25pt}\item\ignorespaces 
+\makebox[-2.5pt]{\begin{tikzpicture}[overlay]
+\node[draw=ocre!60,line width=1pt,circle,fill=ocre!55,font=\sffamily\bfseries,inner sep=2pt,outer sep=0pt] at (-15pt,0pt){\textcolor{ocre}{S}}; \end{tikzpicture}} 
+\advance\baselineskip -1pt}{\end{list}\vskip5pt} 
+
+\usepackage{tcolorbox}
+
+\usetikzlibrary{trees}
+
+\theoremstyle{ocrenum}
+\newtheorem{solutionT}[dummy]{Solución}  % (Pedro: Corollary)
+\newenvironment{solution}{\begin{cBox}\begin{solutionT}}{\end{solutionT}\end{cBox}}	
+
+
+\newcommand{\tcolorboxsolucion}[2]{%
+\begin{tcolorbox}[colback=green!5!white,colframe=green!75!black,title=#1] 
+ #2
+ %\tcblower  % pone una línea discontinua
+\end{tcolorbox}
+}% final definición comando
+
+\newtcbox{\mybox}[1][green]{on line,
+arc=0pt,outer arc=0pt,colback=#1!10!white,colframe=#1!50!black, boxsep=0pt,left=1pt,right=1pt,top=2pt,bottom=2pt, boxrule=0pt,bottomrule=1pt,toprule=1pt}
+
+
+
+\mdfdefinestyle{exampledefault}{%
+rightline=true,innerleftmargin=10,innerrightmargin=10,
+frametitlerule=true,frametitlerulecolor=green,
+frametitlebackgroundcolor=yellow,
+frametitlerulewidth=2pt}
+
+
+
+
+
+\newcommand{\betheorem}{\begin{theorem}}
+\newcommand{\eetheorem}{\end{theorem}}
+\newcommand{\bedefinition}{\begin{definition}}
+\newcommand{\eedefinition}{\end{definition}}
+
+\newcommand{\beremark}{\begin{remark}}
+\newcommand{\eeremark}{\end{remark}}
+\newcommand{\beexercise}{\begin{exercise}}
+\newcommand{\eeexercise}{\end{exercise}}
+\newcommand{\beexample}{\begin{example}}
+\newcommand{\eeexample}{\end{example}}
+\newcommand{\becorollary}{\begin{corollary}}
+\newcommand{\eecorollary}{\end{corollary}}
+
+
+\newcommand{\besolutionExe}{\begin{solutionExe}}
+\newcommand{\eesolutionExe}{\end{solutionExe}}
+\newcommand{\besolutionExa}{\begin{solutionExa}}
+\newcommand{\eesolutionExa}{\end{solutionExa}}
+
+
+%%%%%%%%
+
+
+% Caja Salida Markdown
+\newmdenv[skipabove=7pt,
+skipbelow=7pt,
+rightline=false,
+leftline=true,
+topline=false,
+bottomline=false,
+backgroundcolor=GreenYellow!10,
+linecolor=GreenYellow!80,
+innerleftmargin=5pt,
+innerrightmargin=5pt,
+innertopmargin=10pt,%5pt
+innerbottommargin=5pt,
+leftmargin=0cm,
+rightmargin=0cm,
+linewidth=4pt]{mBox}	
+
+%% RMarkdown
+\newenvironment{markdownsal}{\begin{mBox}}{\end{mBox}}	
+
+\newcommand{\bmarkdownsal}{\begin{markdownsal}}
+\newcommand{\emarkdownsal}{\end{markdownsal}}
+
+
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage{subfig} %new
+%\usepackage{booktabs,dcolumn,rotating,thumbpdf,longtable}
+\usepackage{dcolumn,rotating}  %new
+\usepackage[graphicx]{realboxes} %new de: https://stackoverflow.com/questions/51633434/prevent-pagebreak-in-kableextra-landscape-table
+
+%define el interlineado vertical
+%\renewcommand{\baselinestretch}{1.5}
+
+%define etiqueta para las Tablas o Cuadros
+%\renewcommand\spanishtablename{Tabla}
+
+%%\bibliographystyle{plain} %new no necesario
+
+
+%%%%%%%%%%%% PARA USO CON biblatex
+% \DefineBibliographyStrings{english}{%
+%   backrefpage = {ver pag.\adddot},%
+%   backrefpages = {ver pags.\adddot}%
+% }
+
+% \DefineBibliographyStrings{spanish}{%
+%   backrefpage = {ver pag.\adddot},%
+%   backrefpages = {ver pags.\adddot}%
+% }
+% 
+% \DeclareFieldFormat{pagerefformat}{\mkbibparens{{\color{red}\mkbibemph{#1}}}}
+% \renewbibmacro*{pageref}{%
+%   \iflistundef{pageref}
+%     {}
+%     {\printtext[pagerefformat]{%
+%        \ifnumgreater{\value{pageref}}{1}
+%          {\bibstring{backrefpages}\ppspace}
+%          {\bibstring{backrefpage}\ppspace}%
+%        \printlist[pageref][-\value{listtotal}]{pageref}}}}
+% 
+%%% de kableExtra
+\usepackage{booktabs}
+\usepackage{longtable}
+%\usepackage{array}
+%\usepackage{multirow}
+%\usepackage{wrapfig}
+%\usepackage{float}
+%\usepackage{colortbl}
+%\usepackage{pdflscape}
+%\usepackage{tabu}
+%\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage[normalem]{ulem}
+\usepackage{makecell}
+%\usepackage{xcolor}
+
+%%%%%%% fin: latex_preambulo.tex PLLC
+
+
+\begin{document}
+
+\bibliographystyle{flexbib}
+
+
+
+\raggedbottom
+
+\ifdefined\ifprincipal
+\else
+\setlength{\parindent}{1em}
+\pagestyle{fancy}
+\setcounter{tocdepth}{4}
+\tableofcontents
+
+\fi
+
+\ifdefined\ifdoblecara
+\fancyhead{}{}
+\fancyhead[LE,RO]{\scriptsize\rightmark}
+\fancyfoot[LO,RE]{\scriptsize\slshape \leftmark}
+\fancyfoot[C]{}
+\fancyfoot[LE,RO]{\footnotesize\thepage}
+\else
+\fancyhead{}{}
+\fancyhead[RO]{\scriptsize\rightmark}
+\fancyfoot[LO]{\scriptsize\slshape \leftmark}
+\fancyfoot[C]{}
+\fancyfoot[RO]{\footnotesize\thepage}
+\fi
+
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+\hypertarget{apuxe9ndice-codigo-r-utilizado-en-las-simulaciones}{%
+\chapter{Apéndice: Codigo R utilizado en las
+simulaciones}\label{apuxe9ndice-codigo-r-utilizado-en-las-simulaciones}}
+
+\hypertarget{codigo-para-calcular-la-suma-final-del-crupier}{%
+\section{Codigo para calcular la suma final del
+crupier}\label{codigo-para-calcular-la-suma-final-del-crupier}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(knitr)}
+\FunctionTok{library}\NormalTok{(kableExtra)}
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\NormalTok{Cartas }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"2"}\NormalTok{,}\StringTok{"3"}\NormalTok{,}\StringTok{"4"}\NormalTok{,}\StringTok{"5"}\NormalTok{,}\StringTok{"6"}\NormalTok{,}\StringTok{"7"}\NormalTok{,}\StringTok{"8"}\NormalTok{,}\StringTok{"9"}\NormalTok{,}\StringTok{"Figura"}\NormalTok{,}\StringTok{"As"}\NormalTok{)}
+\NormalTok{Cantidad\_de\_cada\_carta }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{4}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{16}\NormalTok{,}\DecValTok{4}\NormalTok{)}
+\NormalTok{Valor\_cartas }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{6}\NormalTok{,}\DecValTok{7}\NormalTok{,}\DecValTok{8}\NormalTok{,}\DecValTok{9}\NormalTok{,}\DecValTok{10}\NormalTok{,}\DecValTok{11}\NormalTok{)}
+\NormalTok{Probabilidades\_sacar\_carta }\OtherTok{=}\NormalTok{ Cantidad\_de\_cada\_carta}\SpecialCharTok{/}\FunctionTok{sum}\NormalTok{(Cantidad\_de\_cada\_carta)}
+\NormalTok{Valor\_cartas\_mano\_dura }\OtherTok{=}\FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{6}\NormalTok{,}\DecValTok{7}\NormalTok{,}\DecValTok{8}\NormalTok{,}\DecValTok{9}\NormalTok{,}\DecValTok{10}\NormalTok{,}\DecValTok{1}\NormalTok{)}
+\NormalTok{Valor\_cartas\_mano\_blanda }\OtherTok{=}\NormalTok{ Valor\_cartas}
+
+\NormalTok{encuentra\_as\_en\_mano }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(mano)\{}
+  \ControlFlowTok{if}\NormalTok{ (}\StringTok{"As"} \SpecialCharTok{\%in\%}\NormalTok{ mano) \{}
+    \FunctionTok{return}\NormalTok{(}\ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{  \} }\ControlFlowTok{else}\NormalTok{ \{}
+    \FunctionTok{return}\NormalTok{(}\ConstantTok{FALSE}\NormalTok{)}
+\NormalTok{  \}}
+\NormalTok{\}}
+
+\NormalTok{cuenta\_ases\_mano }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(mano)\{}
+\NormalTok{  numero\_ases}\OtherTok{=}\DecValTok{0}
+  \ControlFlowTok{for}\NormalTok{ (carta }\ControlFlowTok{in}\NormalTok{ mano) \{}
+    \ControlFlowTok{if}\NormalTok{ (carta}\SpecialCharTok{==}\StringTok{"As"}\NormalTok{) \{}
+\NormalTok{      numero\_ases}\OtherTok{=}\NormalTok{numero\_ases}\SpecialCharTok{+}\DecValTok{1}
+\NormalTok{    \}}
+\NormalTok{  \}}
+  \FunctionTok{return}\NormalTok{(numero\_ases)}
+\NormalTok{\}}
+
+
+\NormalTok{Devuelve\_salida }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(suma,mano)\{}
+  \ControlFlowTok{if}\NormalTok{ ((}\FunctionTok{all}\NormalTok{(}\FunctionTok{sort}\NormalTok{(mano) }\SpecialCharTok{==} \FunctionTok{sort}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"Figura"}\NormalTok{, }\StringTok{"As"}\NormalTok{))))) \{}
+    \FunctionTok{return}\NormalTok{(}\StringTok{"BlackJack"}\NormalTok{)}
+\NormalTok{  \} }\ControlFlowTok{else}\NormalTok{\{}
+    \ControlFlowTok{if}\NormalTok{ (suma }\SpecialCharTok{\textgreater{}}\DecValTok{21}\NormalTok{) \{}
+      \FunctionTok{return}\NormalTok{(}\StringTok{"Se pasa"}\NormalTok{)}
+\NormalTok{    \} }\ControlFlowTok{else}\NormalTok{\{}
+      \FunctionTok{return}\NormalTok{(}\FunctionTok{as.character}\NormalTok{(suma))}
+\NormalTok{    \}}
+\NormalTok{  \} }
+\NormalTok{\} }
+
+
+\NormalTok{Calcular\_suma\_mano\_crupier }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(mano)\{}
+\NormalTok{  suma}\OtherTok{=}\DecValTok{0}
+  \ControlFlowTok{if}\NormalTok{ ((}\FunctionTok{all}\NormalTok{(}\FunctionTok{sort}\NormalTok{(mano) }\SpecialCharTok{==} \FunctionTok{sort}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"Figura"}\NormalTok{, }\StringTok{"As"}\NormalTok{))))) \{}
+\NormalTok{    suma }\OtherTok{=} \DecValTok{21}
+\NormalTok{  \} }\ControlFlowTok{else}\NormalTok{ \{}
+    \ControlFlowTok{if}\NormalTok{ (}\FunctionTok{encuentra\_as\_en\_mano}\NormalTok{(mano)) \{}
+\NormalTok{      mano\_sin\_ases }\OtherTok{\textless{}{-}}\NormalTok{ mano[mano }\SpecialCharTok{!=} \StringTok{"As"}\NormalTok{]}
+\NormalTok{      mano\_solo\_ases }\OtherTok{\textless{}{-}}\NormalTok{ mano[mano }\SpecialCharTok{==} \StringTok{"As"}\NormalTok{]}
+      \ControlFlowTok{for}\NormalTok{ (carta }\ControlFlowTok{in}\NormalTok{ mano\_sin\_ases) \{}
+\NormalTok{        suma}\OtherTok{=}\NormalTok{ suma }\SpecialCharTok{+}\NormalTok{ Valor\_cartas[}\FunctionTok{which}\NormalTok{(Cartas }\SpecialCharTok{==}\NormalTok{ carta)]}
+\NormalTok{      \}}
+      \ControlFlowTok{while}\NormalTok{ (}\FunctionTok{cuenta\_ases\_mano}\NormalTok{(mano\_solo\_ases)}\SpecialCharTok{\textgreater{}}\DecValTok{0}\NormalTok{) \{}
+        \ControlFlowTok{if}\NormalTok{ ((suma }\SpecialCharTok{+} \DecValTok{11}\SpecialCharTok{\textgreater{}=}\DecValTok{17}\NormalTok{) }\SpecialCharTok{\&\&}\NormalTok{ (suma }\SpecialCharTok{+} \DecValTok{11} \SpecialCharTok{\textless{}=} \DecValTok{21}\NormalTok{)) \{}
+\NormalTok{          suma }\OtherTok{=}\NormalTok{ suma}\SpecialCharTok{+}\DecValTok{11}
+\NormalTok{        \} }\ControlFlowTok{else}\NormalTok{\{}
+\NormalTok{          suma}\OtherTok{=}\NormalTok{suma}\SpecialCharTok{+}\DecValTok{1}\NormalTok{\}}
+\NormalTok{        mano\_solo\_ases }\OtherTok{=}\NormalTok{mano\_solo\_ases[}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{]}
+\NormalTok{      \}}
+\NormalTok{    \} }
+    \ControlFlowTok{else}\NormalTok{ \{}
+      \ControlFlowTok{for}\NormalTok{ (carta }\ControlFlowTok{in}\NormalTok{ mano) \{}
+\NormalTok{        suma}\OtherTok{=}\NormalTok{ suma }\SpecialCharTok{+}\NormalTok{ Valor\_cartas[}\FunctionTok{which}\NormalTok{(Cartas }\SpecialCharTok{==}\NormalTok{ carta)]}
+\NormalTok{      \}}
+\NormalTok{    \}}
+\NormalTok{  \}}
+  \FunctionTok{return}\NormalTok{(suma)}
+\NormalTok{\}}
+
+\NormalTok{Mano\_dada\_crupier }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(b)\{ }\CommentTok{\#b es la carta que todos ven que tiene el crupier}
+\NormalTok{  suma}\OtherTok{=}\DecValTok{0}
+\NormalTok{  mano}\OtherTok{=}\FunctionTok{c}\NormalTok{(b)}
+  \ControlFlowTok{while}\NormalTok{ (suma}\SpecialCharTok{\textless{}}\DecValTok{17}\NormalTok{) \{}
+\NormalTok{    carta\_1 }\OtherTok{\textless{}{-}} \FunctionTok{sample}\NormalTok{(Cartas,}\AttributeTok{size =} \DecValTok{1}\NormalTok{,}\AttributeTok{prob =}\NormalTok{ Probabilidades\_sacar\_carta)  }
+\NormalTok{    mano }\OtherTok{=} \FunctionTok{c}\NormalTok{(mano,carta\_1)}
+\NormalTok{    suma}\OtherTok{=}\FunctionTok{Calcular\_suma\_mano\_crupier}\NormalTok{(mano)}
+\NormalTok{  \}}
+  \FunctionTok{Devuelve\_salida}\NormalTok{(suma,mano)}
+\NormalTok{\}}
+
+\NormalTok{resultados\_tabla }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{()}
+
+\CommentTok{\# Calcular probabilidades para cada carta visible}
+\ControlFlowTok{for}\NormalTok{ (carta }\ControlFlowTok{in}\NormalTok{ Cartas) \{}
+\NormalTok{  salida }\OtherTok{\textless{}{-}} \FunctionTok{replicate}\NormalTok{(}\DecValTok{10000}\NormalTok{, }\FunctionTok{Mano\_dada\_crupier}\NormalTok{(carta))}
+\NormalTok{  tabla }\OtherTok{\textless{}{-}} \FunctionTok{prop.table}\NormalTok{(}\FunctionTok{table}\NormalTok{(}\FunctionTok{factor}\NormalTok{(salida, }
+                                   \AttributeTok{levels =} \FunctionTok{c}\NormalTok{(}\StringTok{"17"}\NormalTok{,}\StringTok{"18"}\NormalTok{,}\StringTok{"19"}\NormalTok{,}\StringTok{"20"}\NormalTok{,}\StringTok{"21"}\NormalTok{,}\StringTok{"BlackJack"}\NormalTok{,}\StringTok{"Se pasa"}\NormalTok{))))}
+\NormalTok{  resultados\_tabla }\OtherTok{\textless{}{-}} \FunctionTok{rbind}\NormalTok{(resultados\_tabla, }\FunctionTok{as.numeric}\NormalTok{(tabla))}
+  \FunctionTok{colnames}\NormalTok{(resultados\_tabla)}\OtherTok{=}\FunctionTok{c}\NormalTok{(}\StringTok{"17"}\NormalTok{,}\StringTok{"18"}\NormalTok{,}\StringTok{"19"}\NormalTok{,}\StringTok{"20"}\NormalTok{,}\StringTok{"21"}\NormalTok{,}\StringTok{"BlackJack"}\NormalTok{,}\StringTok{"Se pasa"}\NormalTok{)}
+\NormalTok{\}}
+\FunctionTok{rownames}\NormalTok{(resultados\_tabla)}\OtherTok{=}\FunctionTok{c}\NormalTok{(}\StringTok{"2"}\NormalTok{,}\StringTok{"3"}\NormalTok{,}\StringTok{"4"}\NormalTok{,}\StringTok{"5"}\NormalTok{,}\StringTok{"6"}\NormalTok{,}\StringTok{"7"}\NormalTok{,}\StringTok{"8"}\NormalTok{,}\StringTok{"9"}\NormalTok{,}\StringTok{"Figura"}\NormalTok{,}\StringTok{"As"}\NormalTok{)}
+
+
+\NormalTok{Calculo\_G\_0 }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(x, b, tabla, }\AttributeTok{es\_blackjack =} \ConstantTok{FALSE}\NormalTok{) \{}
+\NormalTok{  probabilidades\_final\_crupier }\OtherTok{\textless{}{-}}\NormalTok{ tabla[b, ]}
+  
+  \CommentTok{\# Extraemos probabilidades}
+\NormalTok{  pr\_T\_17\_20 }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(probabilidades\_final\_crupier[}\FunctionTok{c}\NormalTok{(}\StringTok{"17"}\NormalTok{, }\StringTok{"18"}\NormalTok{, }\StringTok{"19"}\NormalTok{, }\StringTok{"20"}\NormalTok{)])}
+\NormalTok{  pr\_T\_21 }\OtherTok{\textless{}{-}}\NormalTok{ probabilidades\_final\_crupier}\SpecialCharTok{$}\StringTok{"21"}
+\NormalTok{  pr\_T\_bj }\OtherTok{\textless{}{-}}\NormalTok{ probabilidades\_final\_crupier}\SpecialCharTok{$}\StringTok{"BlackJack"}
+\NormalTok{  pr\_T\_pasa }\OtherTok{\textless{}{-}}\NormalTok{ probabilidades\_final\_crupier}\SpecialCharTok{$}\StringTok{\textasciigrave{}}\AttributeTok{Se pasa}\StringTok{\textasciigrave{}}
+  
+  \ControlFlowTok{if}\NormalTok{ (x }\SpecialCharTok{\textgreater{}} \DecValTok{21}\NormalTok{) \{}
+    \FunctionTok{return}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{)}
+\NormalTok{  \}}
+  
+  \ControlFlowTok{if}\NormalTok{ (x }\SpecialCharTok{==} \DecValTok{21} \SpecialCharTok{\&\&}\NormalTok{ es\_blackjack) \{}
+    \FunctionTok{return}\NormalTok{(}\FloatTok{1.5} \SpecialCharTok{*}\NormalTok{ (}\DecValTok{1} \SpecialCharTok{{-}}\NormalTok{ pr\_T\_bj))  }\CommentTok{\# 0 * pr\_T\_bj es innecesario}
+\NormalTok{  \}}
+  
+\NormalTok{  pr\_T\_menor }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(pr\_T\_17\_20[}\FunctionTok{which}\NormalTok{(}\DecValTok{17}\SpecialCharTok{:}\DecValTok{20} \SpecialCharTok{\textless{}}\NormalTok{ x)])}
+\NormalTok{  pr\_T\_igual }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(pr\_T\_17\_20[}\FunctionTok{which}\NormalTok{(}\DecValTok{17}\SpecialCharTok{:}\DecValTok{20} \SpecialCharTok{==}\NormalTok{ x)]) }\SpecialCharTok{+} \FunctionTok{ifelse}\NormalTok{(x }\SpecialCharTok{==} \DecValTok{21}\NormalTok{, pr\_T\_21, }\DecValTok{0}\NormalTok{)}
+\NormalTok{  pr\_T\_mayor }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(pr\_T\_17\_20[}\FunctionTok{which}\NormalTok{(}\DecValTok{17}\SpecialCharTok{:}\DecValTok{20} \SpecialCharTok{\textgreater{}}\NormalTok{ x)]) }\SpecialCharTok{+} \FunctionTok{ifelse}\NormalTok{(x }\SpecialCharTok{\textless{}} \DecValTok{21}\NormalTok{, pr\_T\_21, }\DecValTok{0}\NormalTok{) }\SpecialCharTok{+}\NormalTok{ pr\_T\_bj}
+  
+\NormalTok{  ganancia }\OtherTok{\textless{}{-}}\NormalTok{ (}\SpecialCharTok{+}\DecValTok{1}\NormalTok{) }\SpecialCharTok{*}\NormalTok{ (pr\_T\_menor }\SpecialCharTok{+}\NormalTok{ pr\_T\_pasa) }\SpecialCharTok{+}\NormalTok{ (}\DecValTok{0}\NormalTok{) }\SpecialCharTok{*}\NormalTok{ pr\_T\_igual }\SpecialCharTok{+}\NormalTok{ (}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{) }\SpecialCharTok{*}\NormalTok{ pr\_T\_mayor}
+  
+  \FunctionTok{return}\NormalTok{(ganancia)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{codigo-para-la-ganancia-y-estrategia-en-caso-de-mano-dura}{%
+\section{Codigo para la ganancia y estrategia en caso de mano
+dura}\label{codigo-para-la-ganancia-y-estrategia-en-caso-de-mano-dura}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{estrategia\_G\_optima }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\StringTok{""}\NormalTok{, }\AttributeTok{nrow =} \DecValTok{28}\NormalTok{, }\AttributeTok{ncol =} \DecValTok{10}\NormalTok{)}
+\FunctionTok{rownames}\NormalTok{(estrategia\_G\_optima) }\OtherTok{\textless{}{-}} \FunctionTok{as.character}\NormalTok{(}\DecValTok{4}\SpecialCharTok{:}\DecValTok{31}\NormalTok{)}
+\FunctionTok{colnames}\NormalTok{(estrategia\_G\_optima) }\OtherTok{\textless{}{-}}\NormalTok{ Cartas  }\CommentTok{\# del 2 al As}
+\NormalTok{ganancia\_G\_optima }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\ConstantTok{NA}\NormalTok{, }\AttributeTok{nrow =} \DecValTok{28}\NormalTok{, }\AttributeTok{ncol =} \DecValTok{10}\NormalTok{)}
+\FunctionTok{rownames}\NormalTok{(ganancia\_G\_optima) }\OtherTok{\textless{}{-}} \FunctionTok{as.character}\NormalTok{(}\DecValTok{4}\SpecialCharTok{:}\DecValTok{31}\NormalTok{)}
+\FunctionTok{colnames}\NormalTok{(ganancia\_G\_optima) }\OtherTok{\textless{}{-}}\NormalTok{ Cartas  }\CommentTok{\# del 2 al As}
+\ControlFlowTok{for}\NormalTok{ (x }\ControlFlowTok{in} \DecValTok{22}\SpecialCharTok{:}\DecValTok{31}\NormalTok{) \{}
+\NormalTok{  ganancia\_G\_optima[}\FunctionTok{as.character}\NormalTok{(x),] }\OtherTok{\textless{}{-}} \SpecialCharTok{{-}}\DecValTok{1}
+\NormalTok{  estrategia\_G\_optima[}\FunctionTok{as.character}\NormalTok{(x),] }\OtherTok{\textless{}{-}} \StringTok{"Parar"}
+\NormalTok{\}}
+
+\ControlFlowTok{for}\NormalTok{ (x }\ControlFlowTok{in} \DecValTok{21}\SpecialCharTok{:}\DecValTok{4}\NormalTok{) \{}
+  \ControlFlowTok{for}\NormalTok{ (b }\ControlFlowTok{in}\NormalTok{ Cartas) \{}
+    
+    \CommentTok{\# Verifica si es blackjack (21 con 2 cartas), solo posible si x == 21}
+\NormalTok{    es\_blackjack }\OtherTok{\textless{}{-}}\NormalTok{ (x }\SpecialCharTok{==} \DecValTok{21}\NormalTok{)  }\CommentTok{\# Aquí podrías añadir verificación con número de cartas}
+    
+\NormalTok{    G0 }\OtherTok{\textless{}{-}} \FunctionTok{Calculo\_G\_0}\NormalTok{(x, b, resultados\_tabla,}\AttributeTok{es\_blackjack =}\NormalTok{ es\_blackjack)}
+    
+    \CommentTok{\# Esperanza de continuar}
+\NormalTok{    G\_continuar }\OtherTok{\textless{}{-}} \DecValTok{0}
+    \ControlFlowTok{for}\NormalTok{ (j }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{10}\NormalTok{) \{}
+\NormalTok{      nueva\_x }\OtherTok{\textless{}{-}}\NormalTok{ x }\SpecialCharTok{+}\NormalTok{ Valor\_cartas\_mano\_dura[j]}
+      \ControlFlowTok{if}\NormalTok{ (nueva\_x }\SpecialCharTok{\textgreater{}} \DecValTok{21}\NormalTok{) \{}
+\NormalTok{        G\_continuar }\OtherTok{\textless{}{-}}\NormalTok{ G\_continuar }\SpecialCharTok{{-}}\NormalTok{ Probabilidades\_sacar\_carta[j]}
+\NormalTok{      \} }\ControlFlowTok{else}\NormalTok{ \{}
+\NormalTok{        G\_continuar }\OtherTok{\textless{}{-}}\NormalTok{ G\_continuar }\SpecialCharTok{+}\NormalTok{ Probabilidades\_sacar\_carta[j] }\SpecialCharTok{*}\NormalTok{ganancia\_G\_optima[}\FunctionTok{as.character}\NormalTok{(nueva\_x),b] }
+\NormalTok{      \}}
+\NormalTok{    \}}
+    
+    \ControlFlowTok{if}\NormalTok{ (G0 }\SpecialCharTok{\textgreater{}=}\NormalTok{ G\_continuar) \{}
+\NormalTok{      estrategia\_G\_optima[}\FunctionTok{as.character}\NormalTok{(x), b] }\OtherTok{\textless{}{-}} \StringTok{"Parar"}
+\NormalTok{      ganancia\_G\_optima[}\FunctionTok{as.character}\NormalTok{(x),b] }\OtherTok{\textless{}{-}}\NormalTok{ G0}
+\NormalTok{    \} }\ControlFlowTok{else}\NormalTok{ \{}
+\NormalTok{      estrategia\_G\_optima[}\FunctionTok{as.character}\NormalTok{(x), b] }\OtherTok{\textless{}{-}} \StringTok{"Continuar"}
+\NormalTok{      ganancia\_G\_optima[}\FunctionTok{as.character}\NormalTok{(x),b] }\OtherTok{\textless{}{-}}\NormalTok{ G\_continuar}
+\NormalTok{    \}}
+\NormalTok{  \}}
+\NormalTok{\}}
+
+\FunctionTok{kable}\NormalTok{(estrategia\_G\_optima, }
+      \AttributeTok{caption =} \StringTok{"Tabla de procedimientos si el jugador posee una mano dura"}\NormalTok{,}
+      \AttributeTok{align =} \StringTok{"c"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{kable\_styling}\NormalTok{(}\AttributeTok{bootstrap\_options =} \FunctionTok{c}\NormalTok{(}\StringTok{"striped"}\NormalTok{, }\StringTok{"hover"}\NormalTok{, }\StringTok{"condensed"}\NormalTok{),}
+                \AttributeTok{full\_width =}\NormalTok{ F, }\AttributeTok{font\_size =} \DecValTok{12}\NormalTok{)}
+
+\NormalTok{knitr}\SpecialCharTok{::}\FunctionTok{kable}\NormalTok{(}\FunctionTok{round}\NormalTok{(ganancia\_G\_optima,}\DecValTok{3}\NormalTok{), }
+      \AttributeTok{caption =} \StringTok{"Tabla de ganancias si el jugador posee una mano dura"}\NormalTok{,}
+      \AttributeTok{align =} \StringTok{"c"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{kable\_styling}\NormalTok{(}\AttributeTok{bootstrap\_options =} \FunctionTok{c}\NormalTok{(}\StringTok{"striped"}\NormalTok{, }\StringTok{"hover"}\NormalTok{, }\StringTok{"condensed"}\NormalTok{),}
+                \AttributeTok{full\_width =}\NormalTok{ F, }\AttributeTok{font\_size =} \DecValTok{12}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{codigo-para-la-ganancia-y-estrategia-en-caso-de-mano-blanda}{%
+\section{Codigo para la ganancia y estrategia en caso de mano
+blanda}\label{codigo-para-la-ganancia-y-estrategia-en-caso-de-mano-blanda}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{estrategia\_G\_optima\_mano\_blanda }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\StringTok{""}\NormalTok{, }\AttributeTok{nrow =} \DecValTok{28}\NormalTok{, }\AttributeTok{ncol =} \DecValTok{10}\NormalTok{)}
+\FunctionTok{rownames}\NormalTok{(estrategia\_G\_optima\_mano\_blanda) }\OtherTok{\textless{}{-}} \FunctionTok{as.character}\NormalTok{(}\DecValTok{4}\SpecialCharTok{:}\DecValTok{31}\NormalTok{)}
+\FunctionTok{colnames}\NormalTok{(estrategia\_G\_optima\_mano\_blanda) }\OtherTok{\textless{}{-}}\NormalTok{ Cartas  }\CommentTok{\# del 2 al As}
+\NormalTok{ganancia\_G\_optima\_mano\_blanda }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\ConstantTok{NA}\NormalTok{, }\AttributeTok{nrow =} \DecValTok{28}\NormalTok{, }\AttributeTok{ncol =} \DecValTok{10}\NormalTok{)}
+\FunctionTok{rownames}\NormalTok{(ganancia\_G\_optima\_mano\_blanda) }\OtherTok{\textless{}{-}} \FunctionTok{as.character}\NormalTok{(}\DecValTok{4}\SpecialCharTok{:}\DecValTok{31}\NormalTok{)}
+\FunctionTok{colnames}\NormalTok{(ganancia\_G\_optima\_mano\_blanda) }\OtherTok{\textless{}{-}}\NormalTok{ Cartas  }\CommentTok{\# del 2 al As}
+\ControlFlowTok{for}\NormalTok{ (x }\ControlFlowTok{in} \DecValTok{22}\SpecialCharTok{:}\DecValTok{31}\NormalTok{) \{}
+\NormalTok{  ganancia\_G\_optima\_mano\_blanda[}\FunctionTok{as.character}\NormalTok{(x),] }\OtherTok{\textless{}{-}} \SpecialCharTok{{-}}\DecValTok{1}
+\NormalTok{  estrategia\_G\_optima\_mano\_blanda[}\FunctionTok{as.character}\NormalTok{(x),] }\OtherTok{\textless{}{-}} \StringTok{"Parar"}
+\NormalTok{\}}
+
+\ControlFlowTok{for}\NormalTok{ (x }\ControlFlowTok{in} \DecValTok{21}\SpecialCharTok{:}\DecValTok{4}\NormalTok{) \{}
+  \ControlFlowTok{for}\NormalTok{ (b }\ControlFlowTok{in}\NormalTok{ Cartas) \{}
+    
+    \CommentTok{\# Verifica si es blackjack (21 con 2 cartas), solo posible si x == 21}
+\NormalTok{    es\_blackjack }\OtherTok{\textless{}{-}}\NormalTok{ (x }\SpecialCharTok{==} \DecValTok{21}\NormalTok{)  }\CommentTok{\# Aquí podrías añadir verificación con número de cartas}
+    
+\NormalTok{    G0 }\OtherTok{\textless{}{-}} \FunctionTok{Calculo\_G\_0}\NormalTok{(x, b, resultados\_tabla,}\AttributeTok{es\_blackjack =}\NormalTok{ es\_blackjack)}
+    
+    \CommentTok{\# Esperanza de continuar}
+\NormalTok{    G\_continuar }\OtherTok{\textless{}{-}} \DecValTok{0}
+    \ControlFlowTok{for}\NormalTok{ (j }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{10}\NormalTok{) \{}
+\NormalTok{      nueva\_x }\OtherTok{\textless{}{-}}\NormalTok{ x }\SpecialCharTok{+}\NormalTok{ Valor\_cartas\_mano\_blanda[j]}
+      \ControlFlowTok{if}\NormalTok{ (nueva\_x }\SpecialCharTok{\textgreater{}} \DecValTok{21}\NormalTok{) \{}
+\NormalTok{        nueva\_x\_dura }\OtherTok{\textless{}{-}}\NormalTok{ nueva\_x}\DecValTok{{-}10}
+\NormalTok{        G\_continuar }\OtherTok{\textless{}{-}}\NormalTok{ G\_continuar }\SpecialCharTok{{-}}\NormalTok{ Probabilidades\_sacar\_carta[j]}\SpecialCharTok{*}\NormalTok{ganancia\_G\_optima[}\FunctionTok{as.character}\NormalTok{(nueva\_x\_dura),b]}
+\NormalTok{      \} }\ControlFlowTok{else}\NormalTok{ \{}
+\NormalTok{        G\_continuar }\OtherTok{\textless{}{-}}\NormalTok{ G\_continuar }\SpecialCharTok{+}\NormalTok{ Probabilidades\_sacar\_carta[j] }\SpecialCharTok{*}\NormalTok{ganancia\_G\_optima\_mano\_blanda[}\FunctionTok{as.character}\NormalTok{(nueva\_x),b] }
+\NormalTok{      \}}
+\NormalTok{    \}}
+    
+    \ControlFlowTok{if}\NormalTok{ (G0 }\SpecialCharTok{\textgreater{}=}\NormalTok{ G\_continuar) \{}
+\NormalTok{      estrategia\_G\_optima\_mano\_blanda[}\FunctionTok{as.character}\NormalTok{(x), b] }\OtherTok{\textless{}{-}} \StringTok{"Parar"}
+\NormalTok{      ganancia\_G\_optima\_mano\_blanda[}\FunctionTok{as.character}\NormalTok{(x),b] }\OtherTok{\textless{}{-}}\NormalTok{ G0}
+\NormalTok{    \} }\ControlFlowTok{else}\NormalTok{ \{}
+\NormalTok{      estrategia\_G\_optima\_mano\_blanda[}\FunctionTok{as.character}\NormalTok{(x), b] }\OtherTok{\textless{}{-}} \StringTok{"Continuar"}
+\NormalTok{      ganancia\_G\_optima\_mano\_blanda[}\FunctionTok{as.character}\NormalTok{(x),b] }\OtherTok{\textless{}{-}}\NormalTok{ G\_continuar}
+\NormalTok{    \}}
+\NormalTok{  \}}
+\NormalTok{\}}
+
+\FunctionTok{kable}\NormalTok{(estrategia\_G\_optima\_mano\_blanda, }
+      \AttributeTok{caption =} \StringTok{"Tabla de procedimientos si el jugador posee una mano blanda"}\NormalTok{,}
+      \AttributeTok{align =} \StringTok{"c"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{kable\_styling}\NormalTok{(}\AttributeTok{bootstrap\_options =} \FunctionTok{c}\NormalTok{(}\StringTok{"striped"}\NormalTok{, }\StringTok{"hover"}\NormalTok{, }\StringTok{"condensed"}\NormalTok{),}
+                \AttributeTok{full\_width =}\NormalTok{ F, }\AttributeTok{font\_size =} \DecValTok{12}\NormalTok{)}
+
+\FunctionTok{kable}\NormalTok{(}\FunctionTok{round}\NormalTok{(ganancia\_G\_optima\_mano\_blanda,}\DecValTok{5}\NormalTok{), }
+      \AttributeTok{caption =} \StringTok{"Tabla de ganancias si el jugador posee una mano blanda"}\NormalTok{,}
+      \AttributeTok{align =} \StringTok{"c"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{kable\_styling}\NormalTok{(}\AttributeTok{bootstrap\_options =} \FunctionTok{c}\NormalTok{(}\StringTok{"striped"}\NormalTok{, }\StringTok{"hover"}\NormalTok{, }\StringTok{"condensed"}\NormalTok{),}
+                \AttributeTok{full\_width =}\NormalTok{ F, }\AttributeTok{font\_size =} \DecValTok{12}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{codigo-para-la-ganancia-y-estrategia-en-caso-de-doblarse-o-no}{%
+\section{Codigo para la ganancia y estrategia en caso de doblarse o
+no}\label{codigo-para-la-ganancia-y-estrategia-en-caso-de-doblarse-o-no}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{estrategia\_doblarse\_NoDoblarse }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\StringTok{""}\NormalTok{, }\AttributeTok{nrow =} \DecValTok{3}\NormalTok{, }\AttributeTok{ncol =} \DecValTok{10}\NormalTok{)}
+\FunctionTok{rownames}\NormalTok{(estrategia\_doblarse\_NoDoblarse) }\OtherTok{\textless{}{-}} \FunctionTok{as.character}\NormalTok{(}\DecValTok{9}\SpecialCharTok{:}\DecValTok{11}\NormalTok{)}
+\FunctionTok{colnames}\NormalTok{(estrategia\_doblarse\_NoDoblarse) }\OtherTok{\textless{}{-}}\NormalTok{ Cartas  }\CommentTok{\# del 2 al As}
+\NormalTok{ganancia\_doblarse\_NoDoblarse }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\ConstantTok{NA}\NormalTok{, }\AttributeTok{nrow =} \DecValTok{3}\NormalTok{, }\AttributeTok{ncol =} \DecValTok{10}\NormalTok{)}
+\FunctionTok{rownames}\NormalTok{(ganancia\_doblarse\_NoDoblarse) }\OtherTok{\textless{}{-}} \FunctionTok{as.character}\NormalTok{(}\DecValTok{9}\SpecialCharTok{:}\DecValTok{11}\NormalTok{)}
+\FunctionTok{colnames}\NormalTok{(ganancia\_doblarse\_NoDoblarse) }\OtherTok{\textless{}{-}}\NormalTok{ Cartas  }\CommentTok{\# del 2 al As}
+
+\ControlFlowTok{for}\NormalTok{ (x }\ControlFlowTok{in} \DecValTok{9}\SpecialCharTok{:}\DecValTok{11}\NormalTok{) \{}
+  \ControlFlowTok{for}\NormalTok{ (b }\ControlFlowTok{in}\NormalTok{ Cartas) \{}
+\NormalTok{    G\_estrella}\OtherTok{=}\NormalTok{ganancia\_G\_optima[}\FunctionTok{as.character}\NormalTok{(x),b]}
+    \CommentTok{\# Verifica si es blackjack (21 con 2 cartas), solo posible si x == 21}
+\NormalTok{    es\_blackjack }\OtherTok{\textless{}{-}}\NormalTok{ (x }\SpecialCharTok{==} \DecValTok{21}\NormalTok{)  }\CommentTok{\# Aquí podrías añadir verificación con número de cartas}
+    \CommentTok{\# Esperanza de continuar}
+\NormalTok{    G\_continuar }\OtherTok{\textless{}{-}} \DecValTok{0}
+    \ControlFlowTok{for}\NormalTok{ (j }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{10}\NormalTok{) \{}
+\NormalTok{      nueva\_x }\OtherTok{\textless{}{-}}\NormalTok{ x }\SpecialCharTok{+}\NormalTok{ Valor\_cartas\_mano\_blanda[j]}
+\NormalTok{      G\_continuar }\OtherTok{\textless{}{-}}\NormalTok{ G\_continuar }\SpecialCharTok{+}\NormalTok{ Probabilidades\_sacar\_carta[j] }\SpecialCharTok{*} \FunctionTok{Calculo\_G\_0}\NormalTok{(nueva\_x,b,resultados\_tabla,}\AttributeTok{es\_blackjack =}\NormalTok{ es\_blackjack) }
+\NormalTok{    \}}
+    \ControlFlowTok{if}\NormalTok{ (}\DecValTok{2}\SpecialCharTok{*}\NormalTok{G\_continuar }\SpecialCharTok{\textgreater{}}\NormalTok{ G\_estrella) \{}
+\NormalTok{      estrategia\_doblarse\_NoDoblarse[}\FunctionTok{as.character}\NormalTok{(x), b] }\OtherTok{\textless{}{-}} \StringTok{"Doblarse"}
+\NormalTok{      ganancia\_doblarse\_NoDoblarse [}\FunctionTok{as.character}\NormalTok{(x),b] }\OtherTok{\textless{}{-}} \DecValTok{2}\SpecialCharTok{*}\NormalTok{G\_continuar}
+\NormalTok{    \} }\ControlFlowTok{else}\NormalTok{ \{}
+\NormalTok{      estrategia\_doblarse\_NoDoblarse[}\FunctionTok{as.character}\NormalTok{(x), b] }\OtherTok{\textless{}{-}} \StringTok{"No doblarse"}
+\NormalTok{      ganancia\_doblarse\_NoDoblarse [}\FunctionTok{as.character}\NormalTok{(x),b] }\OtherTok{\textless{}{-}}\NormalTok{ G\_estrella}
+\NormalTok{    \}}
+\NormalTok{  \}}
+\NormalTok{\}}
+
+\FunctionTok{kable}\NormalTok{(estrategia\_doblarse\_NoDoblarse, }
+      \AttributeTok{caption =} \StringTok{"Tabla de procedimientos para decidir si doblarse o no"}\NormalTok{,}
+      \AttributeTok{align =} \StringTok{"c"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{kable\_styling}\NormalTok{(}\AttributeTok{bootstrap\_options =} \FunctionTok{c}\NormalTok{(}\StringTok{"striped"}\NormalTok{, }\StringTok{"hover"}\NormalTok{, }\StringTok{"condensed"}\NormalTok{),}
+                \AttributeTok{full\_width =}\NormalTok{ F, }\AttributeTok{font\_size =} \DecValTok{12}\NormalTok{)}
+
+\FunctionTok{kable}\NormalTok{(}\FunctionTok{round}\NormalTok{(ganancia\_doblarse\_NoDoblarse,}\DecValTok{5}\NormalTok{), }
+      \AttributeTok{caption =} \StringTok{"Tabla de ganancias al doblarse o no hacerlo"}\NormalTok{,}
+      \AttributeTok{align =} \StringTok{"c"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{kable\_styling}\NormalTok{(}\AttributeTok{bootstrap\_options =} \FunctionTok{c}\NormalTok{(}\StringTok{"striped"}\NormalTok{, }\StringTok{"hover"}\NormalTok{, }\StringTok{"condensed"}\NormalTok{),}
+                \AttributeTok{full\_width =}\NormalTok{ F, }\AttributeTok{font\_size =} \DecValTok{12}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{codigo-para-la-ganancia-y-estrategia-en-caso-de-doblarse-o-no-1}{%
+\section{Codigo para la ganancia y estrategia en caso de doblarse o
+no}\label{codigo-para-la-ganancia-y-estrategia-en-caso-de-doblarse-o-no-1}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{estrategia\_abrirse\_NoAbrirse }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\StringTok{""}\NormalTok{, }\AttributeTok{nrow =} \DecValTok{10}\NormalTok{, }\AttributeTok{ncol =} \DecValTok{10}\NormalTok{)}
+\FunctionTok{rownames}\NormalTok{(estrategia\_abrirse\_NoAbrirse) }\OtherTok{\textless{}{-}} \FunctionTok{as.character}\NormalTok{(}\DecValTok{2}\SpecialCharTok{:}\DecValTok{11}\NormalTok{)}
+\FunctionTok{colnames}\NormalTok{(estrategia\_abrirse\_NoAbrirse) }\OtherTok{\textless{}{-}}\NormalTok{ Cartas  }\CommentTok{\# del 2 al As}
+\NormalTok{ganancia\_abrirse\_NoAbrirse }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\ConstantTok{NA}\NormalTok{, }\AttributeTok{nrow =} \DecValTok{10}\NormalTok{, }\AttributeTok{ncol =} \DecValTok{10}\NormalTok{)}
+\FunctionTok{rownames}\NormalTok{(ganancia\_abrirse\_NoAbrirse) }\OtherTok{\textless{}{-}} \FunctionTok{as.character}\NormalTok{(}\DecValTok{2}\SpecialCharTok{:}\DecValTok{11}\NormalTok{)}
+\FunctionTok{colnames}\NormalTok{(ganancia\_abrirse\_NoAbrirse) }\OtherTok{\textless{}{-}}\NormalTok{ Cartas  }\CommentTok{\# del 2 al As}
+
+\ControlFlowTok{for}\NormalTok{ (z }\ControlFlowTok{in} \DecValTok{2}\SpecialCharTok{:}\DecValTok{10}\NormalTok{) \{}
+  \ControlFlowTok{for}\NormalTok{ (b }\ControlFlowTok{in}\NormalTok{ Cartas) \{}
+\NormalTok{    G\_estrella}\OtherTok{=}\NormalTok{ganancia\_G\_optima[}\FunctionTok{as.character}\NormalTok{(}\DecValTok{2}\SpecialCharTok{*}\NormalTok{z),b]}
+    \CommentTok{\# Esperanza de continuar}
+\NormalTok{    G\_continuar }\OtherTok{\textless{}{-}} \DecValTok{0}
+    \ControlFlowTok{for}\NormalTok{ (j }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{10}\NormalTok{) \{}
+\NormalTok{      nueva\_z }\OtherTok{\textless{}{-}}\NormalTok{ z }\SpecialCharTok{+}\NormalTok{ Valor\_cartas\_mano\_blanda[j]}
+\NormalTok{      G\_continuar }\OtherTok{\textless{}{-}}\NormalTok{ G\_continuar }\SpecialCharTok{+}\NormalTok{ Probabilidades\_sacar\_carta[j] }\SpecialCharTok{*}\NormalTok{ ganancia\_G\_optima[}\FunctionTok{as.character}\NormalTok{(nueva\_z),b] }
+\NormalTok{    \}}
+    \ControlFlowTok{if}\NormalTok{ (}\DecValTok{2}\SpecialCharTok{*}\NormalTok{G\_continuar }\SpecialCharTok{\textgreater{}}\NormalTok{ G\_estrella) \{}
+\NormalTok{      estrategia\_abrirse\_NoAbrirse[}\FunctionTok{as.character}\NormalTok{(z), b] }\OtherTok{\textless{}{-}} \StringTok{"Abrirse"}
+\NormalTok{      ganancia\_abrirse\_NoAbrirse[}\FunctionTok{as.character}\NormalTok{(z),b] }\OtherTok{\textless{}{-}} \DecValTok{2}\SpecialCharTok{*}\NormalTok{G\_continuar}
+\NormalTok{    \} }\ControlFlowTok{else}\NormalTok{ \{}
+\NormalTok{      estrategia\_abrirse\_NoAbrirse[}\FunctionTok{as.character}\NormalTok{(z), b] }\OtherTok{\textless{}{-}} \StringTok{"No abrirse"}
+\NormalTok{      ganancia\_abrirse\_NoAbrirse[}\FunctionTok{as.character}\NormalTok{(z),b] }\OtherTok{\textless{}{-}}\NormalTok{ G\_estrella}
+\NormalTok{    \}}
+\NormalTok{  \}}
+\NormalTok{\}}
+
+\ControlFlowTok{for}\NormalTok{ (b }\ControlFlowTok{in}\NormalTok{ Cartas) \{}
+\NormalTok{  G\_estrella}\OtherTok{=}\NormalTok{ganancia\_G\_optima\_mano\_blanda[}\FunctionTok{as.character}\NormalTok{(}\DecValTok{12}\NormalTok{),b]}
+  \CommentTok{\# Esperanza de continuar}
+\NormalTok{  G\_continuar }\OtherTok{\textless{}{-}} \DecValTok{0}
+  \ControlFlowTok{for}\NormalTok{ (j }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{10}\NormalTok{) \{}
+\NormalTok{    nueva\_z }\OtherTok{\textless{}{-}}\NormalTok{ z }\SpecialCharTok{+}\NormalTok{ Valor\_cartas\_mano\_blanda[j]}
+\NormalTok{    G\_continuar }\OtherTok{\textless{}{-}}\NormalTok{ G\_continuar }\SpecialCharTok{+}\NormalTok{ Probabilidades\_sacar\_carta[j] }\SpecialCharTok{*} \FunctionTok{Calculo\_G\_0}\NormalTok{(nueva\_z,b,}\AttributeTok{tabla =}\NormalTok{ resultados\_tabla)}
+\NormalTok{  \}}
+  \ControlFlowTok{if}\NormalTok{ (}\DecValTok{2}\SpecialCharTok{*}\NormalTok{G\_continuar }\SpecialCharTok{\textgreater{}}\NormalTok{ G\_estrella) \{}
+\NormalTok{    estrategia\_abrirse\_NoAbrirse[}\FunctionTok{as.character}\NormalTok{(}\DecValTok{11}\NormalTok{), b] }\OtherTok{\textless{}{-}} \StringTok{"Abrirse"}
+\NormalTok{    ganancia\_abrirse\_NoAbrirse[}\FunctionTok{as.character}\NormalTok{(}\DecValTok{11}\NormalTok{),b] }\OtherTok{\textless{}{-}} \DecValTok{2}\SpecialCharTok{*}\NormalTok{G\_continuar}
+\NormalTok{  \} }\ControlFlowTok{else}\NormalTok{ \{}
+\NormalTok{    estrategia\_abrirse\_NoAbrirse[}\FunctionTok{as.character}\NormalTok{(}\DecValTok{11}\NormalTok{), b] }\OtherTok{\textless{}{-}} \StringTok{"No abrirse"}
+\NormalTok{    ganancia\_abrirse\_NoAbrirse[}\FunctionTok{as.character}\NormalTok{(}\DecValTok{11}\NormalTok{),b] }\OtherTok{\textless{}{-}}\NormalTok{ G\_estrella}
+\NormalTok{  \}}
+\NormalTok{\}}
+\FunctionTok{rownames}\NormalTok{(estrategia\_abrirse\_NoAbrirse) }\OtherTok{\textless{}{-}} \FunctionTok{paste0}\NormalTok{(Cartas,}\StringTok{"{-}"}\NormalTok{,Cartas)}
+\FunctionTok{rownames}\NormalTok{(ganancia\_abrirse\_NoAbrirse) }\OtherTok{\textless{}{-}} \FunctionTok{paste0}\NormalTok{(Cartas,}\StringTok{"{-}"}\NormalTok{,Cartas)}
+
+\FunctionTok{kable}\NormalTok{(estrategia\_abrirse\_NoAbrirse, }
+      \AttributeTok{caption =} \StringTok{"Tabla de procedimientos para decidir si abrirse o no"}\NormalTok{,}
+      \AttributeTok{align =} \StringTok{"c"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+\FunctionTok{kable\_styling}\NormalTok{(}\AttributeTok{bootstrap\_options =} \FunctionTok{c}\NormalTok{(}\StringTok{"striped"}\NormalTok{, }\StringTok{"hover"}\NormalTok{, }\StringTok{"condensed"}\NormalTok{),}
+              \AttributeTok{full\_width =}\NormalTok{ F, }\AttributeTok{font\_size =} \DecValTok{12}\NormalTok{)}
+
+\FunctionTok{kable}\NormalTok{(}\FunctionTok{round}\NormalTok{(ganancia\_abrirse\_NoAbrirse,}\DecValTok{5}\NormalTok{), }
+      \AttributeTok{caption =} \StringTok{"Tabla de ganancias al abrirse o no hacerlo"}\NormalTok{,}
+      \AttributeTok{align =} \StringTok{"c"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+\FunctionTok{kable\_styling}\NormalTok{(}\AttributeTok{bootstrap\_options =} \FunctionTok{c}\NormalTok{(}\StringTok{"striped"}\NormalTok{, }\StringTok{"hover"}\NormalTok{, }\StringTok{"condensed"}\NormalTok{),}
+              \AttributeTok{full\_width =}\NormalTok{ F, }\AttributeTok{font\_size =} \DecValTok{12}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+
+\bibliography{bib/library.bib,bib/paquetes.bib}
+
+
+%
+
+
+\end{document}
