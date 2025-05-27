@@ -289,82 +289,145 @@ for (b in Cartas) {
 
 ##### Calculo de la esperanza del juego ----
 
-generar_carta <- function() {
-  valores <- c(2:10, 10, 10, 10, 11)  # Valores de las cartas (J, Q, K = 10; As = 11)
-  sample(valores, 1)
-}
-
-# Función para calcular la suma de una mano
-suma_mano <- function(mano) {
-  total <- sum(mano)
-  # Ajustar el valor del As si el total excede 21
-  while (total > 21 && 11 %in% mano) {
-    mano[mano == 11] <- 1
-    total <- sum(mano)
-  }
-  total
-}
-
-# Función para jugar una mano de Blackjack desde un estado inicial
-jugar_dada_mano <- function(carta1,carta2,carta_crupier) {
-  # Mano inicial del jugador
-  mano_jugador <- c(carta1,carta2)
-  
-  # Mano del dealer
-  mano_dealer <- c(carta_crupier)
-  
-  # Juego del jugador: se planta en 17 o más
-  while (suma_mano(mano_jugador) < 17) {
-    mano_jugador <- c(mano_jugador, generar_carta())
-  }
-  
-  # Si el jugador se pasa de 21, pierde
-  if (suma_mano(mano_jugador) > 21) {
-    return("dealer")  # Dealer gana
-  }
-  
-  # Juego del dealer: se planta en 17 o más
-  while (suma_mano(mano_dealer) < 17) {
-    mano_dealer <- c(mano_dealer, generar_carta())
-  }
-  
-  # Si el dealer se pasa de 21, el jugador gana
-  if (suma_mano(mano_dealer) > 21) {
-    return("jugador")  # Jugador gana
-  }
-  
-  # Comparar las manos
-  if (suma_mano(mano_jugador) > suma_mano(mano_dealer)) {
-    return("jugador")  # Jugador gana
-  } else if (suma_mano(mano_jugador) < suma_mano(mano_dealer)) {
-    return("dealer")  # Dealer gana
+valor_de_carta <- function(carta) {
+  if (carta == "Figura") {
+    return(10)
+  } else if (carta == "As") {
+    return(11)
   } else {
-    return("empate")  # Empate
+    return(as.numeric(carta))
   }
 }
 
-# Simulación Monte Carlo para una mano inicial
-simular_probabilidad_ganar <- function(mano_jugador_inicial, n_simulaciones) {
-  resultados <- replicate(n_simulaciones, jugar_dada_mano(mano_jugador_inicial))
-  # Contar los resultados
-  tabla_resultados <- table(resultados)
-  return(prop.table(tabla_resultados))  # Proporciones de victorias, derrotas y empates
+
+tipo_de_mano <- function(mano) {
+  if (length(mano) != 2) {
+    return("Es el inicio y solo tenemos 2 cartas")
+  }
+  carta1 <- mano[1]
+  carta2 <- mano[2]
+  valor_carta_1 <- valor_de_carta(carta1)
+  valor_carta_2 <- valor_de_carta(carta2)
+  
+  if (carta1 == carta2) {
+    return("Opcion abrirse")
+  }
+  if (encuentra_as_en_mano(mano)){
+    valor <- ifelse(carta1 == "As", valor_carta_2,valor_carta_1)
+    if (valor + 11 <=21) {
+      return("Blanda")
+    }  
+  }
+  return("Dura")
 }
 
-# Ejemplo: Simular con una mano inicial de 10 y 7
-mano_inicial <- c(10, 6)
-n_simulaciones <- 100000
-resultados <- simular_probabilidad_ganar(mano_inicial, n_simulaciones)
+estrategia_juego <- function(mano,carta_crupier){
+  clase_de_mano <- tipo_de_mano(mano)
+  suma_de_mano <- sum(sapply(mano,valor_de_carta))
+  if(clase_de_mano == "blanda" && suma_de_mano >21){
+    suma_de_mano = suma_de_mano-10
+  }
+  # ya tenemos suma de la mano que tenemos y que tipo es
+  
+  if (clase_de_mano == "Opcion abrirse") {
+    carta_repetida <- mano[1]
+    valor_repetido <- valor_de_carta(carta_repetida)
+    if (valor_repetido == 11) {
+      return(estrategia_abrirse_NoAbrirse["As-As",carta_crupier])
+    } else if (valor_repetido == 10) {
+      return(estrategia_abrirse_NoAbrirse["Figura-Figura",carta_crupier])
+    } else{
+      return(estrategia_abrirse_NoAbrirse[paste0(valor_repetido,"-",valor_repetido),carta_crupier])
+    }
+  } else if(clase_de_mano == "Blanda") {
+    return(estrategia_G_optima_mano_blanda[as.character(suma_de_mano),carta_crupier])
+  } else if(clase_de_mano == "Dura") {
+    if (suma_de_mano %in% 9:11) {
+      return(estrategia_doblarse_NoDoblarse[as.character(suma_de_mano),carta_crupier])
+    } else{
+      return(estrategia_G_optima[as.character(suma_de_mano),carta_crupier])
+    }
+  }
+}
 
-# Imprimir resultados
-cat("Resultados para la mano inicial", paste(mano_inicial, collapse = ", "), ":\n")
-print(resultados)
+# construimos el mazo y el reparto inicial de cada carta
+mazo <- rep(Cartas, Cantidad_de_cada_carta)
+
+repartir_cartas_iniciales <- function(){
+  sample(mazo,size = 4,replace = T)
+}
+
+valor_mano <- function(mano){
+  valores <- sapply(mano, valor_de_carta)
+  suma <- sum(valores)
+  as_en_mano <- sum(mano == "As")
+  while (suma>21 && as_en_mano > 0) {
+    suma <- suma-10
+    as_en_mano <- as_en_mano-1
+  }
+  return(suma)
+}
+
+jugar_mano <- function(mano_jugador,carta_visible_crupier,mano_crupier,decision=NULL){
+  if(decision == "D"){
+    mano_jugador <- c(mano_jugador,sample(mazo,1))
+    apuesta <- 2
+  } else{
+    apuesta <- 1
+    while(decision != "P"){
+      mano_jugador <- c(mano_jugador,sample(mazo,1))
+      valor_mano_jugador <- valor_mano(mano_jugador)
+      decision <- estrategia_juego(mano_jugador,carta_crupier)
+    }
+  }
+  valor_final_jugador <- valor_mano(mano_jugador)
+  if(valor_final_jugador>21) {
+    return(-apuesta)
+  }
+  while (valor_mano(mano_crupier)<17) {
+    mano_crupier <- c(mano_crupier,sample(mazo,1))
+  }
+  valor_final_crupier <- valor_mano(mano_crupier)
+  
+  if(valor_final_crupier>21 || valor_final_jugador>valor_final_crupier){
+    return(apuesta)
+  } else if(valor_final_jugador == valor_final_crupier){
+    return(0)
+  } else{
+    return(-apuesta)
+  }
+}
 
 
+simular_partida_completa <- function() {
+  cartas_iniciales <- repartir_cartas_iniciales()
+  mano_jugador <- cartas_iniciales[1:2]
+  mano_crupier <- cartas_iniciales[3:4]
+  carta_visible_crupier <- mano_crupier[1]
+  
+  decision <- estrategia_juego(mano_jugador,carta_visible_crupier)
+  
+  if (decision == "A") {
+    carta <- mano_jugador[1]
+    mano1 <- c(carta,sample(mazo,1))
+    mano2 <- c(carta,sample(mazo,1))
+    
+    resultado_mano1 <- jugar_mano(mano1,carta_visible_crupier,mano_crupier)
+    resultado_mano2 <- jugar_mano(mano2,carta_visible_crupier,mano_crupier)
+    
+    return(mean(c(resultado_mano1,resultado_mano2)))
+  } else{
+    resultado <- jugar_mano(mano_jugador,carta_visible_crupier,mano_crupier,decision)
+    return(resultado)
+  }
+}
 
+simular_partida_completa()
 
+calcular_esperanza_jugador <- function(n_partidas = 100000) {
+  resultados <- replicate(n_partidas, simular_partida_completa())
+  esperanza <- mean(resultados)
+  return(esperanza)
+}
 
-
-
-
-
+calcular_esperanza_jugador()

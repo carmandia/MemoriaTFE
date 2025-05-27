@@ -1,4 +1,4 @@
-\begin{thebibliography}{21}
+\begin{thebibliography}{20}
 %Comandos de formato, por si no est'an definidos.
 \ProvideTextCommand{\guillemotleft}{OT1}{\leavevmode\raise .27ex\hbox{$\scriptscriptstyle\ll$}} \ProvideTextCommand{\guillemotright}{OT1}{\leavevmode\raise .27ex\hbox{$\scriptscriptstyle\gg$}}
 \providecommand{\enquote}[1]{\guillemotleft#1\guillemotright} \providecommand{\natexlab}[1]{#1} \providecommand{\bibnamefont}[1]{\textsc{#1}} \providecommand{\bibfnamefont}[1]{\textsc{#1}} \providecommand{\bibfnamefontand}[1]{#1} \providecommand{\citenamefont}[1]{#1} \providecommand{\bibnamefont}[1]{\textsc{#1}} \providecommand{\bbletalfont}[1]{\emph{#1}}  \providecommand{\citeandfont}[1]{#1} \providecommand{\citetalfont}[1]{#1} \providecommand{\bibyearfont}[1]{#1} \providecommand{\isbn}[1]{ISBN #1} \providecommand{\url}[1]{\texttt{#1}} \providecommand{\urlprefix}{} \providecommand{\nameseparator}{;} \providecommand{\namereplace}[1]{{---{}---} \ifx\datebegin\relax \else \def\datebegin #1.{\relax}\fi} \providecommand{\dateend}[1]{, #1} \providecommand{\bibtitle}[1]{#1}\providecommand{\bibtranslator}[1]{#1} \providecommand{\bibtranslatorname}{Traducido por } \providecommand{\selectlanguage}[1]{\relax} \providecommand{\finalpoint}{.} \providecommand{\namesend}{:} \providecommand{\Capitalize}[1]{\uppercase{#1}} \providecommand{\capitalize}[1]{\expandafter\Capitalize#1} \providecommand{\bibinfont}[1]{\textbf{#1}} \providecommand{\inbooktitlefont}[1]{\emph{#1}} \providecommand{\bibvolfont}[1]{\textbf{#1}} \providecommand{\bibandfont}[1]{#1}  \providecommand{\bibcommentname}{\textsc{Obs:}} \providecommand{\bibcomment}[2]{\begin{quotation} \noindent\textsc{\bibcommentname}\ #2\end{quotation}} \providecommand{\bibabstract}[2]{\begin{quotation} \noindent\textsc{\Abstractname:}\ #2\end{quotation}}
@@ -6,8 +6,8 @@
 %Para resultados estilo plain descomente la l'inea siguiente
 %\let\oldbibitem=\bibitem \def\bibitem[#1]#2{\oldbibitem{#2}}
 
-\bibitem[{\citenamefont{Baldwind}(1956)}]{Libro14}
-\bibnamefont{Baldwind}, \bibfnamefont{Wilbert E.; Maisel Herbert; McDermott James~P., Roger R;~Cantey}\namesend{}\datebegin 1956.
+\bibitem[{\citenamefont{Baldwind} \citetalfont{\bbletal{}}(1956)\citenamefont{Baldwind}, \citenamefont{Cantey}, \citenamefont{Maisel} \citeandfont{\bbland{}} \citenamefont{McDermott}}]{Libro14}
+\bibnamefont{Baldwind}, \bibfnamefont{Roger~R}\nameseparator{} \bibnamefont{Cantey}, \bibfnamefont{Wilbert~E.}\nameseparator{} \bibnamefont{Maisel}, \bibfnamefont{Herbert} \bibandfont{\bbland{}} \bibnamefont{McDermott}, \bibfnamefont{James~P.}\namesend{}\datebegin 1956.
   \newblock \bibtitle{\enquote{The Optimum Strategy in Blackjack}}.
   \newblock \emph{Journal of the American Statistical Association}\dateend{1956}, \bibvolfont{51(275)}, \bblpp{} 429--440\finalpoint{}
 
@@ -15,11 +15,6 @@
 \bibnamefont{Casas~Méndez}, \bibfnamefont{Balbina}\nameseparator{} \bibnamefont{Fiestras~Janeiro}, \bibfnamefont{M.~Gloria}\nameseparator{} \bibnamefont{García~Jurado}, \bibfnamefont{Ignacio} \bibandfont{\bbland{}} \bibnamefont{Gónzalez~Díaz}, \bibfnamefont{Julio}\namesend{}\datebegin 2012.
   \newblock \bibtitle{\emph{Introducción a la Teoría de Juegos}}.
   \newblock Servizo de Publicacións e Intercambio Científico Campus Vida, first edition reviwed and expanded\bbledition{}\dateend{2012}\finalpoint{}
-
-\bibitem[{\citenamefont{DeGroot}(2004)}]{Libro17}
-\bibnamefont{DeGroot}, \bibfnamefont{Morris~H.}\namesend{}\datebegin 2004.
-  \newblock \bibtitle{\emph{Optimal Statistical Decisions}}.
-  \newblock John Wiley & Sons,Inc., first edition\bbledition{}\dateend{2004}\finalpoint{}
 
 \bibitem[{\citenamefont{Epstein}(2010)}]{Libro6}
 \bibnamefont{Epstein}, \bibfnamefont{Richard}\namesend{}\datebegin 2010.
@@ -33,11 +28,16 @@
 
 \bibitem[{\citenamefont{Luque-Calvo}(2017)}]{Libro20}
 \bibnamefont{Luque-Calvo}, \bibfnamefont{P.L}\namesend{}\datebegin 2017.
-  \newblock \bibtitle{\enquote{"Esscribir un trabajo de fin de estudios con r markdown"}}.
+  \newblock \bibtitle{\enquote{"Escribir un trabajo de fin de estudios con r markdown"}}.
   \newblock Disponible en \url{http://destio.us.es/calvo/}\dateend{2017}\finalpoint{}
 
-\bibitem[{\citenamefont{Maschler}(2020)}]{Libro13}
-\bibnamefont{Maschler}, \bibfnamefont{Eilon; Zamir~Shmuel, Michael;~Solan}\namesend{}\datebegin 2020.
+\bibitem[{\citenamefont{Manzano~Díaz}(2025)}]{Libro21}
+\bibnamefont{Manzano~Díaz}, \bibfnamefont{Carlos}\namesend{}\datebegin 2025.
+  \newblock \bibtitle{\enquote{"GitHub"}}.
+  \newblock Disponible en \url{https://github.com/carmandia/MemoriaTFE}\dateend{2025}\finalpoint{}
+
+\bibitem[{\citenamefont{Maschler} \citetalfont{\bbletal{}}(2020)\citenamefont{Maschler}, \citenamefont{Solan} \citeandfont{\bbland{}} \citenamefont{Zamir}}]{Libro13}
+\bibnamefont{Maschler}, \bibfnamefont{Michael}\nameseparator{} \bibnamefont{Solan}, \bibfnamefont{Eilon} \bibandfont{\bbland{}} \bibnamefont{Zamir}, \bibfnamefont{Shmuel}\namesend{}\datebegin 2020.
   \newblock \bibtitle{\emph{Game Theory}}.
   \newblock Cambridge University Press, second edition\bbledition{}\dateend{2020}\finalpoint{}
 
@@ -61,8 +61,8 @@
   \newblock \bibtitle{\emph{Beat the odds}}.
   \newblock Hayden Book Company, Inc., first edition\bbledition{}\dateend{1980}\finalpoint{}
 
-\bibitem[{\citenamefont{Staton}(2018)}]{Libro8}
-\bibnamefont{Staton}, \bibfnamefont{Henry, Benjamin;~Hershey}\namesend{}\datebegin 2018.
+\bibitem[{\citenamefont{Staton} \citeandfont{\bbland{}} \citenamefont{Hershey}(2018)}]{Libro8}
+\bibnamefont{Staton}, \bibfnamefont{Benjamin} \bibandfont{\bbland{}} \bibnamefont{Hershey}, \bibfnamefont{Henry}\namesend{}\datebegin 2018.
   \newblock \bibtitle{\emph{Introduction to R for Natural Resource Scientist}}.
   \newblock The Mathematical Association of America, third edition\bbledition{}\dateend{2018}\finalpoint{}
 
@@ -71,8 +71,8 @@
   \newblock \bibtitle{\emph{Teoría de Juegos}}.
   \newblock Centro de Investigaciones Sociológicas, second edition reviwed and expanded\bbledition{}\dateend{2009}\finalpoint{}
 
-\bibitem[{\citenamefont{Tejada~Cazorla}(1985)}]{Libro16}
-\bibnamefont{Tejada~Cazorla}, \bibfnamefont{Javier, Juan; Yañez~Gestoso}\namesend{}\datebegin 1985.
+\bibitem[{\citenamefont{Tejada~Cazorla} \citeandfont{\bbland{}} \citenamefont{Yañez~Gestoso}(1985)}]{Libro16}
+\bibnamefont{Tejada~Cazorla}, \bibfnamefont{Juan} \bibandfont{\bbland{}} \bibnamefont{Yañez~Gestoso}, \bibfnamefont{Javier}\namesend{}\datebegin 1985.
   \newblock \bibtitle{\enquote{A Favorable Strategy for Twenty-One}}.
   \newblock \emph{Departamento de Estadística e Investigación Operativa. Universidad Complutense de Madrid}\dateend{1985}, \bibvolfont{(107)}, \bblpp{} 95--110\finalpoint{}
 
@@ -100,12 +100,6 @@
 \bibnamefont{Wikipedia}\namesend{}\datebegin 2024.
   \newblock \bibtitle{\enquote{"Game Theory"}}.
   \newblock \url{https://en.wikipedia.org/wiki/Game_theory}\dateend{2024}\finalpoint{}
-
-\bibitem[{\citenamefont{Xie}(2025)}]{R-knitr}
-\bibnamefont{Xie}, \bibfnamefont{Yihui}\namesend{}\datebegin 2025.
-  \newblock \bibtitle{\emph{knitr: A General-Purpose Package for Dynamic Report Generation in R}}\dateend{2025}.
-  \newblock \preurl{} \url{https://yihui.org/knitr/}.
-  \newblock R package version 1.50\finalpoint{}
 
 \bibitem[{\citenamefont{Álvarez Mozos} \citeandfont{\bbland{}} \citenamefont{Martínez~de Albéniz~Salas}(2021)}]{Libro1}
 \bibnamefont{Álvarez Mozos}, \bibfnamefont{Mikel} \bibandfont{\bbland{}} \bibnamefont{Martínez~de Albéniz~Salas}, \bibfnamefont{F.~Javier}\namesend{}\datebegin 2021.

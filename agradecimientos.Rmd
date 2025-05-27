@@ -1,0 +1,8 @@
+---
+output: pdf_document
+---
+
+Quería dar las gracias a mi familia. A mis padres por darme consejo en los peores momentos, ayudarme a no desfallecer, e inculcarme los valores que me hacen ser como soy hoy día. A mi hermana por hacerme el estudio más sencillo y haberme reconducido al buen camino. Sin olvidar a quien se fue y nos dejó una huella imborrable. Al resto de mi familia por apoyarme y darme alegrías que son necesarias.
+
+A los profesores que a lo largo de la carrera me han ayudado a alcanzar unos conocimientos que al comenzar la misma no los veía posibles. En especial a mi tutor José Luis Pino por las tutorías que me allanaron el camino para que este documento saliera adelante, y a Pedro por ayudarme a manejar R que me ha facilitado avanzar más en los lenguajes de programación.
+

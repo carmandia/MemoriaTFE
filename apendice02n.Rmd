@@ -29,6 +29,8 @@ source("cabecera_chunk_inicio.R")
 library(knitr)
 library(kableExtra)
 library(tidyverse)
+
+set.seed(47563)
 Cartas <- c("2","3","4","5","6","7","8","9","Figura","As")
 Cantidad_de_cada_carta <- c(4,4,4,4,4,4,4,4,16,4)
 Valor_cartas <- c(2,3,4,5,6,7,8,9,10,11)
@@ -96,7 +98,7 @@ Calcular_suma_mano_crupier <- function(mano){
   return(suma)
 }
 
-Mano_dada_crupier <- function(b){ #b es la carta que todos ven que tiene el crupier
+Mano_dada_crupier <- function(b){#b es la carta que todos ven que tiene el crupier
   suma=0
   mano=c(b)
   while (suma<17) {
@@ -113,18 +115,24 @@ resultados_tabla <- data.frame()
 for (carta in Cartas) {
   salida <- replicate(10000, Mano_dada_crupier(carta))
   tabla <- prop.table(table(factor(salida, 
-                                   levels = c("17","18","19","20","21","BlackJack","Se pasa"))))
+                                   levels = 
+                                  c("17","18","19","20","21","BlackJack","Se pasa"))))
   resultados_tabla <- rbind(resultados_tabla, as.numeric(tabla))
   colnames(resultados_tabla)=c("17","18","19","20","21","BlackJack","Se pasa")
 }
 rownames(resultados_tabla)=c("2","3","4","5","6","7","8","9","Figura","As")
-
+kable(round(resultados_tabla, 6), 
+      caption ="Probabilidades de resultado final del crupier según carta visible",
+      align = "c") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
+                full_width = F, font_size = 12)
 
 Calculo_G_0 <- function(x, b, tabla, es_blackjack = FALSE) {
   probabilidades_final_crupier <- tabla[b, ]
   
   # Extraemos probabilidades
-  pr_T_17_20 <- as.numeric(probabilidades_final_crupier[c("17", "18", "19", "20")])
+  pr_T_17_20 <- as.numeric(probabilidades_final_crupier[
+    c("17", "18", "19", "20")])
   pr_T_21 <- probabilidades_final_crupier$"21"
   pr_T_bj <- probabilidades_final_crupier$"BlackJack"
   pr_T_pasa <- probabilidades_final_crupier$`Se pasa`
@@ -134,14 +142,18 @@ Calculo_G_0 <- function(x, b, tabla, es_blackjack = FALSE) {
   }
   
   if (x == 21 && es_blackjack) {
-    return(1.5 * (1 - pr_T_bj))  # 0 * pr_T_bj es innecesario
+    return(1.5 * (1 - pr_T_bj)) 
   }
   
   pr_T_menor <- sum(pr_T_17_20[which(17:20 < x)])
-  pr_T_igual <- sum(pr_T_17_20[which(17:20 == x)]) + ifelse(x == 21, pr_T_21, 0)
-  pr_T_mayor <- sum(pr_T_17_20[which(17:20 > x)]) + ifelse(x < 21, pr_T_21, 0) + pr_T_bj
+  pr_T_igual <- sum(pr_T_17_20[which(17:20 == x)]) + 
+    ifelse(x == 21, pr_T_21, 0)
+  pr_T_mayor <- sum(pr_T_17_20[which(17:20 > x)]) + 
+    ifelse(x < 21, pr_T_21, 0) + pr_T_bj
   
-  ganancia <- (+1) * (pr_T_menor + pr_T_pasa) + (0) * pr_T_igual + (-1) * pr_T_mayor
+  ganancia <- (+1) * (pr_T_menor + pr_T_pasa) + 
+    (0) * pr_T_igual + 
+    (-1) * pr_T_mayor
   
   return(ganancia)
 }
@@ -159,14 +171,14 @@ rownames(ganancia_G_optima) <- as.character(4:31)
 colnames(ganancia_G_optima) <- Cartas  # del 2 al As
 for (x in 22:31) {
   ganancia_G_optima[as.character(x),] <- -1
-  estrategia_G_optima[as.character(x),] <- "Parar"
+  estrategia_G_optima[as.character(x),] <- "P"
 }
 
 for (x in 21:4) {
   for (b in Cartas) {
     
-    # Verifica si es blackjack (21 con 2 cartas), solo posible si x == 21
-    es_blackjack <- (x == 21)  # Aquí podrías añadir verificación con número de cartas
+    # Verifica si es blackjack 
+    es_blackjack <- (x == 21) 
     
     G0 <- Calculo_G_0(x, b, resultados_tabla,es_blackjack = es_blackjack)
     
@@ -182,10 +194,10 @@ for (x in 21:4) {
     }
     
     if (G0 >= G_continuar) {
-      estrategia_G_optima[as.character(x), b] <- "Parar"
+      estrategia_G_optima[as.character(x), b] <- "P"
       ganancia_G_optima[as.character(x),b] <- G0
     } else {
-      estrategia_G_optima[as.character(x), b] <- "Continuar"
+      estrategia_G_optima[as.character(x), b] <- "C"
       ganancia_G_optima[as.character(x),b] <- G_continuar
     }
   }
@@ -215,14 +227,14 @@ rownames(ganancia_G_optima_mano_blanda) <- as.character(4:31)
 colnames(ganancia_G_optima_mano_blanda) <- Cartas  # del 2 al As
 for (x in 22:31) {
   ganancia_G_optima_mano_blanda[as.character(x),] <- -1
-  estrategia_G_optima_mano_blanda[as.character(x),] <- "Parar"
+  estrategia_G_optima_mano_blanda[as.character(x),] <- "P"
 }
 
 for (x in 21:4) {
   for (b in Cartas) {
     
-    # Verifica si es blackjack (21 con 2 cartas), solo posible si x == 21
-    es_blackjack <- (x == 21)  # Aquí podrías añadir verificación con número de cartas
+    # Verifica si es blackjack 
+    es_blackjack <- (x == 21)  
     
     G0 <- Calculo_G_0(x, b, resultados_tabla,es_blackjack = es_blackjack)
     
@@ -239,10 +251,10 @@ for (x in 21:4) {
     }
     
     if (G0 >= G_continuar) {
-      estrategia_G_optima_mano_blanda[as.character(x), b] <- "Parar"
+      estrategia_G_optima_mano_blanda[as.character(x), b] <- "P"
       ganancia_G_optima_mano_blanda[as.character(x),b] <- G0
     } else {
-      estrategia_G_optima_mano_blanda[as.character(x), b] <- "Continuar"
+      estrategia_G_optima_mano_blanda[as.character(x), b] <- "C"
       ganancia_G_optima_mano_blanda[as.character(x),b] <- G_continuar
     }
   }
@@ -254,7 +266,7 @@ kable(estrategia_G_optima_mano_blanda,
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
                 full_width = F, font_size = 12)
 
-kable(round(ganancia_G_optima_mano_blanda,5), 
+kable(round(ganancia_G_optima_mano_blanda,3), 
       caption = "Tabla de ganancias si el jugador posee una mano blanda",
       align = "c") %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
@@ -274,8 +286,8 @@ colnames(ganancia_doblarse_NoDoblarse) <- Cartas  # del 2 al As
 for (x in 9:11) {
   for (b in Cartas) {
     G_estrella=ganancia_G_optima[as.character(x),b]
-    # Verifica si es blackjack (21 con 2 cartas), solo posible si x == 21
-    es_blackjack <- (x == 21)  # Aquí podrías añadir verificación con número de cartas
+    # Verifica si es blackjack 
+    es_blackjack <- (x == 21)  
     # Esperanza de continuar
     G_continuar <- 0
     for (j in 1:10) {
@@ -283,10 +295,10 @@ for (x in 9:11) {
       G_continuar <- G_continuar + Probabilidades_sacar_carta[j] * Calculo_G_0(nueva_x,b,resultados_tabla,es_blackjack = es_blackjack) 
     }
     if (2*G_continuar > G_estrella) {
-      estrategia_doblarse_NoDoblarse[as.character(x), b] <- "Doblarse"
+      estrategia_doblarse_NoDoblarse[as.character(x), b] <- "D"
       ganancia_doblarse_NoDoblarse [as.character(x),b] <- 2*G_continuar
     } else {
-      estrategia_doblarse_NoDoblarse[as.character(x), b] <- "No doblarse"
+      estrategia_doblarse_NoDoblarse[as.character(x), b] <- "No D"
       ganancia_doblarse_NoDoblarse [as.character(x),b] <- G_estrella
     }
   }
@@ -298,11 +310,12 @@ kable(estrategia_doblarse_NoDoblarse,
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
                 full_width = F, font_size = 12)
 
-kable(round(ganancia_doblarse_NoDoblarse,5), 
+kable(round(ganancia_doblarse_NoDoblarse,3), 
       caption = "Tabla de ganancias al doblarse o no hacerlo",
       align = "c") %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
                 full_width = F, font_size = 12)
+
 ```
 
 ## Codigo para la ganancia y estrategia en caso de doblarse o no
@@ -322,13 +335,14 @@ for (z in 2:10) {
     G_continuar <- 0
     for (j in 1:10) {
       nueva_z <- z + Valor_cartas_mano_blanda[j]
-      G_continuar <- G_continuar + Probabilidades_sacar_carta[j] * ganancia_G_optima[as.character(nueva_z),b] 
+      G_continuar <- G_continuar + 
+        Probabilidades_sacar_carta[j] * ganancia_G_optima[as.character(nueva_z),b] 
     }
     if (2*G_continuar > G_estrella) {
-      estrategia_abrirse_NoAbrirse[as.character(z), b] <- "Abrirse"
+      estrategia_abrirse_NoAbrirse[as.character(z), b] <- "A"
       ganancia_abrirse_NoAbrirse[as.character(z),b] <- 2*G_continuar
     } else {
-      estrategia_abrirse_NoAbrirse[as.character(z), b] <- "No abrirse"
+      estrategia_abrirse_NoAbrirse[as.character(z), b] <- "No A"
       ganancia_abrirse_NoAbrirse[as.character(z),b] <- G_estrella
     }
   }
@@ -339,14 +353,15 @@ for (b in Cartas) {
   # Esperanza de continuar
   G_continuar <- 0
   for (j in 1:10) {
-    nueva_z <- z + Valor_cartas_mano_blanda[j]
-    G_continuar <- G_continuar + Probabilidades_sacar_carta[j] * Calculo_G_0(nueva_z,b,tabla = resultados_tabla)
+    nueva_z <- 11 + Valor_cartas_mano_blanda[j]
+    G_continuar <- G_continuar + 
+      Probabilidades_sacar_carta[j] * Calculo_G_0(nueva_z,b,tabla = resultados_tabla)
   }
   if (2*G_continuar > G_estrella) {
-    estrategia_abrirse_NoAbrirse[as.character(11), b] <- "Abrirse"
+    estrategia_abrirse_NoAbrirse[as.character(11), b] <- "A"
     ganancia_abrirse_NoAbrirse[as.character(11),b] <- 2*G_continuar
   } else {
-    estrategia_abrirse_NoAbrirse[as.character(11), b] <- "No abrirse"
+    estrategia_abrirse_NoAbrirse[as.character(11), b] <- "No A"
     ganancia_abrirse_NoAbrirse[as.character(11),b] <- G_estrella
   }
 }
@@ -356,10 +371,10 @@ rownames(ganancia_abrirse_NoAbrirse) <- paste0(Cartas,"-",Cartas)
 kable(estrategia_abrirse_NoAbrirse, 
       caption = "Tabla de procedimientos para decidir si abrirse o no",
       align = "c") %>%
-kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
-              full_width = F, font_size = 12)
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
+                full_width = F, font_size = 12)
 
-kable(round(ganancia_abrirse_NoAbrirse,5), 
+kable(round(ganancia_abrirse_NoAbrirse,3), 
       caption = "Tabla de ganancias al abrirse o no hacerlo",
       align = "c") %>%
 kable_styling(bootstrap_options = c("striped", "hover", "condensed"),

@@ -82,11 +82,12 @@ Así pues el siguiente paso es calcular las probabilidades del crupier que dada 
 
 **Cálculo de las probabilidades de la variable $T$ dada una carta conocida $b$**
 
-```{r,include=FALSE}
+```{r,include=FALSE,warning=FALSE}
 library(knitr)
 library(kableExtra)
 library(tidyverse)
 
+set.seed(47563)
 Cartas <- c("2","3","4","5","6","7","8","9","Figura","As")
 Cantidad_de_cada_carta <- c(4,4,4,4,4,4,4,4,16,4)
 Valor_cartas <- c(2,3,4,5,6,7,8,9,10,11)
@@ -186,7 +187,7 @@ kable(round(resultados_tabla, 6),
                 full_width = F, font_size = 12)
 ```
 
-Ahí tenemos las probabilidades calculadas en función de cada carta inicial que veamos. Si las comparamos con las de la biografía [@Libro16] y [@Libro14] respectivmente:
+Ahí tenemos las probabilidades calculadas en función de cada carta inicial que veamos. Si las comparamos con las de la biografía *(Tejada&Yañez,1985)*[@Libro16] y *(Bladwin et al.,1956)*[@Libro14] respectivamente:
 
 ```{r español_blackjack, fig.cap = "\\label{forma_extensiva}Diagrama Juego", fig.align='center',out.width='80%',echo=FALSE}
 knitr::include_graphics("tabla_probabilidades_español.png")
@@ -283,7 +284,7 @@ $$
 \begin{array}{cccccccccccc}
 D & : & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & \text{Figura} & \text{As} \\
 \hline
-M(D) & : & 14 & 14 & 13 &13 & 13 & 17 & 17 & 17 & 17 & 17
+M(D) & : & 14 & 13 & 13 & 13 & 13 & 17 & 17 & 17 & 17 & 17
 \end{array}
 $$
 
@@ -356,7 +357,7 @@ $$
 \begin{array}{cccccccccccc}
 D & : & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & \text{Figura} & \text{As} \\
 \hline
-M^*(D) & : & 19 & 19 & 19 &18 & 18 & 18 & 19 & 19 & 20 & 20
+M^*(D) & : & 19 & 19 & 18 & 18 & 18 & 18 & 19 & 19 & 20 & 20
 \end{array}
 $$
 
@@ -468,7 +469,7 @@ for (b in Cartas) {
   # Esperanza de continuar
   G_continuar <- 0
   for (j in 1:10) {
-    nueva_z <- z + Valor_cartas_mano_blanda[j]
+    nueva_z <- 11 + Valor_cartas_mano_blanda[j]
     G_continuar <- G_continuar + Probabilidades_sacar_carta[j] * Calculo_G_0(nueva_z,b,tabla = resultados_tabla)
   }
   if (2*G_continuar > G_estrella) {
@@ -533,6 +534,182 @@ Esto podríamos extenderlo a todos los casos, cuando la suma del jugador es $x$,
 
 Ahora ya tenemos determinada nuestra estrategia optima, en la que sabemos en que suma de cartas debemos plantando en función de si tenemos una mano dura o una mano blanda; si debemos doblarnos o no dependiendo de la carta que tenga visible el crupier; si debemos abrirnos y jugar a dos manos siguiendo las estrategias anteriormente comentadas; y si debemos asegurarnos, que sabemos que nunca lo debemos hacer. 
 
-Nuestro objetivo ahora es calcular cuantas unidades monetarias obtendremos por cada una apostada en este juego, si siguiéramos la estrategia ideal. 
+Nuestro objetivo ahora es calcular cuantas unidades monetarias obtendremos por cada una apostada en este juego, si siguiéramos la estrategia ideal anteriormente expuesta. 
 
-Para ello, para cada situación inicial que se presenta, carta visible del crupier mas las dos cartas iniciales del jugador se genera una cantidad grande de jugadas calculando la cantidad media de ganancia obtenida en cada una mediante los métodos de montecarlo y se pondera por la probabilidad de que suceda esa mano
+Para ello, para cada situación inicial que se presenta, carta visible del crupier mas las dos cartas iniciales del jugador se genera una cantidad grande de jugadas calculando la cantidad media de ganancia obtenida en cada una mediante los métodos de montecarlo y se pondera por la probabilidad de que suceda esa mano. Hemos utilizado 100 muestras generando el siguiente gráfico:
+
+```{r,include=FALSE}
+valor_de_carta <- function(carta) {
+  if (carta == "Figura") {
+    return(10)
+  } else if (carta == "As") {
+    return(11)
+  } else {
+    return(as.numeric(carta))
+  }
+}
+
+
+tipo_de_mano <- function(mano,posibilidad_abrirse = T) {
+  if (length(mano) == 2 && mano[1] == mano[2]) {
+    return("Opcion abrirse")
+  }
+  valores <- sapply(mano, valor_de_carta)
+  suma <- sum(valores)
+  ases <- sum(mano=="As")
+  while (suma>21 && ases >0) {
+    suma <- suma-10
+    ases = ases -1
+  }
+  if("As" %in% mano && suma <= 21 && any(sapply(mano,valor_de_carta)==11)){
+    return("Blanda")
+  } else{
+    return("Dura")
+  }
+}
+
+estrategia_juego <- function(mano,carta_crupier,posibilidad_abrirse=T){
+  clase_de_mano <- tipo_de_mano(mano,posibilidad_abrirse)
+  suma_de_mano <- valor_mano(mano)
+  if(clase_de_mano == "Blanda" && suma_de_mano >21){
+    suma_de_mano = suma_de_mano-10
+  }
+  # ya tenemos suma de la mano que tenemos y que tipo es
+  
+  if (clase_de_mano == "Opcion abrirse") {
+    carta_repetida <- mano[1]
+    valor_repetido <- valor_de_carta(carta_repetida)
+    if (valor_repetido == 11) {
+      return(estrategia_abrirse_NoAbrirse["As-As",carta_crupier])
+    } else if (valor_repetido == 10) {
+      return(estrategia_abrirse_NoAbrirse["Figura-Figura",carta_crupier])
+    } else{
+      return(estrategia_abrirse_NoAbrirse[paste0(valor_repetido,"-",valor_repetido),carta_crupier])
+    }
+  } else if(clase_de_mano == "Blanda") {
+    return(estrategia_G_optima_mano_blanda[as.character(suma_de_mano),carta_crupier])
+  } else if(clase_de_mano == "Dura") {
+    if (suma_de_mano %in% 9:11) {
+      return(estrategia_doblarse_NoDoblarse[as.character(suma_de_mano),carta_crupier])
+    } else{
+      return(estrategia_G_optima[as.character(suma_de_mano),carta_crupier])
+      return(suma_de_mano)
+    }
+  }
+}
+
+# construimos el mazo y el reparto inicial de cada carta
+mazo <- rep(Cartas, Cantidad_de_cada_carta)
+
+repartir_cartas_iniciales <- function(){
+  sample(mazo,size = 4,replace = T)
+}
+
+valor_mano <- function(mano){
+  valores <- sapply(mano, valor_de_carta)
+  suma <- sum(valores)
+  as_en_mano <- sum(mano == "As")
+  while (suma>21 && as_en_mano > 0) {
+    suma <- suma-10
+    as_en_mano <- as_en_mano-1
+  }
+  return(suma)
+}
+
+jugar_mano <- function(mano_jugador,carta_visible_crupier,mano_crupier,decision){
+  if(decision == "D"){
+    mano_jugador <- c(mano_jugador,sample(mazo,1))
+    apuesta <- 2
+  } else{
+    if (is.null(decision) || length(decision) == 0) {
+      decision <- "P"
+    }
+    apuesta <- 1
+    decision <- estrategia_juego(mano_jugador,carta_visible_crupier)
+    while(decision != "P"){
+      mano_jugador <- c(mano_jugador,sample(mazo,1))
+      valor_mano_jugador <- valor_mano(mano_jugador)
+      decision <- estrategia_juego(mano_jugador,carta_visible_crupier)
+    }
+    
+  }
+  valor_final_jugador <- valor_mano(mano_jugador)
+  if(valor_final_jugador>21) {
+    return(-apuesta)
+  }
+  while (Calcular_suma_mano_crupier(mano_crupier)<17) {
+    mano_crupier <- c(mano_crupier,sample(mazo,1))
+  }
+  valor_final_crupier <- Calcular_suma_mano_crupier(mano_crupier)
+  
+  if(valor_final_crupier>21 || valor_final_jugador>valor_final_crupier){
+    return(apuesta)
+  } else if(valor_final_jugador == valor_final_crupier){
+    return(0)
+  } else{
+    return(-apuesta)
+  }
+  print(mano_jugador)
+}
+
+
+simular_partida_completa <- function() {
+  cartas_iniciales <- repartir_cartas_iniciales()
+  mano_jugador <- cartas_iniciales[1:2]
+  mano_crupier <- cartas_iniciales[3:4]
+  carta_visible_crupier <- mano_crupier[1]
+  
+  decision <- estrategia_juego(mano_jugador,carta_visible_crupier)
+  
+  if (decision == "A") {
+    carta <- mano_jugador[1]
+    mano1 <- c(carta,sample(mazo,1))
+    mano2 <- c(carta,sample(mazo,1))
+    decision1 <- estrategia_G_optima[]
+    resultado_mano1 <- jugar_mano(mano1,carta_visible_crupier,mano_crupier,estrategia_juego(mano1,carta_crupier = carta_visible_crupier,posibilidad_abrirse = F))
+    resultado_mano2 <- jugar_mano(mano2,carta_visible_crupier,mano_crupier,estrategia_juego(mano2,carta_crupier = carta_visible_crupier,posibilidad_abrirse = F))
+    
+    return(mean(c(resultado_mano1,resultado_mano2)))
+  } else{
+    resultado <- jugar_mano(mano_jugador,carta_visible_crupier,mano_crupier,decision)
+    return(resultado)
+  }
+}
+
+calcular_esperanza_jugador <- function(n_partidas = 10000) {
+  resultados <- replicate(n_partidas, simular_partida_completa())
+  esperanza <- mean(resultados)
+  return(esperanza)
+}
+
+```
+
+```{r fig.pos="H",fig.cap="Gráfica de la esperanza del Blackjack \\label{esperanza_blackjack}",fig.height=5,fig.width=5,echo=FALSE}
+muestras = 100
+
+salida=replicate(muestras,calcular_esperanza_jugador())
+
+esperanza <- mean(salida)
+desviacion_tipica <- sd(salida)/sqrt(muestras)
+alpha <- 0.05
+z <- qnorm(1-alpha/2)
+Int_conf <- c(esperanza-z*desviacion_tipica,esperanza+z*desviacion_tipica)
+
+datos <- data.frame(N_muestras = 1:muestras,
+                    Esperanza = salida)
+ggplot(datos,aes(x=N_muestras,y=Esperanza)) +
+  geom_point(color="red") +
+  geom_line(color="blue") +
+  labs(title = "Valor esperado del juego",x="Nº de muestra",y="Esperanza de la muestra"
+  )
+```
+
+Nos damos cuenta que todas las esperanzas que se calculan en cada una de las muestras es negativa. Pasamos ahora a calcular la media y un intervalo de confianza al $95 \%$. Así obtenemos los siguientes datos:
+
+1. Valor esperado del juego: `r esperanza`
+
+2. Límite inferior del intervalo de confianza: `r Int_conf[1]`
+
+3. Límite superior del intervalo de confianza:  `r Int_conf[2]`
+
+De aquí podemos deducir que el limite superior del intervalo siempre es negativo por lo que la conclusión final es que perderíamos parte del dinero apostado (en torno al $20 \%$), aun jugando la estrategia óptima, y por tanto no merece la pena intentar jugar al Blackjack para intentar ganar dinero, pues el crupier y por tanto el casino ganan.

@@ -21,7 +21,7 @@ source("cabecera_chunk_inicio.R")
 ```
 
 
-# Aplicación práctica: el blackjack{#Seccion3}
+# Aplicación práctica: el Blackjack{#Seccion3}
 
 ## Cómo se juega al blacjack y qué tipo de juego es{#Seccion31}
 El BlackJack, también conocido en lenguaje castellano como veintiuno, es uno de los juegos mas populares en los casinos de todo el mundo junto con el poker y la ruleta. A lo largo de estos últimos capítulos buscaremos estudiar en profundidad este juego para encontrar la estrategia optima con la que jugar para maximizar beneficios (o minimizar pérdidas). La característica mas importante que convierte la búsqueda de esta estrategia óptima en algo mas sencillo de lo que pudiera parecer en un principio, es el hecho de que el crupier (persona que reparte las cartas y asegura la normalidad del juego en cada mesa) está obligado a jugar de manera fija y conocida por todos los jugadores. Solo son los jugadores los que pueden ir tomando decisiones a lo largo del juego siempre y cuando se sigan las reglas que ahora pasamos a comentar.
@@ -45,6 +45,7 @@ El BlackJack, también conocido en lenguaje castellano como veintiuno, es uno de
   
 
 ## Estudio riguroso. Como jugar según la mano que tengamos{#Seccion32}
+
 Llamemos $x$ al valor total de las cartas que posee el jugador. Consideramos dos tipos de manos que puede poseer un jugador: la que el total del jugador es único y menor a 21, llamadas "manos duras", y la que el jugador tiene uno o mas ases de manera que el jugador posee dos cartas con valores menores a 21. A este último tipo de mano la llamaremos "manos blandas" y requieren diferentes estudios a las manos duras.
 
 Definamos $D$ como el valor de la carta mas alta que posee el crupier. Así tomará los valores $D=2, \cdots, 10, (1,11)$. Sea $M(D)$ un entero tal que si la carta mas alta del crupier es $D$ y el valor $x$ es menor que $M(D)$, el jugador debería pedir una carta más. Mientras que dicho valor $x$ sea al menos el valor de $M(D)$, el jugador deberá plantarse. De la misma manera definimos $M^*(D)$ para el caso de las manos blandas.

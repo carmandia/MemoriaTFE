@@ -98,13 +98,12 @@ knitr::write_bib(c("knitr","rmarkdown"),
 \subpdfbookmark{Índice General}{indice}
 \tableofcontents
 
-
 \cleardoublepage   
 <!--  \clearpage -->
-\section*{Prólogo}
-\addcontentsline{toc}{section}{Prólogo}
+\section*{Agradecimientos}
+\addcontentsline{toc}{section}{Agradecimientos}
 
-```{r child = 'prologo.Rmd'}
+```{r child = 'agradecimientos.Rmd'}
 ```
 
 
@@ -117,11 +116,18 @@ knitr::write_bib(c("knitr","rmarkdown"),
 ```
 
 
-\clearpage
 \section*{Abstract}
 \addcontentsline{toc}{section}{Abstract}
 
 ```{r child = 'abstract.Rmd'}
+```
+
+\cleardoublepage   
+<!--  \clearpage -->
+\section*{Prólogo}
+\addcontentsline{toc}{section}{Prólogo}
+
+```{r child = 'prologo.Rmd'}
 ```
 
 
@@ -244,6 +250,6 @@ install.packages(c("ggplot2","kableExtra","dplyr"))
 <!-- Si "metodobib: false", modificar el "nocite:" del inicio de este fichero  -->
 
 <!-- \nocite{*} -->
-\nocite{Libro1,Libro2,Libro3,Libro4,Libro5,Libro6,Libro7,Libro8,Libro9,Libro10,Libro11,Libro12,Libro13,Libro14,Libro15,Libro16,Libro17,Libro18,Libro19,Libro20,R-knitr,R-KableExtra,Tidyverse,R-tidyverse}
+\nocite{Libro1,Libro2,Libro3,Libro4,Libro5,Libro6,Libro7,Libro8,Libro9,Libro10,Libro11,Libro12,Libro13,Libro14,Libro15,Libro16,Libro18,Libro19,Libro20}
 
 \fi 
