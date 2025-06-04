@@ -21,13 +21,13 @@ source("cabecera_chunk_inicio.R")
 ```
 
 
-# Estudios individuales en el BlackJack. Diferenciamos por casos{#Seccion4}
-Hacemos un breve recordatorio de varios puntos que comentamos en el apartado anterior y que vamos a utilizar individualmente en este apartado
+# Estudios individuales en el BlackJack{#Seccion4}
+Hacemos un breve recordatorio de varios puntos que comentamos en el apartado anterior, y que vamos a utilizar individualmente en este apartado
 
 **Mano dura:** son aquellas manos del jugador que teniendo un as, si este vale 11 podemos pasarnos de 21.
 
 **Mano blanda:** son las manos del jugador que pueden tener un as valiendo 11 sin excederse del total de 21.
-Si tomamos la decisión de pedir una carta mas y con ella pasamos el límite, ese as pasa a tener valor de 1. 
+Si tomamos la decisión de pedir una carta más y con ella pasamos el límite, ese as pasa a tener valor de 1. 
 
 **Suma de las cartas:** que notaremos por $x$.
 
@@ -36,17 +36,17 @@ Si tomamos la decisión de pedir una carta mas y con ella pasamos el límite, es
 **Valor final del crupier:** que es una variable aleatoria notada por $T$.
 
 
-De aquí en adelante dejamos claro que la cantidad apostada por el jugador es una unidad monetaria, ya sea euro o dolar, para así simplificar los cálculos
+De aquí en adelante dejamos claro que la cantidad apostada por el jugador es una unidad monetaria, ya sea euro o dolar, para así simplificar los cálculos. Hacemos uso de los siguientes libros de la bibliografía [@Libro10] y [@Libro18]
 
 ## Manos duras{#Seccion41}
 
-Notemos por $D$ la carta que se sirve el crupier. $D = 2, \cdots, 10, (1,11)$. Así pues en cada momento tenemos el para $(x,D)$ en la que el jugador tiene la información de $x$ puesto que es el valor total de sus cartas y ve la carta que se sirve el crupier. En esta situación el jugador debe decidir si parar y plantarse o pedir mas cartas. 
+Notemos por $D$ la carta que se sirve el crupier. $D = 2, \cdots, 10, (1,11)$. Así pues en cada momento tenemos el para $(x,D)$ en la que el jugador tiene la información de $x$ puesto que es el valor total de sus cartas y ve la carta que se sirve el crupier. En esta situación el jugador debe decidir si parar y plantarse, o pedir más cartas. 
 
-Definimos entonces $G^*(x,D)$ como la máxima ganancia esperada por el jugador dado una situación $(x,D)$ suponiendo que el jugador actúa de forma optima y juega de manera racional.
+Definimos entonces $G^*(x,D)$ como la máxima ganancia esperada por el jugador dado una situación $(x,D)$ suponiendo que el jugador actúa de forma óptima y juega de manera racional.
 
 De igual manera definimos $G_0(x,D)$ como la ganancia esperada por el jugador si este decide plantarse ante la situación del juego $(x,D)$.
 
-Recordamos también que suponemos que la probabilidad de tener una determinada carta de un valor es equiprobable es decir, la probabilidad (notemos la como $P_c$) de obtener una carta de valor $c$ es:
+Recordamos también que suponemos que la probabilidad de tener una determinada carta de un valor es equiprobable, es decir, la probabilidad (notemos la como $P_c$) de obtener una carta de valor $c$ es:
 
 $$
 P_c = 
@@ -61,13 +61,13 @@ $$
 G^*(x,D) = Max \\ \{G_0(x,D), \sum_{c=1}^{10}P_cG^*(x+c,D) \}
 $$
 
-Es decir, tenemos el máximo entre la opción de plantarnos en ese instante o de la situación en la que nos encontraríamos si pidiéramos una carta mas. Así nos plantaremos cuando el máximo lo alcancemos el $G_0(x,b)$.
+Es decir, tenemos el máximo entre la opción de plantarnos en ese instante, o de la situación en la que nos encontraríamos si pidiéramos una carta más. Así nos plantaremos cuando el máximo lo alcancemos en $G_0(x,b)$.
 
 Nos queda evaluar ese máximo para cada $x$ y cada $D$ posibles. Para poder hacerlo necesitamos lo siguiente:
 
 1. $G_0(x,D)$, $\forall x=4, \cdots$ y $\forall D= 2, \cdots, 10, (1,11)$
 
-2. Algunos valores finales de $G^*(x,D)$ para iniciar el la inducción hacia atrás, $\forall x,D$
+2. Algunos valores finales de $G^*(x,D)$ para iniciar la inducción hacia atrás, $\forall x,D$
 
 **Calculo de $G_0(x,D)$**
 
@@ -76,9 +76,9 @@ De lo que obtuvimos en el capitulo anterior sabemos que:
 $$ 
 G_0(x,D) \ = \ Pr(T>21) \ + \ Pr(T<x) \ - \ Pr(x<T \leq 21) 
 $$
-Ha de constar que esta ganancia se basa en que estamos apostando
+Ha de constar que esta ganancia se basa en que estamos apostando una u.m. (si apostáramos más bastaría con multiplicarla por el valor de la apuesta).
 
-Así pues el siguiente paso es calcular las probabilidades del crupier que dada una carta de valor $D$, la variable $T$ tenga un determinado valor final. 
+Así pues, el siguiente paso es calcular las probabilidades que tiene el crupier, para que dada una carta de valor $D$, la variable $T$ tenga un determinado valor final. 
 
 **Cálculo de las probabilidades de la variable $T$ dada una carta conocida $b$**
 
@@ -187,19 +187,19 @@ kable(round(resultados_tabla, 6),
                 full_width = F, font_size = 12)
 ```
 
-Ahí tenemos las probabilidades calculadas en función de cada carta inicial que veamos. Si las comparamos con las de la biografía *(Tejada&Yañez,1985)*[@Libro16] y *(Bladwin et al.,1956)*[@Libro14] respectivamente:
+Ahí tenemos las probabilidades calculadas en función de cada carta inicial que veamos. Si las comparamos con las de la biografía *(Tejada & Yañez,1985)*[@Libro16] y *(Baldwind et al.,1956)*[@Libro14] respectivamente:
 
-```{r español_blackjack, fig.cap = "\\label{forma_extensiva}Diagrama Juego", fig.align='center',out.width='80%',echo=FALSE}
+```{r español_blackjack, fig.cap = "\\label{forma_extensiva}Diagrama Tejada and Yañez", fig.align='center',out.width='80%',echo=FALSE}
 knitr::include_graphics("tabla_probabilidades_español.png")
 
 ```
 
-```{r ingles_blackjack, fig.cap = "\\label{forma_extensiva}Diagrama Juego", fig.align='center',out.width='80%',echo=FALSE}
+```{r ingles_blackjack, fig.cap = "\\label{forma_extensiva}Diagrama Baldwind", fig.align='center',out.width='80%',echo=FALSE}
 knitr::include_graphics("tabla_probabilidades_baldwin.png")
 
 ```
 
-Podemos ver que los resultados son muy similares, por lo que podemos deducir que los cálculos que hemos realizado son correctos. Una vez conocidas las probabilidades, ya estamos en disposición de calcular $G_0(x,D)$ como detallábamos al comienzo, $\forall \ x=4,\cdots$ y $\forall \  D=2,\cdots,10,(1,11)$. Una vez construyamos los $G_0(x,D)$ los utilizamos para implementarlos en el algoritmo, teniendo en cuenta que si el máximo lo alcanzamos en dicho valor nos plantaremos, y en caso contrario pediremos carta.
+Podemos ver que los resultados son muy similares, por lo que podemos deducir que los cálculos que hemos realizado son correctos. Una vez conocidas las probabilidades, ya estamos en disposición de calcular $G_0(x,D)$ como detallábamos al comienzo, $\forall \ x=4,\cdots$ y $\forall \  D=2,\cdots,10,(1,11)$. Una vez construyamos los $G_0(x,D)$, los utilizamos para implementarlos en el algoritmo, teniendo en cuenta que si el máximo lo alcanzamos en dicho valor nos plantaremos, y en caso contrario pediremos carta.
 
 ```{r,echo=FALSE,include=FALSE}
 Calculo_G_0 <- function(x, b, tabla, es_blackjack = FALSE) {
@@ -278,7 +278,7 @@ kable(estrategia_G_optima,
                 full_width = F, font_size = 12)
 ```
 
-De esta forma ya tenemos calculado los topes que en el capitulo $\ref{#Seccion3}$ denotamos como $M(D)$:
+De esta forma ya tenemos calculado los topes que en el capitulo $\ref{Seccion3}$ denotábamos como $M(D)$:
 
 $$
 \begin{array}{cccccccccccc}
@@ -287,18 +287,19 @@ D & : & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & \text{Figura} & \text{As} \\
 M(D) & : & 14 & 13 & 13 & 13 & 13 & 17 & 17 & 17 & 17 & 17
 \end{array}
 $$
+Podemos ver que los $M(D)$ cumplen las cotas que calculamos en $\ref{Seccion32}$.
 
 ## Manos blandas{#Seccion42}
 
-Ahora, nuestro propósito es hacer lo mismo para el caso de que el jugador posea una mano blanda. La principal modificación reside en lo que comentamos al comienzo, que si nos pasamos de 21 con este tipo de manos recurrimos a contar ese As como un 1. Ahora llamamos $\bar G^*(x,b)$ a la ganancia esperada en el caso de manos blandas.
+Ahora nuestro propósito es hacer lo mismo para el caso de que el jugador posea una mano blanda. La principal modificación reside en lo que citamos al comienzo, si nos pasamos de 21 con este tipo de manos recurrimos a contar ese As como un 1. Ahora llamamos $\bar G^*(x,b)$ a la ganancia esperada en el caso de manos blandas.
 
 $$
 \bar G^*(x,D) = Max \\ \{G_0(x,D), \sum_{c=1}^{10}P_c \bar G^*(x+c,D) \}
 $$
-Como vemos la ecuación es exactamente igual al caso de manos duras. Lo que diferencia el tratamiento son los valores finales que le damos a $\bar G^*(x,b)$, por el tratamiento diferente que reciben estas manos. los valores iniciales son:
+Como vemos la ecuación es exactamente igual al caso de manos duras. Lo que diferencia el tratamiento son los valores finales que le damos a $\bar G^*(x,b)$, por el tratamiento diferente que reciben estas manos. Los valores iniciales son:
 $\bar G^*(x,b) = G^*(x-10,D),x>21$ y $\forall D$
 
-Ahora nuestra regla de parada es la siguiente:
+Ahora nuestra estrategia de parada sería la siguiente:
 
 ```{r,include=FALSE}
 estrategia_G_optima_mano_blanda <- matrix("", nrow = 28, ncol = 10)
@@ -360,10 +361,11 @@ D & : & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & \text{Figura} & \text{As} \\
 M^*(D) & : & 19 & 19 & 18 & 18 & 18 & 18 & 19 & 19 & 20 & 20
 \end{array}
 $$
+Que también cumple las cotas de $\ref{Seccion32}$.
 
 ## Doblar la apuesta{#Seccion43}
 
-Para poder doblarnos los valores de las dos primeras cartas deben sumar 9, 10 u 11, recibiendo una carta mas y solo una si lo hace. Así tenemos las siguientes situaciones $(9,D)$, $(10,D)$, $(11,D)$, $\forall D$. Ahora tenemos que calcular la ganancia esperada de doblar nuestra apuesta, en función de la carta que nos toque y compararla con la ganancia esperada en el caso de no hacerlo, resultando en:
+Para poder doblarnos, los valores de las dos primeras cartas deben sumar 9, 10 u 11, recibiendo una carta más y solo una si lo hace. Así tenemos las siguientes situaciones $(9,D)$, $(10,D)$, $(11,D)$, $\forall D$. Ahora tenemos que calcular la ganancia esperada por doblar nuestra apuesta, en función de la carta que nos toque y compararla con la ganancia esperada en el caso de no hacerlo, resultando en:
 
 $$
 \begin{array}{cllll}
@@ -372,7 +374,7 @@ $$
 \end{array}
 $$
 
-Y la estrategia optima de cuando doblarse y cuando no es la siguiente:
+Y la estrategia óptima de cuando doblarse y cuando no, sería la siguiente:
 
 ```{r,include=FALSE}
 estrategia_doblarse_NoDoblarse <- matrix("", nrow = 3, ncol = 10)
@@ -414,11 +416,11 @@ kable(estrategia_doblarse_NoDoblarse,
 ```
 
 
-## Abrise y jugar a dos manos{#Seccion44}
+## Abrirse y jugar a dos manos{#Seccion44}
 
-En este apartado tendremos que comparar la ganancia esperada cuando no nos abrimos y jugamos de manera óptima como hicimos en los subapartados $\ref{#Seccion41}$ y $\ref{#Seccion41}$, a la ganancia que tendríamos en el caso de abrirnos y jugar óptimamente cada una de las manos.
+En este apartado, tendremos que comparar la ganancia esperada cuando no nos abrimos, y jugamos de manera óptima como hicimos en los subapartados $\ref{Seccion41}$ y $\ref{Seccion42}$, a la ganancia que tendríamos en el caso de abrirnos y jugar óptimamente cada una de las manos.
 
-Así, construimos la siguiente regla que nos marca que camino tenemos que coger:
+Así construimos la siguiente regla que nos marca el camino que debemos tomar:
 
 $$
 \begin{array}{cllll}
@@ -426,7 +428,7 @@ $$
 \text{Si} & 2 \sum_{c=1}^{10}P_cG^*(z+c,b) & \leq & G^*(2z,b) & \text{No abrirse}\\
 \end{array}
 $$
-Donde $z$ es la carta que recibimos doble. Aquí nos encontramos un pequeño impedimento que es el caso cuando recibimos dos Ases, en este caso tendríamos que:
+Donde $z$ es la carta que recibimos doble. Aquí nos encontramos un pequeño impedimento en el caso de cuando recibimos dos Ases. En este caso tendríamos que:
 
 $$
 \begin{array}{cllll}
@@ -482,6 +484,8 @@ for (b in Cartas) {
 }
 rownames(estrategia_abrirse_NoAbrirse) <- paste0(Cartas,"-",Cartas)
 rownames(ganancia_abrirse_NoAbrirse) <- paste0(Cartas,"-",Cartas)
+rownames(estrategia_abrirse_NoAbrirse)[9] <- "Fig-Fig"
+rownames(ganancia_abrirse_NoAbrirse)[9] <- "Fig-Fig"
 ```
 
 
@@ -496,11 +500,11 @@ kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
 
 ## Asegurarse{#Seccion45}
 
-Suponemos ahora que la carta visible del crupier es un As. La apuesta adicional que puede hacer el jugador es de un valor $v$, $v \leq \frac{1}{2}$. Lo que ocurre aquí, es que el jugador decide asegurarse, su mano ya no compite contra el crupier, sino que el compite contra el hecho de que el crupier obtenga un BlacjJack. Por ejemplo, si la suma de cartas del jugador es 13 y la primera carta del crupier es un As, este podría asegurarse. En caso de hacerlo, si el crupier no obtuviera BlackJack, obtuviera una suma de 20, el jugador gana aunque su suma es inferior a la suma del crupier.
+Este caso lo explicamos anteriormente en $\ref{Seccion31}$. Suponemos ahora que la carta visible del crupier es un As. La apuesta adicional que puede hacer el jugador es de un valor $v$, $v \leq \frac{1}{2}$. 
 
-Esta apuesta por tanto se reduce al hecho de que salga una figura o no. La probabilidad de que salga una figura, como desde un comienzo estamos en la hipótesis de sucesos equiprobables, es de $\frac{16}{52}$ que es aproximadamente $0.3077 \rightarrow 30,77 \%$. Llamemosle $p$ a la probabilidad de que salga una figura, obteniendo el crupier un blackjack. Supongamos que la cantidad con la que nos aseguramos es $v=\frac{1}{2}$. Entonces nos interesa que el valor esperado al asegurarnos sea no negativo al menos.
+Esta apuesta por tanto, se reduce al hecho de que salga una figura o no. La probabilidad de que salga una figura, como desde un comienzo estamos en la hipótesis de sucesos equiprobables, es de $\frac{16}{52}$ que es aproximadamente $0.3077 \rightarrow 30,77 \%$. Llamemosle $p$ a la probabilidad de que salga una figura, obteniendo el crupier un blackjack, y supongamos que la cantidad con la que nos aseguramos es $v=\frac{1}{2}$. Entonces nos interesa que el valor esperado al asegurarnos sea no negativo al menos.
 
-El valor esperado lo podemos calcular con la fórmula $E[ \ Asegurarse \ ]= 1·p - \frac{1}{2}·(1-p)$ veamos cuando esa esperanza es mayor o igual a 0:
+El valor esperado lo podemos calcular con la fórmula $E[ \ Asegurarse \ ]= p - \frac{1}{2}(1-p)$. Veamos ahora cuando esa esperanza es mayor o igual a $0$:
 
 $$
 \begin{array}{ccl}
@@ -511,9 +515,9 @@ p - \frac{1}{2} +\frac{1}{2}p& \geq  & 0\\
 p & \geq & \frac{1}{3}
 \end{array}
 $$
-Es decir, para que asegurarse sea rentable la probabilidad debe ser al menos de un tercio, $33,3 \%$, por lo que no sería rentable asegurarse, ya que la probabilidad que tenemos actualmente es inferior. Esta probabilidad podría aumentar si el jugador viese si faltan muchas figuras por salir de la baraja.
+Es decir, para que asegurarse sea rentable la probabilidad debe ser al menos de un tercio, por lo que no sería rentable asegurarse, ya que la probabilidad que tenemos actualmente es inferior. Esta probabilidad podría aumentar si el jugador observase que faltan muchas figuras por salir de la baraja.
 
-Como hemos asumido como hipótesis inicial que sacar una carta es equiprobable a sacar otra, es decir, no contamos cartas, descartamos el hecho de que asegurarse sea rentable a la larga y por lo tanto la conclusión es no asegurarse.
+Como hemos asumido como hipótesis inicial en la que sacar una carta es equiprobable a sacar otra, es decir no contamos cartas, descartamos el hecho de que asegurarse sea rentable a la larga y por lo tanto la conclusión es no asegurarse.
 
 Algo que podemos hacer es construir la forma normal del juego para ver como sería este reparto:
 
@@ -528,15 +532,15 @@ kable(tabla,
                 full_width = F, font_size = 12)
 ```
 
-Esto podríamos extenderlo a todos los casos, cuando la suma del jugador es $x$, que no es un Blackjack, y en caso de no conseguir un Blackjack, la suma del crupier es $T$ a lo siguiente y calcular las ganancias esperadas en cada caso en función de la probabilidades de que $T$ supere a $x$ o no
+Esto podríamos extenderlo a todos los casos: cuando la suma del jugador es $x$, y no es un Blackjack, y en caso de no conseguir un Blackjack, la suma del crupier es $T$, y calcular las ganancias esperadas en cada caso en función de la probabilidades de que $T$ supere a $x$ o no.
 
-## Conclusion. Utilidad de seguir la estrategia óptima.{#Seccion46}
+## Conclusión. Utilidad de seguir la estrategia óptima.{#Seccion46}
 
-Ahora ya tenemos determinada nuestra estrategia optima, en la que sabemos en que suma de cartas debemos plantando en función de si tenemos una mano dura o una mano blanda; si debemos doblarnos o no dependiendo de la carta que tenga visible el crupier; si debemos abrirnos y jugar a dos manos siguiendo las estrategias anteriormente comentadas; y si debemos asegurarnos, que sabemos que nunca lo debemos hacer. 
+Ahora ya tenemos determinada nuestra estrategia óptima, en la que conocemos en que suma de cartas debemos plantarnos, en función de si tenemos una mano dura o una mano blanda; si debemos doblarnos o no dependiendo de la carta que tenga visible el crupier; si debemos abrirnos y jugar a dos manos siguiendo las estrategias anteriormente comentadas; y si debemos asegurarnos, que sabemos que nunca lo debemos hacer. 
 
-Nuestro objetivo ahora es calcular cuantas unidades monetarias obtendremos por cada una apostada en este juego, si siguiéramos la estrategia ideal anteriormente expuesta. 
+Nuestro objetivo ahora es calcular cuantas unidades monetarias obtendremos por cada una apostada en este juego, si siguiéramos la estrategia ideal anteriormente expuesta. Nos apoyamos en [@Libro9] 
 
-Para ello, para cada situación inicial que se presenta, carta visible del crupier mas las dos cartas iniciales del jugador se genera una cantidad grande de jugadas calculando la cantidad media de ganancia obtenida en cada una mediante los métodos de montecarlo y se pondera por la probabilidad de que suceda esa mano. Hemos utilizado 100 muestras generando el siguiente gráfico:
+Para ello, simulamos partidas completas, en la que el jugador juega de la manera ideal que hemos hallado. Hemos utilizado 30 muestras, en las que en cada muestra se generan $10.000$ partidas, calculándose la media en cada una de las muestras. De esta forma, tenemos 30 muestras con los valores que obtendríamos jugando de la manera que antes explicamos. Generamos el siguiente gráfico:
 
 ```{r,include=FALSE}
 valor_de_carta <- function(carta) {
@@ -582,7 +586,7 @@ estrategia_juego <- function(mano,carta_crupier,posibilidad_abrirse=T){
     if (valor_repetido == 11) {
       return(estrategia_abrirse_NoAbrirse["As-As",carta_crupier])
     } else if (valor_repetido == 10) {
-      return(estrategia_abrirse_NoAbrirse["Figura-Figura",carta_crupier])
+      return(estrategia_abrirse_NoAbrirse["Fig-Fig",carta_crupier])
     } else{
       return(estrategia_abrirse_NoAbrirse[paste0(valor_repetido,"-",valor_repetido),carta_crupier])
     }
@@ -685,7 +689,7 @@ calcular_esperanza_jugador <- function(n_partidas = 10000) {
 ```
 
 ```{r fig.pos="H",fig.cap="Gráfica de la esperanza del Blackjack \\label{esperanza_blackjack}",fig.height=5,fig.width=5,echo=FALSE}
-muestras = 100
+muestras = 30
 
 salida=replicate(muestras,calcular_esperanza_jugador())
 
@@ -704,7 +708,7 @@ ggplot(datos,aes(x=N_muestras,y=Esperanza)) +
   )
 ```
 
-Nos damos cuenta que todas las esperanzas que se calculan en cada una de las muestras es negativa. Pasamos ahora a calcular la media y un intervalo de confianza al $95 \%$. Así obtenemos los siguientes datos:
+Si observamos la figura, todas las esperanzas que se calculan en cada una de las muestras es negativa. Pasamos ahora a calcular la media y un intervalo de confianza al $95 \%$. Así obtenemos los siguientes datos:
 
 1. Valor esperado del juego: `r esperanza`
 
@@ -712,4 +716,4 @@ Nos damos cuenta que todas las esperanzas que se calculan en cada una de las mue
 
 3. Límite superior del intervalo de confianza:  `r Int_conf[2]`
 
-De aquí podemos deducir que el limite superior del intervalo siempre es negativo por lo que la conclusión final es que perderíamos parte del dinero apostado (en torno al $20 \%$), aun jugando la estrategia óptima, y por tanto no merece la pena intentar jugar al Blackjack para intentar ganar dinero, pues el crupier y por tanto el casino ganan.
+De aquí podemos deducir que el limite superior del intervalo siempre es negativo por lo que la conclusión final es que perderíamos parte del dinero apostado (en torno al $20 \%$), aun jugando la estrategia óptima, y por tanto no merece la pena jugar al Blackjack para ganar dinero, pues el crupier y por tanto el casino suelen ganar.

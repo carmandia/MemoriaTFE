@@ -344,6 +344,8 @@ for (b in Cartas) {
 }
 rownames(estrategia_abrirse_NoAbrirse) <- paste0(Cartas,"-",Cartas)
 rownames(ganancia_abrirse_NoAbrirse) <- paste0(Cartas,"-",Cartas)
+rownames(estrategia_abrirse_NoAbrirse)[9] <- "Fig-Fig"
+rownames(ganancia_abrirse_NoAbrirse)[9] <- "Fig-Fig"
 ```
 
 

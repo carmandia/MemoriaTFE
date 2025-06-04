@@ -29,7 +29,7 @@ source("cabecera_chunk_inicio.R")
 
 ## ¿Qué es un juego?{#Seccion11}
 
-Cuando en la vida cotidiana llamamos juego a algo nos referimos a un
+Cuando en la vida cotidiana llamamos juego a algo, nos referimos a un
 divertimento en el que una o varias personas participan (véase el
 solitario, ajedrez o el poker). En estos juegos los participantes tienen
 que cumplir una serie de reglas, y como resultado de sus decisiones
@@ -39,66 +39,65 @@ los juegos con una o mas personas
 En ellos los jugadores intentan maximizar sus resultados, es decir, en
 el caso del poker ganar el mayor dinero posible, en ajedrez vencer al
 rival lo mas rápido que puedan, etc. Todo esto los jugadores lo hacen
-sabiendo que el resultado del juego depende no solo de ellos sino de lo
-que hagan los demás jugadores. Pero estas situaciones no solo se da en
+sabiendo que el resultado del juego depende no solo de ellos, sino de lo
+que hagan los demás jugadores. Pero estas situaciones no solo se dan en
 los juegos que conocemos como tal, sino en situaciones de la vida
-diaria. Por ejemplo, cuando salimos del trabajo un viernes y cogemos el
+cotidiana. Por ejemplo, cuando salimos del trabajo un viernes y cogemos el
 coche para volver a casa, queremos hacerlo en el menor tiempo posible,
 pero tenemos otros jugadores (no somos los únicos que queremos volver a
-casa una vez terminado ese dia) y una serie de reglas, como no saltarnos
+casa una vez terminado ese día) y una serie de reglas, como no saltarnos
 los limites de velocidad y respetar los semáforos.
 
 Así pues, en adelante nos referiremos como juego a una situación en la
-que varias personas interaccionan entre ellas y en la que el resultado
-de cada uno no dependen solo de la estrategia que sigan ellos sino de la
+que varias personas interaccionan entre ellas, y en el que el resultado
+de cada uno, no solo depende de la estrategia que sigan ellos sino de la
 de los demás jugadores.
 
-A continuación definiremos una serie de términos que nos acompañarán a
+A continuación, basándonos en [@Libro4] y [@Libro1], definiremos una serie de términos que nos acompañarán a
 lo largo del trabajo:
 
 - **Jugadores**
 
-Son los participantes del juego. Supondremos que actuan como seres
-racionales
+Son los participantes del juego. Supondremos que actúan como seres
+racionales.
 
 - **Reglas**
 
 Son las condiciones en las que participan los jugadores. Podemos
 diferenciar en:
 
-  *Acciones de los jugadores*: Son las decisiones que puede tomar cada jugador en su turno de juego
+  *Acciones de los jugadores*: Son las decisiones que puede tomar cada jugador en su turno de juego.
 
-  *Información*: Conjunto de saberes que los jugadores tienen sobre las acciones ya realizadas durante el juego
+  *Información*: Conjunto de conocimiento que los jugadores tienen sobre las acciones ya realizadas durante el juego.
   
-  *Estrategia*: Definimos estrategia como el conjunto completo de movimientos que tomaría el jugador en cada instante del juego.
+  *Estrategia*: Definimos estrategia como el conjunto completo de opciones que puede tomar el jugador en cada instante del juego.
 
   *Pagos*: Utilidad o valoración que recibe cada jugador al terminar el juego. Puede ser económica o no.
 
 ## Principio de racionalidad{#Seccion12}
 
 Al comienzo se ha comentado que suponíamos que los agentes o jugadores
-actuaban de forma racional. En esta sección se estudiara que significa
+actuaban de forma racional. En esta sección se estudiará el significado de 
 que un jugador actúe de tal manera.
 
 Partimos del supuesto de que los agentes o jugadores, ya sean personas,
-empresas o gobiernos tienen deseos y preferencias de que tanto quieren
+empresas o gobiernos tienen deseos y preferencias del beneficio que quieren
 obtener del juego. Una vez que estos jugadores han establecido cuales
 son sus preferencias, el principio de racionalidad establece que actuará
 en función de las mismas, es decir estaríamos en todo momento buscando
-nuestro máximo beneficio posible. De esta manera el agente actua
-únicamente en función de sus preferencias y no se deja influir por la de
+nuestro máximo beneficio posible. De esta manera el agente actúa
+únicamente en función de sus preferencias, y no se deja influir por la de
 los demás.
 
-Esto no significa que el agente siempre actue en contra de los demás
+Esto no significa que el agente siempre actué en contra de los demás
 jugadores del juego necesariamente. Por ejemplo si su máxima preferencia
-es el bienestar por igual para todos los jugadores esto no es negativo
+es el bienestar de todos los jugadores, esto no es negativo
 para el resto. No obstante, el comportamiento usual es el egoísta, en el
 que cada agente busca su máximo beneficio sin importarle las
 consecuencias para los otros jugadores. A este comportamiento lo
-llamaremos comúnmente auto-interesado que aunque no sean lo mismo en
-muchas ocasiones llegan a coincidir
+llamaremos comúnmente auto-interesado.
 
-Las preferencias de cada agente son privadas y este las revela con sus
+Las preferencias de cada agente son personales, y estos las revelan con sus
 acciones y no previamente, para así evitar beneficiar a otros. Las
 preferencias podemos establecerlas como relaciones binarias entre las
 distintas alternativas o acciones que maneja cada jugador.
@@ -107,25 +106,25 @@ Con certidumbre, tendremos un conjunto de acciones
 $A=\{a_1, a_2,\cdots,a_n\}$, un conjunto de resultados que se derivan
 de tales acciones $R=\{r_1,r_2,\cdots,r_n\}$, y una función
 $x: A \rightarrow R$ estableciendo que a cada opción le corresponde un
-único resultado (aplicación binaria) así tenemos una correspondencia
-biunívoca entre ambas e identificamos la decisión con el resultado.
-Cuando trabajamos en ambientes de incertidumbre las preferencias solo se
-identifican con acciones puesto que no estamos seguros de que resultado
+único resultado. Así tenemos una correspondencia
+biunívoca entre ambas, e identificamos la decisión con el resultado.
+Cuando trabajamos en ambientes de incertidumbre, las preferencias solo se
+identifican con acciones, puesto que no estamos seguros del resultado
 podemos obtener de ellas.
 
-Definimos la relación binaria R de preferencia entre dos resultados
+Definimos la relación binaria $R$ de preferencia entre dos resultados
 $x_iRx_j$ para dos resultados cualesquiera $x_i$, $x_j$ ($x_i$ se
 prefiere a $x_j$), es decir que el resultado $x_i$ es mejor o igual que
 el resultado $x_j$. A este tipo de preferencia se le conoce como
 preferencia débil, mientras que si no solo se cumple esta relación, sino
 que no se da la reciproca (no ocurre que $x_jRx_i$) entonces hablamos de
-de preferencia estricta que se representa con una $P$. También podemos
-la relación de indiferencia si da igual preferir un resultado que otro:
+de preferencia estricta que se representa con una $P$. También definimos
+la relación de indiferencia, si da igual preferir un resultado que otro:
 $x_iIx_j$ si y solo si $x_iRx_j$ y $x_jRx_i$.
 
 Por lo tanto consideramos que el agente es racional cuando actúa en
-función de sus preferencias y estas tienen una jerarquía interna. Estas
-deben cumplir las siguientes propiedades:
+función de sus preferencias, y estas tienen una jerarquía interna.
+Deben cumplir las siguientes propiedades:
 
 1.  Completitud: $$
     \forall x_i,x_j, \ \ \ x_iRx_j \ ó \ x_jRx_i \ ó \ (x_iRx_j \ y \ x_jRx_i )
@@ -147,20 +146,20 @@ mediante una función $U \ : \ X \rightarrow \mathbb{R}$ que le asigna
 un valor real a cada una de las preferencias. Así, en vez de hablar por
 ejemplo de $\exists \ x_i / \ \forall x_j \in X, \ x_j \neq x_i$ se
 tiene que: $x_iRx_j$ hablamos de manera cuantitativa como
-$\exists x_i / \ \forall x_j \in X, x_j \neq x_i, \ U(x_i)\geq U(x_j)$
-Este hecho (de que se cumpla que la utilidad de la alternativa preferida
-es mayor que la del resto de alternativas) solo lo tenemos en el caso de
+$\exists x_i / \ \forall x_j \in X, x_j \neq x_i, \ U(x_i)\geq U(x_j)$.
+Este hecho (si se cumple que la utilidad de la alternativa preferida
+es mayor que la del resto de alternativas), solo lo tenemos en el caso de
 que trabajemos en un ámbito de certidumbre:
 
 **Ejemplo**  Imaginemos que nos encontramos con 3 alternativas:
-$X=\{ \text{coche gratis},\text{2 semanas de vacaciones pagadas}, \text{10.000€ en mano} \}$,
+$X=\{$ coche gratis,2 semanas de vacaciones pagadas,no ganar nada $\}$,
 para simplificar, $X=\{x_1,x_2,x_3 \}$ con las siguientes preferencias:
 $x_2Rx_3, \ x_2Rx_1 \ y \ x_1Rx_3$ les asignamos un valor o utilidad a
 cada una de estas alternativas (una utilidad) que exprese de manera
 numérica estas preferencias: $U \ : \ X \rightarrow \mathbb{R}$ tal
 que $U(x_2) = 10, \ U(x_1)=5 \ y \ U(x_3) = 0$
 
-Si nos encontramos en un ámbito de incertidumbre no podemos asegurarnos
+Si nos encontramos en un ámbito de incertidumbre, no podemos asegurarnos
 de que una vez establecidas las preferencias, estas tengan una utilidad
 que exprese esa preferencia. En este caso nos encontramos una serie de
 estados de la naturaleza $E=\{e_1, \cdots, e_p \}$ tal que en función de
@@ -187,24 +186,24 @@ tomemos y el estado de la naturaleza que se presente. Por tanto, para
 calcular la utilidad esperada de una acción cualquiera tendremos que
 calcular:
 
-$Sea \ a$ una acción cualquiera,
-$$U(a) = \sum_{e \in E} p(e)U(x(a,e)), \ \sum_{e \in E} p(e)=1$$ donde e son los estados
-de la naturaleza y $U(x(a,e))$ es la utilidad de elegir la alternativa a
-cuando ocurre el estado e de la naturaleza.
+Sea  $a$ una acción cualquiera,
+$$U(a) = \sum_{e \in E} p(e)U(x(a,e)), \ \sum_{e \in E} p(e)=1$$ donde $e$ son los estados
+de la naturaleza, y $U(x(a,e))$ es la utilidad de elegir la alternativa $a$
+cuando ocurre el estado $e$ de la naturaleza.
 
 ## Utilidad de Von Neumann-Morgenstern y actitudes ante el riesgo{#Seccion14}
 
-Venimos buscando asociar a cada alternativa un orden de preferencia. Las
+Venimos buscando asociar a cada alternativa un orden de preferencia. Con las
 funciones de utilidad de Von Neumann-Morgenstern tenemos un metodo no
 arbitrario para asignar valores numéricos a los resultados. Para
-explicar esto comentamos una serie de definiciones básicas en este
-aspecto 
+explicar esto, comentamos una serie de definiciones básicas en este
+aspecto:
 
 **Definición**
 
 Una lotería simple en $X$ es una distribución de probabilidad en $X$. Es decir, se dice que $L$ es una lotería simple en $X$ si:
 
-$L= \{(p_1,p_2, \cdots,p_n) \in \mathbb{R}^n: \ p_i \geq 0, \ para \ cada \ i=1,2,\cdots,n, \ y \ \sum_{i=1,\cdots,n} p_i=0 \}$,
+$L= \{(p_1,p_2, \cdots,p_n) \in \mathbb{R}^n: \ p_i \geq 0, \ para \ cada \ i=1,2,\cdots,n, \ y \ \sum_{i=1,\cdots,n} p_i=1 \}$,
 donde $p_i$ es la probabilidad de que ocurra la alternativa $a_i, \ i=1,\cdots,n$
 
 A partir de esta definición podemos definir el siguiente conjunto:
@@ -218,7 +217,7 @@ Von Neumann-Morgenstern:
 
 **Definición**
 
-Así pues, una función  $U: \ L_A \rightarrow \mathbb{R}$ es una función de utilidad esperada de Von Neumann-Morgenstern (VN-M) 
+Una función  $U: \ L_A \rightarrow \mathbb{R}$ es una función de utilidad esperada de Von Neumann-Morgenstern (VN-M) 
 si existen $n$ números $u_1, \cdots,u_n$,  asociados a  $a_1, \cdots, a_n$ tales que para cada lotería  $L \in L_A$ se verifica: $U(L) \ = \ u_1p_1 \ + u_2p_2 \ + \ \cdots \ u_np_n$
 
 A continuación enunciamos el Teorema de utilidad de Von
@@ -226,14 +225,14 @@ Neumann-Morgenstern:
 
 **Teorema**
 
-Supongamos la relación de preferencia $R$ sobre $L_A$ en las condiciones estudiadas. Entonces R admite una representación en forma de utilidad esperada de Von Neumann-Morgenstern, es decir, existen  $u(a_1), \cdots, u(a_n)$, tales que  
-$$\forall L,L' \in L_A, \ L=(p_1,\cdots,p_n) \ y \ L'=(p_1', \cdots, p_n') \iff \sum_{i=1, \cdots, n} p_iu(a_i) \geq \sum_{i=1, \cdots, n} p_i'u(x_i)$$
+Supongamos la relación de preferencia $R$ sobre $L_A$ en las condiciones estudiadas. Entonces $\mathbb{R}$ admite una representación en forma de utilidad esperada de Von Neumann-Morgenstern, es decir, existen  $u(a_1), \cdots, u(a_n)$, tales que  
+$$\forall L,L' \in L_A, \ L=(p_1,\cdots,p_n) \ y \ L'=(p_1', \cdots, p_n') \iff \sum_{i=1, \cdots, n} p_iu(a_i) \geq \sum_{i=1, \cdots, n} p_i'u(a_i)$$
 
 ### Actitudes ante el riesgo{#Seccion141}
 
-En este Apartado trabajaremos suponiendo que $A=\mathbb{R}$
+En este apartado trabajamos suponiendo que $A=\mathbb{R}$ y nos ayudamos de [@Libro2].
 
-Decimos que un agente es si el valor esperado de cualquier lotería $L$ es tan preferida o mas que dicha lotería. Si ocurre al contrario, que la lotería sea igual o mas preferida que su valor esperado decimos que el agente es propenso al riesgo. Si tenemos una situación de indiferencia, decimos que el agente es neutral.
+Decimos que un agente es conservador, si el valor esperado de cualquier lotería $L$ es tan preferida o más que dicha lotería. Si ocurre lo contrario, es decir, que la lotería sea igual o mas preferida que su valor esperado, decimos que el agente es propenso al riesgo. Si tenemos una situación de indiferencia, decimos que el agente es neutral.
 
 En términos de la función de utilidad $u$ tenemos el siguiente teorema:
 

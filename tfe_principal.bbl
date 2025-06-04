@@ -73,7 +73,7 @@
 
 \bibitem[{\citenamefont{Tejada~Cazorla} \citeandfont{\bbland{}} \citenamefont{Yañez~Gestoso}(1985)}]{Libro16}
 \bibnamefont{Tejada~Cazorla}, \bibfnamefont{Juan} \bibandfont{\bbland{}} \bibnamefont{Yañez~Gestoso}, \bibfnamefont{Javier}\namesend{}\datebegin 1985.
-  \newblock \bibtitle{\enquote{A Favorable Strategy for Twenty-One}}.
+  \newblock \bibtitle{\enquote{Estudio de la Estrategia Óptima para el Black-Jack}}.
   \newblock \emph{Departamento de Estadística e Investigación Operativa. Universidad Complutense de Madrid}\dateend{1985}, \bibvolfont{(107)}, \bblpp{} 95--110\finalpoint{}
 
 \bibitem[{\citenamefont{Thorp}(1961)}]{Libro15}

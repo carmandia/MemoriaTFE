@@ -544,21 +544,21 @@ En este último apartado comentaremos otro juego de azar que introdujeron
 Von Newmann y Morgenstern, el VNM-Póker, junto con una variante que
 amplía este juego y que se conoce como Khun-Poker. El primero fue
 introducido en \emph{Theory of Games and Economic Behavior}, mientras
-uqe el segundo se introdujo en \emph{A simplified two-person
+que el segundo se introdujo en \emph{A simplified two-person
 poker.Contributions to the Theory of Games} .
 
-Los dos juegos costan de dos jugadores, comunmente llamados ANN y Beth.
-Cada una de ellas coge al azar una carta de la baraja sin enseñarsela a
-la otra. Asi podriamos decir que los juegos presentan 4 parámetros:
+Los dos juegos costan de dos jugadores, comúnmente llamados Ann y Beth.
+Cada una de ellas coge al azar una carta de la baraja sin enseñársela a
+la otra. Así podríamos decir que los juegos presentan 4 parámetros:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \item
-  Hay una baraja con cartas de valores q van de 1 a \(S\).
+  Hay una baraja con cartas de valores que van de 1 a \(S\).
 \item
   Cada carta está representada \(r\) veces en la baraja.
 \item
-  Una apuesta inicial de \(m\) uds. monetarias q cada jugador realiza
+  Una apuesta inicial de \(m\) uds. monetarias que cada jugador realiza
   antes de empezar la partida.
 \item
   Un valor final de la apuesta total de cada jugador, que denotamos como
@@ -574,7 +574,7 @@ equilibrios}\label{Seccion51}}
 
 \textbf{\(VNM-Póker(S,r,m,n)\)} . El juego comienza repartiendo una
 carta a cada jugador, y a continuación, Ann mueve primero y elige si
-pasar, jugando así por m, o subir, jugando así por n.~Ahora nos
+pasar, jugando así por \(m\), o subir, jugando así por \(n\). Ahora nos
 encontramos con dos posibles situaciones:
 
 \begin{itemize}
@@ -584,25 +584,30 @@ encontramos con dos posibles situaciones:
   apuesta es de \(2m\) uds. monetarias. Si hubiera empate, cada jugador
   recupera su dinero.
 \item
-  Si Ann elige subir, incrementa su apuesta hasta n.~Le toca el turno a
-  Beth que tiene dos posibles movimientos, retirarse o seguir.
+  Si Ann elige subir, incrementa su apuesta hasta n.~A continuación, le
+  toca el turno a Beth que tiene dos posibles movimientos, retirarse o
+  seguir.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Si Beth se retira, Ann se lleva el bote encima de la mesa que consta
+    de los \(n\) suyos más los \(m\) de Beth, por lo que gana \(m\). La
+    carta de Beth no se levanta en este caso.
+  \item
+    Si Beth decide seguir la apuesta, ella también incrementa su apuesta
+    hasta \(n\). Entonces cada una revela su carta, y el que tenga la
+    carta de mayor valor se lleva el bote completo de \(2n\) ganando así
+    \(n\). De la misma manera que antes, en caso de empate los jugadores
+    recuperan su dinero.
+  \end{itemize}
 \end{itemize}
 
-** Si Beth se retira, Ann se lleva el bote encima de la mesa que consta
-de los \(n\) suyos mas los \(m\) de Beth, por lo que gana \(m\). La
-carta de Beth no se levanta en este caso.
-
-** Si Beth decide seguir la apuesta, ella también incrementa su apuesta
-hasta \(n\). Entonces cada una revela su carta y el que tenga la carta
-de mayor valor se lleva el bote completo de \(2n\) ganando así \(n\). De
-la misma manera que antes, en caso de empate los jugadores recuperan su
-dinero.
-
-El juego podemos clasificarlo dentro de los de suma cero, puesto las
-ganancias de uno viene de las perdidas del otro y al final el dinero que
-se reparte es el dinero que proviene de las apuestas de los dos
-jugadores. Procedemos ahora a representar la forma extensiva de este
-juego.
+El juego, según \citep{Libro7} podemos clasificarlo dentro de los de
+suma cero, puesto las ganancias de uno viene de las perdidas del otro, y
+al final el dinero que se reparte es el dinero que proviene de las
+apuestas de los dos jugadores. Procedemos ahora a representar la forma
+extensiva de este juego.
 
 \begin{figure}[H]
 
@@ -619,19 +624,19 @@ función del valor del parámetro \(r\) Beth podrá tomar también una carta
 de \(1,\cdots,S\) dando \(S^2\) posibles combinaciones si \(r>1\) y en
 caso de \(r = 1\), habría \(S(S-1)\) posibles combinaciones.
 
-Con esto nos damos cuenta de que los parámetros intervienen de forma
+Con esto nos damos cuenta que los parámetros intervienen de forma
 distinta: mientras que \(m\) y \(n\) intervienen en el aspecto de
 apuesta y reparto del dinero, los parámetros \(S\) y \(r\) tienen
-influencia en la forma y tamaño del árbol del juego y las probabilidades
-de los movimientos que dependen del azar.
+influencia en la forma y tamaño del árbol del juego, y las
+probabilidades de los movimientos que dependen del azar.
 
-Las alternativas para el movimiento aleatorio de recibir una determinada
-carta no son igualmente probables. Por ejemplo, si fijamos una carta
-determinada llamemosle \(C\), la probabilidad de obtener \(C\) es
-\(\frac{r}{rS}= \frac{1}{S}\). una vez se saca dicha carta del mazo,
-quedan \(r-1\) cartas \(C\) de un total de \(rS-1\), por lo que la
-probabilidad de obtener otra carta \(C\) es \(\frac{r-1}{rS-1}\). Como
-resumen:
+Según \citep{Libro5}, las alternativas para el movimiento aleatorio de
+recibir una determinada carta no son igualmente probables. Por ejemplo,
+si fijamos una carta determinada llamemosle \(C\), la probabilidad de
+obtener \(C\) es \(\frac{r}{rS}= \frac{1}{S}\). una vez se saca dicha
+carta del mazo, quedan \(r-1\) cartas \(C\) de un total de \(rS-1\), por
+lo que la probabilidad de obtener otra carta \(C\) es
+\(\frac{r-1}{rS-1}\). Como resumen:
 
 \begin{itemize}
 \tightlist
@@ -641,7 +646,7 @@ resumen:
 \end{itemize}
 
 \[
-p_{cc}=\frac{1}{S} · \frac{r-1}{rS-1}=\frac{r-1}{S(rS-1)}
+p_{cc}=\frac{1}{S}  \frac{r-1}{rS-1}=\frac{r-1}{S(rS-1)}
 \]
 
 \begin{itemize}
@@ -652,7 +657,7 @@ p_{cc}=\frac{1}{S} · \frac{r-1}{rS-1}=\frac{r-1}{S(rS-1)}
 \end{itemize}
 
 \[
-p_{cd}=\frac{1}{S} · \frac{r}{rS-1}=\frac{r}{S(rS-1)}
+p_{cd}=\frac{1}{S}  \frac{r}{rS-1}=\frac{r}{S(rS-1)}
 \]
 
 \emph{Ejemplo VNM-Póker(2,2,1,1)}
@@ -670,13 +675,13 @@ p_{cd}=\frac{1}{S} · \frac{r}{rS-1}=\frac{r}{S(rS-1)}
 \subsection{Estrategias}\label{Seccion511}}
 
 Si \(r>1\) hay \(S*S\) diferentes combinaciones para repartir un valor a
-Ann y otro a Beth. Ann como hemos dicho solo puede ver su carta por lo
+Ann y otro a Beth. Ann como hemos dicho, solo puede ver su carta por lo
 que tiene \(S\) conjuntos de información. En cada uno de esos conjuntos
 tiene las opciones de subir o pasar. Así pues, Ann tiene \(2^S\)
 estrategias puras. Codificamos las estrategias por secuencias de \(R\) y
 \(C\) (de check y raise, traducción de pasar y subir). Por ejemplo, para
 \(S=4\) seria \(RCCR\) una posibilidad, que significa que Ann sube la
-apuesta con las cartas mas alta y mas baja y pasa en las dos cartas
+apuesta con la carta más alta y más baja, y pasa en las dos cartas
 intermedias. De la misma manera, Beth tiene \(S\) conjuntos de
 información con dos opciones y por lo tanto también tiene \(2^S\)
 estrategias puras que están codificadas por \(C\) y \(F\) (traducciones
@@ -696,12 +701,12 @@ De esta manera los posibles pagos son:
 
 En adelante supondremos \(S=2\) y \(r \geq 2\) . Suponiendo esto,
 tenemos los siguientes conjuntos de estrategias puras para Ann es
-\(\{CC \ (conservadora), CR \ (equilibrada),RC \ (inútil),RR \ (arriesgada) \}\)
-y para Beth
-\(\{FF \ (conservadora), FC \ (equilibrada),CF \ (inútil),CC \ (arriesgada) \}\)
+\(\{\)CC (conservadora), CR (equilibrada),RC (inútil),RR (arriesgada)
+\(\}\) y para Beth \(\{\)FF (conservadora), FC (equilibrada),CF
+(inútil),CC (arriesgada) \(\}\).
 
-Al igual que antes hicimos con la forma extensiva representamos la forma
-normal del juego con \(S=2\)
+Al igual que antes hicimos con la forma extensiva, representamos la
+forma normal del juego con \(S=2\)
 
 \[
 \begin{array}{c|c|c|c|c}
@@ -716,11 +721,11 @@ normal del juego con \(S=2\)
 \text{RR} & m & \frac{m(2r-1)-rn}{4r-2} & \frac{m(2r-1)+rn}{4r-2} & 0 \\
 \hline
 \end{array}
-\] Pasamos a comentar como hemos obtenido las expresiones para esta
-tabla. Para cada par de estrategias, definimos \(u_{x,y}\) el pago que
-recibe Ann cuando los jugadores siguen sus estrategias y Ann tiene una
-carta de valor \(x\) y Beth una de valor \(y\), así la utilidad esperada
-para Ann es la siguiente:
+\] Pasamos a comentar cómo hemos obtenido las expresiones para esta
+tabla. Para cada par de estrategias, definimos \(u_{x,y}\) como el pago
+que recibe Ann cuando los jugadores siguen sus estrategias y Ann tiene
+una carta de valor \(x\) y Beth una de valor \(y\), así la utilidad
+esperada para Ann es la siguiente:
 
 \[
 p_{xx}u_{1,1} + p_{xy}u_{1,2} + p_{xy}u_{2,1} + p_{xx}u_{2,2}
@@ -752,12 +757,12 @@ por otras:
   retirarse.
 \end{itemize}
 
-Podemos extender esto a casos mas generales con el suiguiente teorema:
+Podemos extender esto a casos mas generales con el siguiente teorema:
 
 \textbf{Teorema}
 
 Todas las estrategias de Beth, menos las de la forma \(C \cdots C\) y
-las de la forma \(F \cdots FC \cdots C\) están debilmente dominadas.
+las de la forma \(F \cdots FC \cdots C\) están débilmente dominadas.
 
 Haciendo uso de este teorema podemos simplificar la forma normal del
 juego a:
@@ -773,10 +778,10 @@ juego a:
 \end{array}
 \]
 
-Una estrategia alternativa que podría seguir un jugador es la de
+Una estrategia alternativa que podría seguir un jugador, es la de
 \emph{tirarse un farol} que consiste en, aun teniendo una carta de valor
-bajo, este jugador decide subir la apuesta para intentando amedrentar al
-otro jugador para así este decida retirarse. Desde el comienzo del
+bajo, este jugador decide subir la apuesta para intentar amedrentar al
+otro jugador para que así este decida retirarse. Desde el comienzo del
 trabajo hemos supuesto la hipótesis de racionalidad de los jugadores por
 lo que esta estrategia no tendría sentido. Pasemos ahora a analizar las
 distintas estrategias.
@@ -799,15 +804,15 @@ débilmente a \(CC\). Por lo tanto, hay un equilibrio de Nash puro
 \begin{itemize}
 \tightlist
 \item
-  ¿Qué hacer si el adversario no juega de manera optima, sino mezclando
+  ¿Qué hacer si el adversario no juega de manera óptima, sino mezclando
   estrategias puras no dominadas?
 \end{itemize}
 
 Vamos a suponer que el jugador que juega de esa manera es Beth, que lo
-hace de esta manera: elige \(FC\) con una probabilidad \(q\) y elige
-\(CC\) con probabilidad \(1-q\), es decir, elige seguir cuando tiene una
-carta de valor 2 y retirarse con una probabilidad \(q\) cuando tiene una
-carta de valor \(1\)
+hace de la siguiente manera: elige \(FC\) con una probabilidad \(q\) y
+elige \(CC\) con probabilidad \(1-q\), es decir, elige seguir cuando
+tiene una carta de valor 2; y retirarse con una probabilidad \(q\)
+cuando tiene una carta de valor \(1\)
 
 ¿Qué tendría que hacer Ann en cada situación? Por un lado, si miramos
 los pagos, Ann al jugar \(CR\) es \(\frac{(1-q)(n-m)r}{4r-2}\) que es
@@ -841,7 +846,7 @@ que haga Ann.
 \end{itemize}
 
 Si \(\frac{n}{m} \geq 2- \frac{1}{2}\) no hay equilibrio de Nash puro y
-tendríamos q encontrar uno mixto.
+tendríamos que encontrar uno mixto.
 
 Supongamos que Ann juega \(CR\) con probabilidad \(p\) y \(RR\) con
 probabilidad \(1-p\), y Beth juega \(FC\) con probabilidad \(q\) y
@@ -864,24 +869,28 @@ cambiados. Ann mueve primero eligiendo entre pasar o subir.
 \tightlist
 \item
   Si Ann decide pasar, entonces Beth puede pasar o subir:
-\end{itemize}
 
-** Si Beth pasa, ambas cartas se levantan para ser visibles y el que
-tenga la carta mas alta se lleva el bote, mientras que si empatan los
-jugadores recuperan su dinero.
+  \begin{itemize}
+  \tightlist
+  \item
+    Si Beth pasa, ambas cartas se levantan para hacerlas visibles, y el
+    que tenga la carta más alta se lleva el bote; mientras que si
+    empatan los jugadores recuperan su dinero.
+  \item
+    Si Beth elige subir, incrementa su apuesta hasta \(n\). Entonces Ann
+    tiene dos opciones, retirarse o seguir.
 
-** Si Beth elige subir, incrementa su apuesta hasta \(n\). Entonces Ann
-tiene dos opciones, retirarse o seguir.
-
-*** Si Ann se retira, Beth se lleva la cantidad de \(n+m\), y la carta
-de Ann no se revela.
-
-*** Si Ann sigue, incrementa su apuesta hasta \(n\). Entonces ambas
-cartas se revelan y el que tenga la carta mas alta se lleva los \(2n\)
-de la apuesta y recuperan su dinero en caso de empate.
-
-\begin{itemize}
-\tightlist
+    \begin{itemize}
+    \tightlist
+    \item
+      Si Ann se retira, Beth se lleva la cantidad de \(n+m\), y la carta
+      de Ann no se revela.
+    \item
+      Si Ann sigue, incrementa su apuesta hasta \(n\). Entonces ambas
+      cartas se revelan y el que tenga la carta mas alta se lleva los
+      \(2n\) de la apuesta y recuperan su dinero en caso de empate.
+    \end{itemize}
+  \end{itemize}
 \item
   Si Ann sube, el juego funciona como el VNM-Póker cuando Ann sube.
 \end{itemize}
@@ -899,11 +908,12 @@ de la apuesta y recuperan su dinero en caso de empate.
 \subsection{Estrategia}\label{Seccion521}}
 
 Ann tiene \(2S\) conjuntos de información: o bien ella hace su primer
-movimiento, subir o pasar, o Ann ha pasado en su primer movimiento, Beth
-ha subido y entonces Ann puede seguir o retirarse. En todos eso casos,
-ella solo conoce el valor de su carta. Beth tiene \(2S\) conjuntos de
-información, determinados por el valor de su carta y en función de si
-Ann ha subido o pasado, con \(S\) conjuntos de información en cada uno.
+movimiento, subir o pasar, si Ann ha pasado en su primer movimiento, y
+Beth ha subido, entonces Ann puede seguir o retirarse. En todos esos
+casos, ella solo conoce el valor de su carta. Beth tiene \(2S\)
+conjuntos de información, determinados por el valor de su carta y en
+función de si Ann ha subido o pasado, con \(S\) conjuntos de información
+en cada uno.
 
 Por lo tanto, Ann tiene \(2^{2S}\) estrategias puras, indicadas por
 \(S\) letras que pueden ser como en la sección \(\ref{Seccion511}\)
@@ -921,9 +931,9 @@ tendríamos: \(FFCC\), \(FFCR\), \(FFRC\), \(FFRR\), \(FCCC\), \(FCCR\),
 
 Hemos podido eliminar algunas estrategias por estar dominadas al igual
 que antes. Si Ann tiene un valor de carta mayor que el de Beth, y ella
-pasa cuando Beth sube, siempre es mejor para Ann seguir y no retirarse
+pasa cuando Beth sube, siempre es mejor para Ann seguir y no retirarse,
 puesto que retirándose pierde \(m\) uds. monetarias mientras que si
-sigue no puede perder. Si Ann tiene un valor de carta mas alto, subir no
+sigue no puede perder. Si Ann tiene un valor de carta más alto, subir no
 domina necesariamente a pasar, ya que depende de la estrategia de Beth.
 Si Beth tiene una carta de valor mas alto que Ann, seguir domina a
 retirarse y subir domina a pasar.
